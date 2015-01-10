@@ -51,7 +51,7 @@ function get_player($steamid) {
       $player['name'] = "[private]";
     }
   $scores = array();
-  $stmt = $db->prepare('SELECT throne_scores.steamId, throne_scores.dayId, throne_scores.hash, throne_scores.rank, throne_scores.score FROM throne_scores WHERE throne_scores.steamId = :steamid ORDER BY dayId DESC LIMIT 0, 100');
+  $stmt = $db->prepare('SELECT throne_scores.steamId, throne_scores.dayId, throne_scores.hash, throne_scores.rank, throne_scores.score FROM throne_scores WHERE throne_scores.steamId = :steamid ORDER BY dayId ASC LIMIT 0, 100');
   $stmt->execute(array(":steamid" => $steamid));
   foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $score) {
     $scores[] = $score;

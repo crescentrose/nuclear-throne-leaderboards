@@ -21,7 +21,7 @@
         data.addColumn('number', 'Rank');
         data.addRows([
           {% for score in scores %}
-            ['{{ score.dayId }}', {{ score.rank }}]
+            ['{{ score.dayId }}', {{ score.rank }}],
           {% endfor %}
         ]);
 

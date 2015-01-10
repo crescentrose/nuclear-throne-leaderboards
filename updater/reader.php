@@ -17,7 +17,25 @@ function update_leaderboard($leaderboardId = "") {
     // Find last leaderboard in the file (i.e., today's daily)
     $lastLeaderboardElemenent = $leaderboardReader->xpath("/response/leaderboard[last()]/lbid");
     $leaderboardId = (int)$lastLeaderboardElemenent[0];
-  } 
+
+    $lastLeaderboardDate = $leaderboardReader->xpath("/response/leaderboard[last()]/name");
+    $cleanDate = array();
+    preg_match("/^daily_lb_([0-9]+)$/", $lastLeaderboardDate[0], $cleanDate);
+    $leaderboardDate = (int)$cleanDate[1] - 16421;
+    $todayDate = new DateTime('2014-12-17');
+    $todayDate->add(new DateInterval('P' . $leaderboardDate . 'D'));
+  } else {
+    $xmlLeaderboardList = file_get_contents('http://steamcommunity.com/stats/242680/leaderboards/?xml=1');
+    // Make a SimpleXMLElement instance to read the file.
+    $leaderboardReader = new SimpleXMLElement($xmlLeaderboardList);
+    $lastLeaderboardDate = $leaderboardReader->xpath("/response/leaderboard[lbid=". $leaderboardId . "]/name");
+
+    $cleanDate = array();
+    preg_match("/^daily_lb_([0-9]+)$/", $lastLeaderboardDate[0], $cleanDate);
+    $leaderboardDate = (int)$cleanDate[1] - 16421;
+    $todayDate = new DateTime('2014-12-17');
+    $todayDate->add(new DateInterval('P' . $leaderboardDate . 'D'));
+  }
   // Download the today's daily challenge leaderboard
   $leaderboardUrl = "http://steamcommunity.com/stats/242680/leaderboards/" . $leaderboardId . "/?xml=1";
   $xmlLeaderboardData = file_get_contents($leaderboardUrl);
@@ -31,6 +49,8 @@ function update_leaderboard($leaderboardId = "") {
   // Purge scores from today so that there are no rank collisions.
   $stmt = $db->prepare("DELETE FROM throne_scores WHERE dayId = ?;");
   $stmt->execute(array($leaderboardId));
+  $stmt = $db->prepare("INSERT IGNORE INTO throne_dates(`dayId`, `date`) VALUES(:dayId, :day)");
+  $stmt->execute(array(':dayId' => $leaderboardId, ':day' => $todayDate->format('Y-m-d')));
   echo "Begin update: " . date("Y-m-d H:i:s") . "\n";
   try {
 
