@@ -1,7 +1,13 @@
 <?php 
 if (isset($_GET["hash"])) {
-	echo $twig->render('score.php', get_score($_GET["hash"]));
+	$score =  get_score($_GET["hash"]);
+	if ($score != false) {
+		echo $twig->render('score.php', $score);
+	} else {
+		echo $twig->render('404.php', array());
+	}
+
 } else {
-	echo $twig->render('index.php', get_latest_daily());
+	echo $twig->render('404.php', array());
 }
 ?>

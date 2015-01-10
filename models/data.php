@@ -24,5 +24,11 @@ function get_score($hash) {
   $stmt = $db->prepare("SELECT * FROM throne_scores LEFT JOIN throne_players on throne_scores.steamId = throne_players.steamid WHERE hash = :hash");
   $stmt->execute(array(':hash' => $hash));
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  return $rows[0];
-} ?>
+  if ($stmt->rowCount() == 1)  {
+    return $rows[0];
+  } else {
+    return false;
+  }
+} 
+
+function get_user($userid) {} ?>
