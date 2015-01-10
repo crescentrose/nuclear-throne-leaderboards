@@ -31,4 +31,15 @@ function get_score($hash) {
   }
 } 
 
-function get_user($userid) {} ?>
+function get_player($steamid) { 
+  global $db_username, $db_password;
+  $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  $scores = array();
+  $stmt = $db->prepare('SELECT throne_scores.steamId, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_players.steamid = :steamid ORDER BY rank ASC LIMIT 0, 100');
+  $stmt->execute(array(":steamid" => $steamid));
+  foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $score) {
+    $scores[] = $score;
+  }
+  return array('scores' => $scores);
+} 
+ ?>
