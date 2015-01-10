@@ -25,6 +25,7 @@ function get_score($hash) {
   $stmt->execute(array(':hash' => $hash));
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   if ($stmt->rowCount() == 1)  {
+    $rows[0]['avatar_medium'] = substr($rows[0]['avatar'], 0, -4) . "_medium.jpg";
     return $rows[0];
   } else {
     return false;
@@ -38,7 +39,7 @@ function get_player($steamid) {
   $stmt->execute(array(':steamid' => $steamid));
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   $player = $rows[0];
-  
+  $player['avatar_medium'] = substr($player['avatar'], 0, -4) . "_medium.jpg";
   $scores = array();
   $stmt = $db->prepare('SELECT throne_scores.steamId, throne_scores.dayId, throne_scores.hash, throne_scores.rank, throne_scores.score FROM throne_scores WHERE throne_scores.steamId = :steamid ORDER BY dayId DESC LIMIT 0, 100');
   $stmt->execute(array(":steamid" => $steamid));
@@ -47,4 +48,17 @@ function get_player($steamid) {
   }
   return array('player' => $player, 'scores' => $scores);
 } 
+
+
+// Ported from my LotusClan web admin interface thing.
+function convertSteamId($steamid) { 
+  $steamid = trim(strip_tags($steamid));
+  // check for community id
+  $xml = @file_get_contents("http://steamcommunity.com/id/".$steamid."?xml=1"); // You saw no @ here. 
+    
+  // Verify if the community ID exists 
+  if (preg_match("/<steamID64>(\d*)<\/steamID64>/", $xml, $match)) { // based regex xml reading
+    return $match[1];
+  }
+}
  ?>

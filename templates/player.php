@@ -3,8 +3,7 @@
 {% block content %}
 <!-- Main page -->
 <div class="row col-md-12 main center-block">
-  <h1>Stats for {{ player.name }}</h1>
-  <h4>Data updated every 15 minutes.</h4>
+  <h1><img src="{{ player.avatar_medium }}" class="player-avatar" /> Stats for {{ player.name }}</h1>
   <table class="table table-responsive table-hover">
     <thead>
       <td>Date</td>

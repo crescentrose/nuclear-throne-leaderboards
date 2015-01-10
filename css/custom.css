@@ -25,12 +25,16 @@ body {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 4px;
-  padding: 5px;
+  font-size:8pt;
 }
 
 .table-hover tbody tr:hover {
   background-color: rgba(1,1,1,0.7);
   cursor: pointer;
+}
+
+.player-avatar {
+  border: 3px solid rgba(1,1,1,0.3) ;
 }
 
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */

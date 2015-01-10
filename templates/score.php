@@ -3,19 +3,11 @@
 {% block content %}
 <!-- Main page -->
 <div class="row col-md-12 main center-block">
-  <h1><img src="{{ avatar }}" class="player-avatar"/> Stats for {{ name }}'s run on {{ dayId }}</h1>
+  <h1><img src="{{ avatar_medium }}" class="player-avatar"/> {{ name }} was #{{ rank }} on the {{ date }} daily!</h1>
+  <h4>{{ name }} killed {{ score }} enemies.</h2>
   <div class="row">
-    <div class="col-md-3">
-    <table class="table table-responsive table-condensed">
-        <tr>
-          <td>Rank</td>
-          <td>{{ rank }}</td>
-        </tr>
-        <tr>
-          <td>Score</td>
-          <td>{{ score }}</td>
-        </tr>
-    </table>
+    <div class="col-md-12">
+    Think you can do better? <a href="steam://run/242680"><b>Play Nuclear Throne!</b></a>
     </div>
   </div>
 </div>
