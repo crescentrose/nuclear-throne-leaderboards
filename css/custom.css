@@ -28,6 +28,10 @@ body {
   padding: 5px;
 }
 
+.table-hover tbody tr:hover {
+  background-color: rgba(1,1,1,0.7);
+  cursor: pointer;
+}
 
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */
 @-moz-document url-prefix() {

@@ -3,4 +3,7 @@ RewriteEngine on
 RewriteRule ^(img|css|js)/ - [L]
 
 RewriteRule ^score/([0-9a-z]+)$ index.php?do=score&hash=$1
+RewriteRule ^score/([0-9a-z]+)/$ index.php?do=score&hash=$1
+RewriteRule ^player/([0-9]+)$ index.php?do=player&steamid=$1
+RewriteRule ^player/([0-9]+)/$ index.php?do=player&steamid=$1
 RewriteRule ^index.php$ index.php
