@@ -25,7 +25,7 @@ function get_latest_daily($page = 1) {
 function get_score($hash) {
   global $db_username, $db_password;
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-  $stmt = $db->prepare("SELECT * FROM throne_scores LEFT JOIN throne_players on throne_scores.steamId = throne_players.steamid WHERE hash = :hash");
+  $stmt = $db->prepare("SELECT * FROM throne_scores LEFT JOIN throne_players on throne_scores.steamId = throne_players.steamid LEFT JOIN throne_dates ON throne_dates.dayId = throne_scores.dayId WHERE hash = :hash");
   $stmt->execute(array(':hash' => $hash));
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   if ($stmt->rowCount() == 1)  {
