@@ -1,0 +1,6 @@
+RewriteEngine on
+
+RewriteRule ^(img|css|js)/ - [L]
+
+RewriteRule ^daily/$ index.php
+RewriteRule ^daily$ index.php

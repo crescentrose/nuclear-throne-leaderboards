@@ -1,5 +1,5 @@
 <?php
-require "config.php"
+require "config.php";
 // This file should be in a cron job to run every 15 minutes, depending on
 // service load.
 // With one second pause between downloads, this should be enough provided that
@@ -7,15 +7,17 @@ require "config.php"
 
 // This function will pull the latest leaderboard data from Steam and update the
 // data for that day's daily in the database for caching purposes.
-function update_leaderboard() {
-  // Fetch the XML file for Nuclear Throne.
-  $xmlLeaderboardList = file_get_contents('http://steamcommunity.com/stats/242680/leaderboards/?xml=1');
-  // Make a SimpleXMLElement instance to read the file.
-  $leaderboardReader = new SimpleXMLElement($xmlLeaderboardList);
-  // Find last leaderboard in the file (i.e., today's daily)
-  $lastLeaderboardElemenent = $leaderboardReader->xpath("/response/leaderboard[last()]/lbid");
-  $leaderboardId = (int)$lastLeaderboardElemenent[0];
-
+function update_leaderboard($leaderboardId = "") {
+  global $db_username, $db_password;
+  if ($leaderboardId === "") {
+    // Fetch the XML file for Nuclear Throne.
+    $xmlLeaderboardList = file_get_contents('http://steamcommunity.com/stats/242680/leaderboards/?xml=1');
+    // Make a SimpleXMLElement instance to read the file.
+    $leaderboardReader = new SimpleXMLElement($xmlLeaderboardList);
+    // Find last leaderboard in the file (i.e., today's daily)
+    $lastLeaderboardElemenent = $leaderboardReader->xpath("/response/leaderboard[last()]/lbid");
+    $leaderboardId = (int)$lastLeaderboardElemenent[0];
+  } 
   // Download the today's daily challenge leaderboard
   $leaderboardUrl = "http://steamcommunity.com/stats/242680/leaderboards/" . $leaderboardId . "/?xml=1";
   $xmlLeaderboardData = file_get_contents($leaderboardUrl);
@@ -29,7 +31,7 @@ function update_leaderboard() {
   // Purge scores from today so that there are no rank collisions.
   $stmt = $db->prepare("DELETE FROM throne_scores WHERE dayId = ?;");
   $stmt->execute(array($leaderboardId));
-
+  echo "Begin update: " . date("Y-m-d H:i:s") . "\n";
   try {
 
     $db->beginTransaction();
@@ -58,6 +60,7 @@ function update_leaderboard() {
   }
 }
 function update_steam_profiles() {
+  global $db_username, $db_password;
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
   set_time_limit(0);
@@ -100,6 +103,10 @@ function update_steam_profiles() {
 }
 
 // I don't know why I made them into functions.
-update_leaderboard();
+if (isset($argv[1])) {
+  update_leaderboard($argv[1]);
+} else {
+  update_leaderboard();
+}
 update_steam_profiles();
 ?>

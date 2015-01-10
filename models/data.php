@@ -2,6 +2,7 @@
 date_default_timezone_set("UTC");
 
 function get_latest_daily() {
+  global $db_username, $db_password;
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
   $players = array();
 

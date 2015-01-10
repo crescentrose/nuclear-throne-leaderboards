@@ -11,10 +11,10 @@
     <title>Nuclear Throne Stats</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/throne/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom page CSS -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="/throne/css/custom.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -50,6 +50,7 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
+      <div class="row col-md-12"><div class="alert alert-warning" role="alert"><b>Beware!</b> This site is very early in development. As such, it WILL be broken. I'll finish it, I just require sleep.</div></div>
       {% block content %}{% endblock %}
      <div class="row col-md-12 footer center-block">
        Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[SgC]Ruby</a>. This site is open-source - <a href="https://github.com/notyourshield/nuclear-throne-leaderboards">check it out on GitHub!</a> I've found the background with one of the patch notes - sorry for stealing, contact me if you're the original artist so that I can credit you or remove your work if you so desire!
