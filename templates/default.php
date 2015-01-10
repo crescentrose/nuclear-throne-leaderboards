@@ -13,8 +13,11 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="/css/datepicker3.css" rel="stylesheet">
+    
     <!-- Custom page CSS -->
     <link href="/css/custom.css" rel="stylesheet">
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -32,6 +35,9 @@
       ga('create', 'UA-58437854-1', 'auto');
       ga('send', 'pageview');
     </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -51,8 +57,8 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/">Today's Stats</a></li>
-              <li><a href="#">Archive</a></li>
+              <li><a href="/">Today's Daily</a></li>
+              <li><a href="/archive">Archive</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="http://reddit.com/r/nuclearthrone">/r/NuclearThrone</a></li>
@@ -67,11 +73,5 @@
        Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[SgC]Ruby</a>. This site is open-source - <a href="https://github.com/notyourshield/nuclear-throne-leaderboards">check it out on GitHub!</a> I've found the background with one of the patch notes - sorry for stealing, contact me if you're the original artist so that I can credit you or remove your work if you so desire!
      </div>
     </div> <!-- /container -->
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
   </body>
 </html>

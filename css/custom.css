@@ -38,6 +38,10 @@ body {
   border: 3px solid rgba(1,1,1,0.3) ;
 }
 
+.datepicker-days .day:hover {
+  background-color:black !important;
+}
+
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
