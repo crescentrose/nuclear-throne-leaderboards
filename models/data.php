@@ -53,9 +53,28 @@ function get_player($steamid) {
   $scores = array();
   $stmt = $db->prepare('SELECT * FROM throne_scores LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId WHERE throne_scores.steamId = :steamid ORDER BY throne_scores.dayId ASC LIMIT 0, 100');
   $stmt->execute(array(":steamid" => $steamid));
+
+  $allscores = [];
+  $totalscore = 0;
+  $allrank = [];
+  $totalrank = 0;
+  $count = 0;
+
   foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $score) {
     $scores[] = $score;
+    $totalscore += $score['score'] ;
+    $totalrank += $score['rank'] ;
+    $count = $count + 1;
+    $allscores[] = $score['score'];
+    $allrank[] = $score['rank'];
   }
+
+  $player['avgscore'] = round($totalscore / $count);
+  $player['avgrank'] = round($totalrank / $count);
+  $player['hiscore'] = max($allscores);
+  $player['loscore'] = min($allscores);
+  $player['hirank'] = max($allrank);
+  $player['lorank'] = min($allrank);
   return array('player' => $player, 'scores' => $scores);
 } 
 
