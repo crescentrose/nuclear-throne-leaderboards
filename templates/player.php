@@ -21,7 +21,7 @@
         data.addColumn('number', 'Rank');
         data.addRows([
           {% for score in scores %}
-            ['{{ score.dayId }}', {{ score.rank }}],
+            ['{{ score.date }}', {{ score.rank }}],
           {% endfor %}
         ]);
 
@@ -48,7 +48,7 @@
     <tbody>
       {% for score in scores %}
       <tr onclick="document.location = '/score/{{ score.hash}}'">
-        <td>{{ score.dayId }}</td>
+        <td>{{ score.date }}</td>
         <td><b>{{ score.rank }}</b></a></td>
         <td>{{ score.score }}</td>
       </tr>
