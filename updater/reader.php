@@ -99,9 +99,10 @@ function update_steam_profiles() {
   AND (throne_players.last_updated < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 3 DAY))
   OR throne_players.last_updated IS NULL);');
 
+  $t = $result->rowCount();
   // Logging.
-  echo($result->rowCount() . " profiles to update. \n");
-
+  echo($t . " profiles to update. \n");
+  $c = 0;
   foreach($result as $row) {
     // For each player, we get their profile page and save their name and a link
     // to their avatar.
@@ -112,11 +113,12 @@ function update_steam_profiles() {
     $stmt->execute(array(':steamid' => $row['steamId'], ':name' => $user->steamID, ':avatar' => $user->avatarIcon));
 
     // Log the update.
-    echo 'Updated ' . $row['steamId'] . " as " . $user->steamID ."\n";
+    echo '[' . $c . '/' . $t . '] Updated ' . $row['steamId'] . " as " . $user->steamID ."\n";
 
     // Wait for a second so that we don't piss off Lord GabeN and mistakenly
     // DoS Steam.
     sleep(1);
+    $c = $c + 1;
   }
 
   $db->commit();
