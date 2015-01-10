@@ -1,4 +1,5 @@
 <?php
+require "config.php"
 // This file should be in a cron job to run every 15 minutes, depending on
 // service load.
 // With one second pause between downloads, this should be enough provided that
@@ -23,7 +24,7 @@ function update_leaderboard() {
   $xmlLeaderboard = new SimpleXMLElement($xmlLeaderboardData);
 
   // Connect to the database.
-  $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
   // Purge scores from today so that there are no rank collisions.
   $stmt = $db->prepare("DELETE FROM throne_scores WHERE dayId = ?;");
@@ -57,7 +58,7 @@ function update_leaderboard() {
   }
 }
 function update_steam_profiles() {
-  $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
   set_time_limit(0);
 

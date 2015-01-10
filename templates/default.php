@@ -52,7 +52,7 @@
       </nav>
       {% block content %}{% endblock %}
      <div class="row col-md-12 footer center-block">
-       Made by /u/i542. Code on GitHub. Background image by (artist wanted). Data updated every 15 minutes.
+       Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[SgC]Ruby</a>. This site is open-source - <a href="https://github.com/notyourshield/nuclear-throne-leaderboards">check it out on GitHub!</a> I've found the background with one of the patch notes - sorry for stealing, contact me if you're the original artist so that I can credit you or remove your work if you so desire!
      </div>
     </div> <!-- /container -->
 

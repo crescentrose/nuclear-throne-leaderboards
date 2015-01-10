@@ -7,8 +7,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-// include config.php
-require "config.php";
+require "config.php"
 
 // include and register Twig auto-loader
 require_once 'vendor/autoload.php';
