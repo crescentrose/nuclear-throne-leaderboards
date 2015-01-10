@@ -41,7 +41,11 @@ if (isset($_GET['do'])) {
     include "controllers/" . $_GET["do"] . ".php";
   }
 } else {
-  echo $twig->render('index.php', get_latest_daily());
+  if (isset($_GET["page"]) && (int)$_GET["page"] > 0) {
+    echo $twig->render('index.php', get_latest_daily($_GET["page"]));
+  } else {
+    echo $twig->render('index.php', get_latest_daily());
+  }
 }
 
 ?>

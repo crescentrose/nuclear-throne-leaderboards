@@ -1,8 +1,9 @@
 <?php
 date_default_timezone_set("UTC");
 
-function get_latest_daily() {
+function get_latest_daily($page = 1) {
   global $db_username, $db_password;
+  $page = $page - 1;
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
   $players = array();
 
@@ -11,10 +12,13 @@ function get_latest_daily() {
   foreach ($result as $dateid) {
     $today = $dateid['dayId'];
   }
-  foreach($db->query('SELECT throne_scores.steamId, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_scores.dayId = ' . $today . ' ORDER BY rank ASC LIMIT 0, 100') as $row) {
+  foreach($db->query('SELECT throne_scores.steamId, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_scores.dayId = ' . $today . ' ORDER BY rank ASC LIMIT ' . $page * 30 . ', 30') as $row) {
+    if ($row['name'] === "") {
+      $row['name'] = "[private]";
+    }
     $players[] = $row;
   }
-  return array('date' => date('Y-m-d'), 'players' => $players);
+  return array('date' => date('Y-m-d'), 'players' => $players, 'page' => $page + 1);
 } 
 
 
@@ -26,6 +30,9 @@ function get_score($hash) {
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   if ($stmt->rowCount() == 1)  {
     $rows[0]['avatar_medium'] = substr($rows[0]['avatar'], 0, -4) . "_medium.jpg";
+    if ($rows[0]['name'] === "") {
+      $rows[0]['name'] = "[private]";
+    }
     return $rows[0];
   } else {
     return false;
@@ -40,6 +47,9 @@ function get_player($steamid) {
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   $player = $rows[0];
   $player['avatar_medium'] = substr($player['avatar'], 0, -4) . "_medium.jpg";
+  if ($player['name'] === "") {
+      $player['name'] = "[private]";
+    }
   $scores = array();
   $stmt = $db->prepare('SELECT throne_scores.steamId, throne_scores.dayId, throne_scores.hash, throne_scores.rank, throne_scores.score FROM throne_scores WHERE throne_scores.steamId = :steamid ORDER BY dayId DESC LIMIT 0, 100');
   $stmt->execute(array(":steamid" => $steamid));

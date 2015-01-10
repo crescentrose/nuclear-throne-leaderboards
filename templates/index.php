@@ -15,11 +15,12 @@
       {% for player in players %}
       <tr>
         <td width="30px">{{ player.rank }}</td>
-        <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="score/{{ player.hash }}">{{ player.name }}</a></td>
+        <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/score/{{ player.hash }}">{{ player.name }}</a></td>
         <td>{{ player.score }}</td>
       </tr>
       {% endfor %}
     </tbody>
     </table>
+    <center><a class="btn btn-default " href="/daily/{{ page + 1 }}">More</a></center>
 </div>
 {% endblock %}

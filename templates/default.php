@@ -36,11 +36,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Nuclear Throne Stats</a>
+            <a class="navbar-brand" href="/">Nuclear Throne Stats</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Today's Stats</a></li>
+              <li class="active"><a href="/">Today's Stats</a></li>
               <li><a href="#">Archive</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
