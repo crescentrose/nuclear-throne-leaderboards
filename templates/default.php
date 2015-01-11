@@ -59,6 +59,7 @@
             <ul class="nav navbar-nav">
               <li><a href="/">Today's Daily</a></li>
               <li><a href="/archive">Archive</a></li>
+              <li><a href="/about">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="http://reddit.com/r/nuclearthrone">/r/NuclearThrone</a></li>
@@ -67,7 +68,6 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-      <div class="row col-md-12"><div class="alert alert-warning" role="alert"><b>Beware!</b> This site is very early in development. As such, it WILL be broken. I'll finish it, I just require sleep.</div></div>
       {% block content %}{% endblock %}
      <div class="row col-md-12 footer center-block">
        Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[SgC]Ruby</a>. This site is open-source - <a href="https://github.com/notyourshield/nuclear-throne-leaderboards">check it out on GitHub!</a> I've found the background with one of the patch notes - sorry for stealing, contact me if you're the original artist so that I can credit you or remove your work if you so desire!

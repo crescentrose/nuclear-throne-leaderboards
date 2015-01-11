@@ -1,0 +1,1 @@
+<?php echo $twig->render('about.php', array()); ?>

@@ -9,5 +9,7 @@ RewriteRule ^player/([0-9]+)/$ index.php?do=player&steamid=$1
 RewriteRule ^daily/([0-9]+)$ index.php?page=$1
 RewriteRule ^archive/$ index.php?do=archive
 RewriteRule ^archive$ index.php?do=archive
+RewriteRule ^about$ index.php?do=about
+RewriteRule ^about/$ index.php?do=about
 RewriteRule ^archive/([0-9]+)/([0-9]+)/([0-9]+)/page-([0-9]+)/$ index.php?do=archive&date=$1-$2-$3&page=$4
 RewriteRule ^archive/([0-9]+)/([0-9]+)/([0-9]+)/page-([0-9]+)$ index.php?do=archive&date=$1-$2-$3&page=$4
