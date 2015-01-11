@@ -27,7 +27,7 @@
       {% endfor %}
     </tbody>
     </table>
-    <center><a class="btn btn-default " href="/daily/{{ page + 1 }}">More</a></center>
+    <center><a class="btn btn-default " href="/daily/{{ page }}">More</a></center>
 </div>
 <script>$('#searchform').submit(function(e) {
   window.location = '/player/' + $('#search').val();

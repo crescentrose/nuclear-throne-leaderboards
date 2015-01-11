@@ -45,7 +45,7 @@ function get_player($steamid) {
   if ((int)$steamid == 0) {
     $steamid = convertSteamId($steamid);
     if ($steamid == false) {
-      return false;
+      return false; 
     }
   }
   $stmt = $db->prepare("SELECT * FROM throne_players WHERE steamid = :steamid");
