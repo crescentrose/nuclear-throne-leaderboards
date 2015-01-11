@@ -5,6 +5,12 @@
 <div class="row col-md-12 main center-block">
   <h1>Stats for {{ date }}</h1>
   <h4>Data updated every 15 minutes.</h4>
+  <form class="form-inline" id="searchform">
+    <div class="form-group">
+      <input type="text" class="form-control" id="search" style="width: 300px" placeholder="Enter your Steam custom URL">
+    </div>
+    <button type="submit" class="btn btn-default">Search</button>
+  </form>
   <table class="table table-responsive">
     <thead>
       <td>Rank</td>
@@ -23,4 +29,8 @@
     </table>
     <center><a class="btn btn-default " href="/daily/{{ page + 1 }}">More</a></center>
 </div>
+<script>$('#searchform').submit(function(e) {
+  window.location = '/player/' + $('#search').val();
+  e.preventDefault();
+})</script>
 {% endblock %}
