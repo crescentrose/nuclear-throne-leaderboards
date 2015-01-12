@@ -7,7 +7,7 @@
   <h4>Data updated every 15 minutes.</h4>
   <form class="form-inline" id="searchform">
     <div class="form-group">
-      <input type="text" class="form-control" id="search" style="width: 300px" placeholder="Enter your Steam custom URL">
+      <input type="text" class="form-control" id="search" style="width: 300px" placeholder="Enter your Steam custom ID (e.g. i542)">
     </div>
     <button type="submit" class="btn btn-default">Search</button>
   </form>
