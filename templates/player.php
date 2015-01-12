@@ -42,6 +42,7 @@
 <div class="row">
   <div class="col-md-6">
     <div class="col-md-12">
+    {% if player.suspected_hacker %}<p class="text-danger"> Note: {{ player.name }} is marked as a <span class="label label-danger">Suspected Hacker</span>. <a href="/about" class="text-danger"><b>Click here</b></a> to learn more about the hacker marking process.</p> {% endif %}
       <h3>Daily History</h3>
       <table class="table table-responsive table-hover">
         <thead>

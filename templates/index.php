@@ -21,7 +21,10 @@
       {% for player in players %}
       <tr>
         <td width="30px">{{ player.rank }}</td>
-        <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamId }}">{{ player.name }}</a></td>
+        <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamId }}">{{ player.name }}</a>
+        {% if player.suspected_hacker %}
+          <span class="label label-danger pull-right">Suspected Hacker</span>
+        {% endif %}</td>
         <td>{{ player.score }}</td>
       </tr>
       {% endfor %}
