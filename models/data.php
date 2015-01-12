@@ -50,6 +50,9 @@ function get_player($steamid) {
   }
   $stmt = $db->prepare("SELECT * FROM throne_players WHERE steamid = :steamid");
   $stmt->execute(array(':steamid' => $steamid));
+  if ($stmt->rowCount() === 0) {
+    return false;
+  }
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   $player = $rows[0];
   $player['avatar_medium'] = substr($player['avatar'], 0, -4) . "_medium.jpg";

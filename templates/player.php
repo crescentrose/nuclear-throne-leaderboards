@@ -82,11 +82,11 @@
         <td>{{ player.avgscore }}</td>
       </tr>
       <tr>
-        <td>Highest rank</td>
+        <td>Lowest rank</td>
         <td>{{ player.hirank }}</td>
       </tr>
       <tr>
-        <td>Lowest rank</td>
+        <td>Highest rank</td>
         <td>{{ player.lorank }}</td>
       </tr>
       <tr>
