@@ -87,6 +87,7 @@
         <li><a href="http://nuclear-throne.wikia.com/wiki/Nuclear_Throne_Wiki">Nuclear Throne wiki</a></li>
         <li><a href="http://reddit.com/r/NuclearThrone">Nuclear Throne subreddit</a></li>
         <li><a href="http://steamcommunity.com/app/242680/discussions/">Steam Community forums for Nuclear Throne</a></li>
+        <li><a href="http://www.twitch.tv/vlambeer">Developer Livestreams</a></li>
       </ul>
     </div>
   </div>
