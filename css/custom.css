@@ -15,10 +15,20 @@ body {
 
 .main {
   background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 4px;  
+  padding-bottom: 10px;
+}
+
+.sidebar-box {
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 4px;
-  box-shadow: 1px 1px 10px rgba(33, 33, 33, 0.3);
-  padding: 10px; 
-  margin: 5px;
+  padding: 5px 0px 5px 5px;  
+  margin-bottom: 10px;
+}
+
+.sidebar-box hr {
+  margin: -1px 1px 0 -1px;
+  border-color: rgba(255,255,255,0.5);
 }
 
 .footer {
@@ -40,6 +50,19 @@ body {
 
 .datepicker-days .day:hover {
   background-color:black !important;
+}
+
+.table>tbody>tr>th, .table>tbody>tr>td {
+    border-top: none;
+}
+
+.table>thead {
+  border-bottom: 1px solid rgba(255,255,255, 0.3);
+  font-weight: bold;
+}
+
+.ranktable > tbody > tr:nth-child(odd) > td {
+   background-color: rgba(0,0,0,0.3);
 }
 
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */

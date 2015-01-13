@@ -5,20 +5,30 @@ function get_latest_daily($page = 0) {
   global $db_username, $db_password;
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
   $players = array();
+  $players_yesterday=array();
 
   // Get latest day ID (clumsy!)
-  $result = $db->query('SELECT * FROM throne_dates ORDER BY dayId DESC LIMIT 0,1');
-  foreach ($result as $dateid) {
-    $today = $dateid['dayId'];
-    $today_date = $dateid['date'];
+  $daily= $db->query('SELECT * FROM throne_dates ORDER BY dayId DESC LIMIT 0,2');
+  $result = $daily->fetchAll();
+  $today = $result[0]['dayId'];
+  $today_date = $result[0]['date'];
+
+  $yesterday = $result[1]['dayId'];
+  
+  foreach($db->query('SELECT throne_scores.steamId, throne_players.suspected_hacker, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_scores.dayId = ' . $yesterday . ' ORDER BY rank ASC LIMIT 0,5') as $row) {
+    if ($row['name'] === "") {
+      $row['name'] = "[private]";
+    }
+    $players_yesterday[] = $row;
   }
+
   foreach($db->query('SELECT throne_scores.steamId, throne_players.suspected_hacker, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_scores.dayId = ' . $today . ' ORDER BY rank ASC LIMIT ' . $page * 30 . ', 30') as $row) {
     if ($row['name'] === "") {
       $row['name'] = "[private]";
     }
     $players[] = $row;
   }
-  return array('date' => $today_date, 'players' => $players, 'page' => $page + 1);
+  return array('date' => $today_date, 'players' => $players,'players_yesterday' => $players_yesterday, 'page' => $page + 1);
 } 
 
 
