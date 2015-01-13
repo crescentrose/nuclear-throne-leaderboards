@@ -65,6 +65,27 @@ body {
    background-color: rgba(0,0,0,0.3);
 }
 
+.streams > .stream:nth-child(odd) {
+   background-color: rgba(0,0,0,0.3);
+}
+
+.stream {
+  width: 105%;
+}
+
+.stream-pic {
+  padding-top: 5px;
+  padding-left: -5px;
+}
+
+.stream-title a {
+  color: white;
+  font-weight: bold;
+}
+
+.stream-desc {
+  font-size: 9pt;
+}
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }

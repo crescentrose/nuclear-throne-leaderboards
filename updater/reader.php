@@ -1,5 +1,8 @@
 <?php
 require "config.php";
+
+if (!isset($db_username)) { $db_username="root"; } // My dev box sucks.
+
 // This file should be in a cron job to run every 15 minutes, depending on
 // service load.
 // With one second pause between downloads, this should be enough provided that
@@ -90,8 +93,6 @@ function update_steam_profiles() {
   // past five days and if they have not been updated in the past three days (or
   // at all)
 
-  $db->beginTransaction();
-
   $result = $db->query('SELECT DISTINCT throne_scores.steamId
   FROM throne_scores
   LEFT JOIN throne_players ON throne_scores.steamId = throne_players.steamid
@@ -103,25 +104,60 @@ function update_steam_profiles() {
   // Logging.
   echo($t . " profiles to update. \n");
   $c = 0;
-  foreach($result as $row) {
-    // For each player, we get their profile page and save their name and a link
-    // to their avatar.
-    $xmlUserData = file_get_contents("http://steamcommunity.com/profiles/" . $row['steamId'] . "/?xml=1");
-    $user = new SimpleXMLElement($xmlUserData);
+    try {
+      $db->beginTransaction();
 
-    $stmt = $db->prepare("INSERT INTO throne_players(steamid, name, avatar) VALUES(:steamid, :name, :avatar) ON DUPLICATE KEY UPDATE name=VALUES(name), avatar=VALUES(avatar);");
-    $stmt->execute(array(':steamid' => $row['steamId'], ':name' => $user->steamID, ':avatar' => $user->avatarIcon));
+      foreach($result as $row) {
+        // For each player, we get their profile page and save their name and a link
+        // to their avatar.
+        $xmlUserData = file_get_contents("http://steamcommunity.com/profiles/" . $row['steamId'] . "/?xml=1");
+        $user = new SimpleXMLElement($xmlUserData);
 
-    // Log the update.
-    echo '[' . $c . '/' . $t . '] Updated ' . $row['steamId'] . " as " . $user->steamID ."\n";
+        $stmt = $db->prepare("INSERT INTO throne_players(steamid, name, avatar) VALUES(:steamid, :name, :avatar) ON DUPLICATE KEY UPDATE name=VALUES(name), avatar=VALUES(avatar);");
+        $stmt->execute(array(':steamid' => $row['steamId'], ':name' => $user->steamID, ':avatar' => $user->avatarIcon));
 
-    // Wait for a second so that we don't piss off Lord GabeN and mistakenly
-    // DoS Steam.
-    sleep(1);
-    $c = $c + 1;
+        // Log the update.
+        echo '[' . $c . '/' . $t . '] Updated ' . $row['steamId'] . " as " . $user->steamID ."\n";
+
+        // Wait for a second so that we don't piss off Lord GabeN and mistakenly
+        // DoS Steam.
+        sleep(1);
+        $c = $c + 1;
+
+      } 
+      $db->commit();
+    } catch (PDOException $ex) {
+      // Failsafe
+
+      $db->rollBack();
+      echo $ex->getMessage();
+    }
+}
+
+function update_twitch() {
+  global $db_username, $db_password;
+
+  $streamJson = file_get_contents("https://api.twitch.tv/kraken/search/streams?limit=25&q=nuclear+throne");
+  $streams = json_decode($streamJson, true);
+
+  $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  try {
+    $db->beginTransaction();
+
+    $db->query("TRUNCATE TABLE throne_streams");
+
+    foreach ($streams['streams'] as $stream) {  
+      $stmt = $db->prepare("INSERT INTO throne_streams(name, status, viewers, preview) VALUES(:name, :status, :viewers, :preview)");
+      // ON DUPLICATE KEY UPDATE name=VALUES(name), avatar=VALUES(avatar);
+      $stmt->execute(array(':name' => $stream['channel']['name'], ':status' => $stream['channel']['status'], ':viewers' => $stream['viewers'], ':preview' => $stream['preview']['small']));
+    }
+
+    $db->commit();
+  } catch (PDOException $ex) {
+    $db->rollBack();
+    echo $ex->getMessage();
   }
-
-  $db->commit();
+  echo "Twitch update successful. \n";
 }
 
 // I don't know why I made them into functions.
@@ -131,4 +167,5 @@ if (isset($argv[1])) {
   update_leaderboard();
 }
 update_steam_profiles();
+update_twitch();
 ?>

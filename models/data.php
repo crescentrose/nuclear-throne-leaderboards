@@ -6,6 +6,7 @@ function get_latest_daily($page = 0) {
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
   $players = array();
   $players_yesterday=array();
+  $streams = array();
 
   // Get latest day ID (clumsy!)
   $daily= $db->query('SELECT * FROM throne_dates ORDER BY dayId DESC LIMIT 0,2');
@@ -28,7 +29,13 @@ function get_latest_daily($page = 0) {
     }
     $players[] = $row;
   }
-  return array('date' => $today_date, 'players' => $players,'players_yesterday' => $players_yesterday, 'page' => $page + 1);
+  $results = $db->query('SELECT * FROM throne_streams ORDER BY viewers DESC LIMIT 0,3');
+  $streamcount = $results->rowCount();
+  foreach($results as $row) {
+    $streams[] = $row;
+  }
+
+  return array('date' => $today_date, 'players' => $players,'players_yesterday' => $players_yesterday, 'streams' => $streams, 'streamcount' => $streamcount,'page' => $page + 1);
 } 
 
 
@@ -136,4 +143,5 @@ function convertSteamId($steamid) {
     return $match[1];
   }
 }
- ?>
+
+?>

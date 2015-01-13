@@ -2,6 +2,7 @@
 
 {% block content %}
 <!-- Main page -->
+<div class="container-fluid ">
 <div class="row">
   <div class="col-md-8 main">
     <h1>Daily run statistics for {{ date }}</h1>
@@ -56,7 +57,40 @@
         </tbody>
       </table>
     </div>
+    <div class="sidebar-box">
+      <h4>Currently popular streams</h4> 
+      <div class="streams container-fluid">
+      {% if streamcount == 0 %}
+        <p>Noone is streaming right now :( It can take up to 15 minutes for streams to show up here, so be patient!</p>
+      {% else %}
+      {% for stream in streams %}   
+        <div class="stream row">
+          <div class="stream-pic-container col-md-3">
+            <a href="http://twitch.tv/{{ stream.name }}"><img src="{{ stream.preview }}" class="stream-pic" /></a>
+          </div>
+          <div class="stream-meta col-md-9">
+            <div class="stream-title">
+              <a href="http://twitch.tv/{{ stream.name }}">{{ stream.status }}</a>
+            </div>
+            <div class="stream-desc">
+              on <a href="http://twitch.tv/{{ stream.name }}">{{ stream.name }}</a> | {{ stream.viewers }} viewers
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      {% endif %}
+      </div>
+    </div>
+    <div class="sidebar-box">
+      <h4>Community links</h4>
+      <ul>
+        <li><a href="http://nuclear-throne.wikia.com/wiki/Nuclear_Throne_Wiki">Nuclear Throne wiki</a></li>
+        <li><a href="http://reddit.com/r/NuclearThrone">Nuclear Throne subreddit</a></li>
+        <li><a href="http://steamcommunity.com/app/242680/discussions/">Steam Community forums for Nuclear Throne</a></li>
+      </ul>
+    </div>
   </div>
+</div>
 </div>
 <script>$('#searchform').submit(function(e) {
   window.location = '/player/' + $('#search').val();

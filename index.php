@@ -29,7 +29,6 @@ foreach (glob("models/*.php") as $filename)
   include $filename;
 }
 
-
 // route requests
 if (isset($_GET['do'])) {
   // see if the page requested is in the controllers list

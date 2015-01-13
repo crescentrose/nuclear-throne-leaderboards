@@ -63,7 +63,6 @@
               <li><a href="/about">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="http://reddit.com/r/nuclearthrone">/r/NuclearThrone</a></li>
               <li><a href="http://store.steampowered.com/app/242680/">Get Nuclear Throne on Steam!</a></li>
             </ul>
           </div><!--/.nav-collapse -->
