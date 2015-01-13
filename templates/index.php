@@ -3,7 +3,7 @@
 {% block content %}
 <!-- Main page -->
 <div class="row col-md-12 main center-block">
-  <h1>Stats for {{ date }}</h1>
+  <h1>Daily run statistics for {{ date }}</h1>
   <h4>Data updated every 15 minutes.</h4>
   <form class="form-inline" id="searchform">
     <div class="form-group">

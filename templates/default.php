@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="View current statistics for daily runs in the game Nuclear Throne, as well as your personal history and global stats.">
     <meta name="author" content="">
+    <meta name="keywords" content="nuclear throne,daily run,statistics">
     <link rel="icon" href="favicon.ico">
 
-    <title>Nuclear Throne Stats</title>
+    <title>Nuclear Throne Daily Run Statistics</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
