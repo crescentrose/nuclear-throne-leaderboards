@@ -38,6 +38,31 @@ function get_latest_daily($page = 0) {
   return array('date' => $today_date, 'players' => $players,'players_yesterday' => $players_yesterday, 'streams' => $streams, 'streamcount' => $streamcount,'page' => $page + 1);
 } 
 
+function get_alltime($page = 1) {
+  global $db_username, $db_password;
+  $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+  $alltime = array();
+  $page = $page - 1;
+  foreach($db->query('SELECT  d.*, p.*, c.ranks
+                      FROM (
+                        SELECT    score, @rank:=@rank+1 Ranks
+                        FROM (
+                                    SELECT  DISTINCT Score 
+                                    FROM    throne_alltime a
+                                    ORDER   BY score DESC
+                                ) t, (SELECT @rank:= 0) r
+                               ) c 
+                        INNER JOIN throne_alltime d ON c.score = d.score
+                    LEFT JOIN throne_players p ON p.steamid = d.steamid LIMIT ' . $page * 30 . ', 30') as $row) {
+    if ($row['name'] === "") {
+      $row['name'] = "[private]";
+    }
+    $alltime[] = $row;
+  }
+
+  return array('alltime' => $alltime, 'page' => $page + 1);
+} 
+
 
 function get_score($hash) {
   global $db_username, $db_password;
@@ -95,12 +120,33 @@ function get_player($steamid) {
     $allrank[] = $score['rank'];
   }
 
+  $stmt = $db->prepare('SELECT  d.*, c.ranks
+                        FROM (
+                          SELECT    score, @rank:=@rank+1 Ranks
+                          FROM (
+                            SELECT  DISTINCT Score 
+                            FROM    throne_alltime a
+                            ORDER   BY score DESC
+                          ) t, (SELECT @rank:= 0) r
+                        ) c 
+                        INNER JOIN throne_alltime d ON c.score = d.score
+                        WHERE d.steamid = :steamid');
+  $stmt->execute(array(":steamid" => $steamid));
+  if ($stmt->rowCount() === 0) {
+    $player['totalrank'] = -1;
+  } else {
+    $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $player['totalrank'] = $row[0]['ranks'];
+    $player['totalkills'] = $row[0]['score'];
+  }
+
   $player['avgscore'] = round($totalscore / $count);
   $player['avgrank'] = round($totalrank / $count);
   $player['hiscore'] = max($allscores);
   $player['loscore'] = min($allscores);
   $player['hirank'] = max($allrank);
   $player['lorank'] = min($allrank);
+  $player['runs'] = $count;
   return array('player' => $player, 'scores' => $scores);
 } 
 

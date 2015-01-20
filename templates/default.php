@@ -59,6 +59,7 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="/">Today's Daily</a></li>
+              <li><a href="/all-time">All-time ranks <span class="label label-default">New</span></a></li>
               <li><a href="/archive">Archive</a></li>          
               <li><a href="/about">About</a></li>
             </ul>

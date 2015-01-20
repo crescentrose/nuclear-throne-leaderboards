@@ -42,7 +42,13 @@
 <div class="row">
   <div class="col-md-6">
     <div class="col-md-12">
-    {% if player.suspected_hacker %}<p class="text-danger"> Note: {{ player.name }} is marked as a <span class="label label-danger">Suspected Hacker</span>. <a href="/about" class="text-danger"><b>Click here</b></a> to learn more about the hacker marking process.</p> {% endif %}
+    {% if player.suspected_hacker %}<div class="text-danger"><h3>Suspected hacker</h3> {{ player.name }} is marked as a <span class="label label-danger">Suspected Hacker</span>. <a href="/about" class="text-danger"><b>Click here</b></a> to learn more about the hacker marking process.</div> {% endif %}
+    <h3>All-time rank</h3>
+    {% if player.totalrank == -1 %}
+    <p>Player has been <b>denied all-time rank</b> due to his status as a suspected hacker.</p>
+    {% else %}
+    <p>{{ player.name }} is ranked <b>#{{ player.totalrank }} all-time</b> with <b>{{ player.totalkills }} lifetime kills</b> over <b>{{ player.runs }}</b> runs!</p>
+    {% endif %}
       <h3>Daily History</h3>
       <table class="table table-responsive table-hover">
         <thead>
