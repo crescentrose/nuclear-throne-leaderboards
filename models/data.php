@@ -42,8 +42,8 @@ function get_alltime($page = 1) {
   global $db_username, $db_password;
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
   $alltime = array();
-  $page = $page - 1;
-  foreach($db->query('SELECT  d.*, p.*, c.ranks
+  $page = $page - 1;   
+  foreach($db->query('SELECT  d.*, p.*, c.ranks, r.runs
                       FROM (
                         SELECT    score, @rank:=@rank+1 Ranks
                         FROM (
@@ -52,8 +52,11 @@ function get_alltime($page = 1) {
                                     ORDER   BY score DESC
                                 ) t, (SELECT @rank:= 0) r
                                ) c 
-                        INNER JOIN throne_alltime d ON c.score = d.score
-                    LEFT JOIN throne_players p ON p.steamid = d.steamid LIMIT ' . $page * 30 . ', 30') as $row) {
+                      INNER JOIN throne_alltime d ON c.score = d.score
+                      LEFT JOIN throne_players p ON p.steamid = d.steamid
+                      LEFT JOIN (
+                        SELECT steamid, COUNT(*) AS runs FROM throne_scores GROUP BY steamid
+                      ) r ON r.steamid = d.steamid LIMIT ' . $page * 30 . ', 30') as $row) {
     if ($row['name'] === "") {
       $row['name'] = "[private]";
     }
