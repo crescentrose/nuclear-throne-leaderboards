@@ -110,15 +110,18 @@ function update_steam_profiles() {
       foreach($result as $row) {
         // For each player, we get their profile page and save their name and a link
         // to their avatar.
-        $xmlUserData = file_get_contents("http://steamcommunity.com/profiles/" . $row['steamId'] . "/?xml=1");
-        $user = new SimpleXMLElement($xmlUserData);
+        try {
+          $xmlUserData = file_get_contents("http://steamcommunity.com/profiles/" . $row['steamId'] . "/?xml=1");
+          $user = new SimpleXMLElement($xmlUserData);
 
-        $stmt = $db->prepare("INSERT INTO throne_players(steamid, name, avatar) VALUES(:steamid, :name, :avatar) ON DUPLICATE KEY UPDATE name=VALUES(name), avatar=VALUES(avatar);");
-        $stmt->execute(array(':steamid' => $row['steamId'], ':name' => $user->steamID, ':avatar' => $user->avatarIcon));
+          $stmt = $db->prepare("INSERT INTO throne_players(steamid, name, avatar) VALUES(:steamid, :name, :avatar) ON DUPLICATE KEY UPDATE name=VALUES(name), avatar=VALUES(avatar);");
+          $stmt->execute(array(':steamid' => $row['steamId'], ':name' => $user->steamID, ':avatar' => $user->avatarIcon));
 
-        // Log the update.
-        echo '[' . $c . '/' . $t . '] Updated ' . $row['steamId'] . " as " . $user->steamID ."\n";
-
+          // Log the update.
+          echo '[' . $c . '/' . $t . '] Updated ' . $row['steamId'] . " as " . $user->steamID ."\n";
+        } catch (Exception $e) {
+          echo '[' . $c . '/' . $t . '] Failed to update ' . $row['steamId'] . ' due to ' . $e->getMessage() . "\n";
+        }
         // Wait for a second so that we don't piss off Lord GabeN and mistakenly
         // DoS Steam.
         sleep(1);
@@ -166,6 +169,6 @@ if (isset($argv[1])) {
 } else {
   update_leaderboard();
 }
-update_steam_profiles();
 update_twitch();
+update_steam_profiles();
 ?>
