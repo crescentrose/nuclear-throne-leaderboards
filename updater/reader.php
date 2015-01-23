@@ -126,7 +126,10 @@ function update_steam_profiles() {
         // DoS Steam.
         sleep(1);
         $c = $c + 1;
-
+        // I have to do this.
+        if ($c === 500) {
+          break;
+        }
       } 
       $db->commit();
     } catch (PDOException $ex) {
