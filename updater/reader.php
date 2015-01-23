@@ -96,9 +96,9 @@ function update_steam_profiles() {
   $result = $db->query('SELECT DISTINCT throne_scores.steamId
   FROM throne_scores
   LEFT JOIN throne_players ON throne_scores.steamId = throne_players.steamid
-  WHERE throne_scores.last_updated > UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 5 DAY))
-  AND (throne_players.last_updated < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 3 DAY))
-  OR throne_players.last_updated IS NULL);');
+  WHERE DATEDIFF(NOW(), throne_scores.last_updated) < 5
+  AND (DATEDIFF(NOW(), throne_players.last_updated) > 3
+   OR throne_players.last_updated IS NULL);');
 
   $t = $result->rowCount();
   // Logging.
