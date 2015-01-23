@@ -105,7 +105,11 @@ function get_player($steamid) {
       $player['name'] = "[private]";
     }
   $scores = array();
-  $stmt = $db->prepare('SELECT * FROM throne_scores LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId WHERE throne_scores.steamId = :steamid ORDER BY throne_scores.dayId ASC LIMIT 0, 100');
+  $stmt = $db->prepare('SELECT * FROM throne_scores 
+                      LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId
+                      LEFT JOIN (SELECT dayid AS d, COUNT(*) AS runs FROM throne_scores GROUP BY dayid) x ON x.d = throne_scores.dayId
+                      WHERE throne_scores.steamId = :steamid
+                      ORDER BY throne_scores.dayId ASC LIMIT 100');
   $stmt->execute(array(":steamid" => $steamid));
 
   $allscores = [];
@@ -115,6 +119,7 @@ function get_player($steamid) {
   $count = 0;
 
   foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $score) {
+    $score['percentage'] = ceil(((int)$score['rank'] / (int)$score['runs'])*100);
     $scores[] = $score;
     $totalscore += $score['score'] ;
     $totalrank += $score['rank'] ;

@@ -54,6 +54,7 @@
         <thead>
           <td>Date</td>
           <td>Rank</td>
+          <td><abbr title="Player's performance relative to the other runs of that day - e.g., 25% means that the player was in the top 25% of players that day.">Top %</abbr></td>
           <td>Score</td>
         </thead>
         <tbody>
@@ -61,6 +62,7 @@
           <tr onclick="document.location = '/score/{{ score.hash}}'">
             <td>{{ score.date }}</td>
             <td><b>{{ score.rank }}</b></a></td>
+            <td>{{ score.percentage }}%</td>
             <td>{{ score.score }}</td>
           </tr>
           {% endfor %}
