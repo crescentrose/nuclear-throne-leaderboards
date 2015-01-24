@@ -12,39 +12,60 @@ require "config.php";
 // include and register Twig auto-loader
 require_once 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('templates');
-$twig = new Twig_Environment($loader/*, array('cache' => 'cache', 'debug' => false)*/);
+$twig   = new Twig_Environment($loader /*, array('cache' => 'cache', 'debug' => false)*/ );
+
+session_start();
+
+$openid = new LightOpenID('http://thronebutt.com/test/');
+if (!$openid->mode) {
+    if (isset($_GET['login'])) {
+        $openid->identity = 'http://steamcommunity.com/openid/?l=english';
+        header('Location: ' . $openid->authUrl());
+    }
+} else {
+    if ($openid->validate()) {
+        $id  = $openid->identity;
+        $ptn = "/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
+        preg_match($ptn, $id, $matches);
+        $_SESSION["steamid"] = $matches[1];
+        $url          = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$steam_apikey&steamids=$matches[1]";
+        $json_object  = file_get_contents($url);
+        $json_decoded = json_decode($json_object);
+        
+        foreach ($json_decoded->response->players as $player) {
+          $_SESSION["steamname"] = $player->personaname;
+        }
+    }
+}
 
 // List legal controllers - everything else will go to 404.
 $controller_list = array();
 
-foreach (glob("controllers/*.php") as $filename)
-{
-  preg_match("/controllers\/(\w*)\.php/xi", $filename, $match);
-  $controller_list[] = $match[1];
+foreach (glob("controllers/*.php") as $filename) {
+    preg_match("/controllers\/(\w*)\.php/xi", $filename, $match);
+    $controller_list[] = $match[1];
 }
 
 // include all models
-foreach (glob("models/*.php") as $filename)
-{
-  include $filename;
+foreach (glob("models/*.php") as $filename) {
+    include $filename;
 }
 
 // route requests
 if (isset($_GET['do'])) {
-  // see if the page requested is in the controllers list
-  if (array_search($_GET['do'], $controller_list) === false) {
-    // if not, output 404
-    echo $twig->render('404.php', get_config());
-  } else {
-    // Include the controller for the requested file
-    include "controllers/" . $_GET["do"] . ".php";
-  }
+    // see if the page requested is in the controllers list
+    if (array_search($_GET['do'], $controller_list) === false) {
+        // if not, output 404
+        echo $twig->render('404.php');
+    } else {
+        // Include the controller for the requested file
+        include "controllers/" . $_GET["do"] . ".php";
+    }
 } else {
-  if (isset($_GET["page"]) && (int)$_GET["page"] > 0) {
-    echo $twig->render('index.php', get_latest_daily($_GET["page"]));
-  } else {
-    echo $twig->render('index.php', get_latest_daily());
-  }
+    include "controllers/index.php";
 }
 
+render($twig, array(
+    'session' => $_SESSION
+));
 ?>

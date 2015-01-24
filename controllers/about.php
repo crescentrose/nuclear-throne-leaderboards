@@ -1,1 +1,5 @@
-<?php echo $twig->render('about.php', array()); ?>
+<?php 
+	function render($twig, $sdata = array()) {
+		$twig->render('about.php', $sdata);
+	}
+?>

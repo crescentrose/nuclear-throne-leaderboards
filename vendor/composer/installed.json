@@ -1,27 +1,27 @@
 [
     {
         "name": "twig/twig",
-        "version": "v1.16.3",
-        "version_normalized": "1.16.3.0",
+        "version": "v1.17.0",
+        "version_normalized": "1.17.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "6dc11a1e8ecfc30e2c68aaeb218148409d8e68af"
+            "reference": "2493970fa4d587eca73f77e6d8bd48a8bdd4c608"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/6dc11a1e8ecfc30e2c68aaeb218148409d8e68af",
-            "reference": "6dc11a1e8ecfc30e2c68aaeb218148409d8e68af",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/2493970fa4d587eca73f77e6d8bd48a8bdd4c608",
+            "reference": "2493970fa4d587eca73f77e6d8bd48a8bdd4c608",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2.4"
         },
-        "time": "2014-12-25 19:58:19",
+        "time": "2015-01-14 10:15:49",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.16-dev"
+                "dev-master": "1.17-dev"
             }
         },
         "installation-source": "dist",
@@ -56,6 +56,35 @@
         "homepage": "http://twig.sensiolabs.org",
         "keywords": [
             "templating"
+        ]
+    },
+    {
+        "name": "lightopenid/lightopenid",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://git.gitorious.org/lightopenid/lightopenid.git",
+            "reference": "9d42dc24e4dd34121c98a6491bc3ef7933a68a19"
+        },
+        "require": {
+            "php": ">=5.2.3"
+        },
+        "time": "2013-10-27 16:25:49",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "./"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "homepage": "http://code.google.com/p/lightopenid/",
+        "keywords": [
+            "OpenId"
         ]
     }
 ]

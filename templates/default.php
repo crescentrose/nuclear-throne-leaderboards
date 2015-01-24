@@ -63,9 +63,23 @@
               <li><a href="/archive">Archive</a></li>          
               <li><a href="/about">About</a></li>
             </ul>
+            {% if session.steamid == "" %}
+              <form action="?login" method="post" class="navbar-form navbar-right">
+                <div class="form-group">
+                  <input type="image" src="http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_small.png">
+                </div>
+              </form>
+            {% else %}
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="http://store.steampowered.com/app/242680/">Get Nuclear Throne on Steam!</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hi, {{ session.steamname }}! <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/profiles/{{ session.steamid }}/">My profile</a></li>
+                  <li><a href="#">Logout</a></li>
+                </ul>
+              </li>
             </ul>
+            {% endif %}
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
