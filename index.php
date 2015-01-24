@@ -28,9 +28,20 @@ if (!$openid->mode) {
         $ptn = "/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
         preg_match($ptn, $id, $matches);
         $_SESSION["steamid"] = $matches[1];
-        $url          = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$steam_apikey&steamids=$matches[1]";
-        $json_object  = file_get_contents($url);
-        $json_decoded = json_decode($json_object);
+        $url          = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" . $steam_apikey . "&steamids=" . $matches[1];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, false);
+        curl_setopt($ch, CURLOPT_REFERER, "http://www.thronebutt.com");
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $json_decoded = json_decode($result);
         
         foreach ($json_decoded->response->players as $player) {
           $_SESSION["steamname"] = $player->personaname;
@@ -41,7 +52,7 @@ if (!$openid->mode) {
 if (isset($_GET["logout"])) {
   session_destroy();
   session_unset();
-  header('Location: http://thronebutt.com');
+  header('Location: ' . $steam_callback);
 }
 // List legal controllers - everything else will go to 404.
 $controller_list = array();
