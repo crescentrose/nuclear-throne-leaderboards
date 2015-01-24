@@ -20,7 +20,7 @@
         <td>Score</td>
       </thead>
       <tbody>
-        {% for player in players %}
+        {% for player in data.players %}
         <tr>
           <td width="30px">{{ player.rank }}</td>
           <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamId }}">{{ player.name }}</a>
@@ -44,7 +44,7 @@
           <td>Score</td>
         </thead>
         <tbody>
-          {% for player in players_yesterday %}
+          {% for player in data.players_yesterday %}
           <tr>
             <td width="30px">{{ player.rank }}</td>
             <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamId }}">{{ player.name }}</a>
@@ -60,10 +60,10 @@
     <div class="sidebar-box">
       <h4>Currently popular streams</h4> 
       <div class="streams container-fluid">
-      {% if streamcount == 0 %}
+      {% if data.streamcount == 0 %}
         <p>Noone is streaming right now :( It can take up to 15 minutes for streams to show up here, so be patient!</p>
       {% else %}
-      {% for stream in streams %}   
+      {% for stream in data.streams %}   
         <div class="stream row">
           <div class="stream-pic-container col-md-3">
             <a href="http://twitch.tv/{{ stream.name }}"><img src="{{ stream.preview }}" class="stream-pic" /></a>

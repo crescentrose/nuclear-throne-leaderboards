@@ -8,6 +8,7 @@ Desktop.ini
 # Configuration file
 config.php
 updater/config.php
+steamauth/settings.php
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
