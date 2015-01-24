@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "248f9a97a7180da7729187b712a47df9",
+    "hash": "4f45d475a1390e0a1d5cfff19123098c",
     "packages": [
         {
             "name": "lightopenid/lightopenid",
