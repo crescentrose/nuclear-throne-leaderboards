@@ -74,7 +74,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hi, {{ session.steamname }}! <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="/profiles/{{ session.steamid }}/">My profile</a></li>
+                  <li><a href="/player/{{ session.steamid }}/">My profile</a></li>
                   <li><a href="#">Logout</a></li>
                 </ul>
               </li>
