@@ -16,7 +16,7 @@ $twig   = new Twig_Environment($loader /*, array('cache' => 'cache', 'debug' => 
 
 session_start();
 
-$openid = new LightOpenID('http://thronebutt.com/');
+$openid = new LightOpenID($steam_callback);
 if (!$openid->mode) {
     if (isset($_GET['login'])) {
         $openid->identity = 'http://steamcommunity.com/openid/?l=english';
