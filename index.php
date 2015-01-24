@@ -38,6 +38,11 @@ if (!$openid->mode) {
     }
 }
 
+if (isset($_GET["logout"])) {
+  session_destroy();
+  session_unset();
+  header('Location: http://thronebutt.com');
+}
 // List legal controllers - everything else will go to 404.
 $controller_list = array();
 
