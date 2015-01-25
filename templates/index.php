@@ -32,7 +32,7 @@
         {% endfor %}
       </tbody>
       </table>
-      <center><a class="btn btn-default " href="/daily/{{ page }}">More</a></center>
+      <center><a class="btn btn-default " href="/daily/{{ date.page }}">More</a></center>
   </div>
   <div class="col-md-4">
     <div class="sidebar-box">
