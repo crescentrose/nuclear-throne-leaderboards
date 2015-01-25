@@ -41,7 +41,7 @@
     <script src="/js/bootstrap.min.js"></script>
   </head>
 
-  <body>
+  <body class="background{{ weekday }}">
 
     <div class="container">
       <!-- Static navbar -->
