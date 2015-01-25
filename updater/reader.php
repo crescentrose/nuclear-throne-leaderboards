@@ -50,11 +50,10 @@ function update_leaderboard($leaderboardId = "") {
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
   // Purge scores from today so that there are no rank collisions.
-  $stmt = $db->prepare("DELETE FROM throne_scores WHERE dayId = ?;");
-  $stmt->execute(array($leaderboardId));
+  // $stmt = $db->prepare("DELETE FROM throne_scores WHERE dayId = ?;");
+  // $stmt->execute(array($leaderboardId));
   $stmt = $db->prepare("INSERT IGNORE INTO throne_dates(`dayId`, `date`) VALUES(:dayId, :day)");
   $stmt->execute(array(':dayId' => $leaderboardId, ':day' => $todayDate->format('Y-m-d')));
-  echo "Begin update: " . date("Y-m-d H:i:s") . "\n";
   try {
 
     $db->beginTransaction();
@@ -64,13 +63,9 @@ function update_leaderboard($leaderboardId = "") {
       // and today's daily leaderboard ID.
       $hash = md5($leaderboardId . $entry->steamid );
       // Prepare the SQL statement
-      $stmt = $db->prepare("INSERT INTO throne_scores(hash, dayId,steamId,score,rank) VALUES(:hash, :dayId,:steamID,:score,:rank);");
+      $stmt = $db->prepare("INSERT INTO throne_scores(hash, dayId, steamId, score, rank) VALUES(:hash, :dayId,:steamID,:score,:rank) ON DUPLICATE KEY UPDATE rank=VALUES(rank);");
       // Insert data into the database, pulled straight from XML.
       $stmt->execute(array(':hash' => $hash, ':dayId' => $leaderboardId, ':steamID' => $entry->steamid, ':score' => $entry->score, ':rank' => $entry->rank));
-
-      // Log.
-      echo 'Add #' . $entry->rank . ': ' . $entry->steamid . ' (score: '. $entry->score .")\n";
-
     }
     // Commit our efforts.
     $db->commit();
@@ -81,6 +76,7 @@ function update_leaderboard($leaderboardId = "") {
     $db->rollBack();
     echo $ex->getMessage();
   }
+  echo "Finished updating today's leaderboards.\n";
 }
 function update_steam_profiles() {
   global $db_username, $db_password;
@@ -166,6 +162,8 @@ function update_twitch() {
   echo "Twitch update successful. \n";
 }
 
+echo "Begin update: " . date("Y-m-d H:i:s") . "\n";
+
 // I don't know why I made them into functions.
 if (isset($argv[1])) {
   update_leaderboard($argv[1]);
@@ -174,4 +172,6 @@ if (isset($argv[1])) {
 }
 update_twitch();
 update_steam_profiles();
+
+echo "End update: " . date("Y-m-d H:i:s") . "\n";
 ?>
