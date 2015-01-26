@@ -63,7 +63,7 @@ function update_leaderboard($leaderboardId = "") {
       // and today's daily leaderboard ID.
       $hash = md5($leaderboardId . $entry->steamid );
       // Prepare the SQL statement
-      $stmt = $db->prepare("INSERT INTO throne_scores(hash, dayId, steamId, score, rank) VALUES(:hash, :dayId,:steamID,:score,:rank) ON DUPLICATE KEY UPDATE rank=VALUES(rank);");
+      $stmt = $db->prepare("INSERT INTO throne_scores(hash, dayId, steamId, score, rank) VALUES(:hash, :dayId,:steamID,:score,:rank) ON DUPLICATE KEY UPDATE rank=VALUES(rank), score=VALUES(score);");
       // Insert data into the database, pulled straight from XML.
       $stmt->execute(array(':hash' => $hash, ':dayId' => $leaderboardId, ':steamID' => $entry->steamid, ':score' => $entry->score, ':rank' => $entry->rank));
     }
