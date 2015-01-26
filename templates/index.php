@@ -5,7 +5,7 @@
 <div class="container-fluid ">
 <div class="row">
   <div class="col-md-8 main">
-    <h1>Daily run statistics for {{ data.date }}</h1>
+    <h1>Daily run leaderboards for {{ data.date }}</h1>
     <h4>Data updated every 15 minutes.</h4>
     <form class="form-inline" id="searchform">
       <div class="form-group">

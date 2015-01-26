@@ -37,7 +37,7 @@
 
 <!-- Main page -->
 <div class="row col-md-12 main center-block">
-    <h1><img src="{{ player.avatar_medium }}" class="player-avatar" /> Stats for <a href="http://steamcommunity.com/profiles/{{ player.steamid }}">{{ player.name }}</a></h1>
+    <h1><img src="{{ player.avatar_medium }}" class="player-avatar" /> <a href="http://steamcommunity.com/profiles/{{ player.steamid }}">{{ player.name }}</a>'s profile</h1>
 
 <div class="row">
   <div class="col-md-6">

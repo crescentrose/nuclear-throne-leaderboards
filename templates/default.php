@@ -9,7 +9,7 @@
     <meta name="keywords" content="nuclear throne,daily run,statistics">
     <link rel="icon" href="favicon.ico">
 
-    <title>Nuclear Throne Daily Run Statistics</title>
+    <title>Nuclear Throne Daily Leaderboards {% block title %}{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
     <script src="/js/bootstrap.min.js"></script>
   </head>
 
-  <body class="background{{ weekday }}">
+  <body class="background-home background{{ weekday }}">
 
     <div class="container">
       <!-- Static navbar -->
@@ -59,7 +59,7 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="/">Today's Daily</a></li>
-              <li><a href="/all-time">All-time ranks <span class="label label-default">New</span></a></li>
+              <li><a href="/all-time">All-time ranks</a></li>
               <li><a href="/archive">Archive</a></li>          
               <li><a href="/about">About</a></li>
             </ul>
@@ -85,7 +85,7 @@
       </nav>
       {% block content %}{% endblock %}
      <div class="row col-md-12 footer center-block">
-       Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[SgC]Ruby</a>. This site is open-source - <a href="https://github.com/notyourshield/nuclear-throne-leaderboards">check it out on GitHub!</a> I've found the background with one of the patch notes - sorry for stealing, contact me if you're the original artist so that I can credit you or remove your work if you so desire!
+       Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[WA]Darwin</a>. This site is open-source - <a href="https://github.com/notyourshield/nuclear-throne-leaderboards">check it out on GitHub!</a> I've found the background with one of the patch notes - sorry for stealing, contact me if you're the original artist so that I can credit you or remove your work if you so desire!
      </div>
     </div> <!-- /container -->
   </body>

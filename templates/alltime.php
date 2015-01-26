@@ -4,7 +4,8 @@
 
 <!-- Main page -->
 <div class="row col-md-12 main center-block">
-	<h1>All-time rankings</h1>
+	<h1>All-time leaderboards</h1>
+  <h4>Data updated hourly</h4>
   <table class="table table-responsive ranktable">
     <thead>
       <td>Rank</td>
