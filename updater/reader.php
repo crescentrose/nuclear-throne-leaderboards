@@ -19,22 +19,36 @@ function update_leaderboard($leaderboardId = "") {
     $leaderboardReader = new SimpleXMLElement($xmlLeaderboardList);
     // Find last leaderboard in the file (i.e., today's daily)
     // Steam sometime fucks us over, so we have to account for that and grab the previous run instead.
-    try {
-      $lastLeaderboardElemenent = $leaderboardReader->xpath("/response/leaderboard[last()]/lbid");
-      $leaderboardId = (int)$lastLeaderboardElemenent[0];
+    $found_good_leaderboard = false;
+    $last = 0;
+    while ($found_good_leaderboard == false) {
+      if ($last == 0)
+        $lastLeaderboardElemenent = $leaderboardReader->xpath("/response/leaderboard[last()]/lbid");
+      else
+        $lastLeaderboardElemenent = $leaderboardReader->xpath("/response/leaderboard[last()-". $last . "]/lbid");
 
-      $lastLeaderboardDate = $leaderboardReader->xpath("/response/leaderboard[last()]/name");
-    } catch (Exception $e) {
-      $lastLeaderboardElemenent = $leaderboardReader->xpath("/response/leaderboard[last()-1]/lbid");
       $leaderboardId = (int)$lastLeaderboardElemenent[0];
+      
+      if ($last == 0)
+        $lastLeaderboardDate = $leaderboardReader->xpath("/response/leaderboard[last()]/name");
+      else
+        $lastLeaderboardDate = $leaderboardReader->xpath("/response/leaderboard[last()-". $last . "]/name");
 
-      $lastLeaderboardDate = $leaderboardReader->xpath("/response/leaderboard[last()-1]/name");
-    }
       $cleanDate = array();
       preg_match("/^daily_lb_([0-9]+)$/", $lastLeaderboardDate[0], $cleanDate);
-      $leaderboardDate = (int)$cleanDate[1] - 16421;
-      $todayDate = new DateTime('2014-12-17');
-      $todayDate->add(new DateInterval('P' . $leaderboardDate . 'D'));
+      @$leaderboardDate = (int)$cleanDate[1] - 16421;
+
+      if ($leaderboardDate < 0) {
+        $last += 1;
+        continue;
+      } else {
+        print ($leaderboardDate[0]);
+        $found_good_leaderboard = true;
+      }
+    }
+
+    $todayDate = new DateTime('2014-12-17');
+    $todayDate->add(new DateInterval('P' . $leaderboardDate . 'D'));
   } else {
     $xmlLeaderboardList = file_get_contents('http://steamcommunity.com/stats/242680/leaderboards/?xml=1');
     // Make a SimpleXMLElement instance to read the file.
