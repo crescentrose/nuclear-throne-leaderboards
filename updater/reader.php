@@ -1,6 +1,17 @@
 <?php
 require "config.php";
 
+function get_data($url) {
+	$ch = curl_init();
+	$timeout = 5;
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	return $data;
+}
+
 if (!isset($db_username)) { $db_username="root"; } // My dev box sucks.
 
 // This file should be in a cron job to run every 15 minutes, depending on
@@ -14,7 +25,7 @@ function update_leaderboard($leaderboardId = "") {
   global $db_username, $db_password;
   if ($leaderboardId === "") {
     // Fetch the XML file for Nuclear Throne.
-    $xmlLeaderboardList = file_get_contents('http://steamcommunity.com/stats/242680/leaderboards/?xml=1');
+    $xmlLeaderboardList = get_data('http://steamcommunity.com/stats/242680/leaderboards/?xml=1');
     // Make a SimpleXMLElement instance to read the file.
     $leaderboardReader = new SimpleXMLElement($xmlLeaderboardList);
     // Find last leaderboard in the file (i.e., today's daily)
@@ -40,6 +51,7 @@ function update_leaderboard($leaderboardId = "") {
 
       if ($leaderboardDate < 0) {
         $last += 1;
+	      print("Leaderboard not found, going to last - ". $last);
         continue;
       } else {
         print ($leaderboardDate[0]);
@@ -50,7 +62,7 @@ function update_leaderboard($leaderboardId = "") {
     $todayDate = new DateTime('2014-12-17');
     $todayDate->add(new DateInterval('P' . $leaderboardDate . 'D'));
   } else {
-    $xmlLeaderboardList = file_get_contents('http://steamcommunity.com/stats/242680/leaderboards/?xml=1');
+    $xmlLeaderboardList = get_data('http://steamcommunity.com/stats/242680/leaderboards/?xml=1');
     // Make a SimpleXMLElement instance to read the file.
     $leaderboardReader = new SimpleXMLElement($xmlLeaderboardList);
     $lastLeaderboardDate = $leaderboardReader->xpath("/response/leaderboard[lbid=". $leaderboardId . "]/name");
@@ -63,7 +75,7 @@ function update_leaderboard($leaderboardId = "") {
   }
   // Download the today's daily challenge leaderboard
   $leaderboardUrl = "http://steamcommunity.com/stats/242680/leaderboards/" . $leaderboardId . "/?xml=1";
-  $xmlLeaderboardData = file_get_contents($leaderboardUrl);
+  $xmlLeaderboardData = get_data($leaderboardUrl);
 
   // Instance another SimpleXMLElement to read from it.
   $xmlLeaderboard = new SimpleXMLElement($xmlLeaderboardData);
@@ -76,20 +88,44 @@ function update_leaderboard($leaderboardId = "") {
   // $stmt->execute(array($leaderboardId));
   $stmt = $db->prepare("INSERT IGNORE INTO throne_dates(`dayId`, `date`) VALUES(:dayId, :day)");
   $stmt->execute(array(':dayId' => $leaderboardId, ':day' => $todayDate->format('Y-m-d')));
+
+  $scores = array();
+
+  foreach ($xmlLeaderboard->entries->entry as $entry) {
+    // Don't count runs with no score (score = -1).
+    if ($entry->score >= 0) {
+      // For each score, we shall make a unique hash, by combining their steamid
+      // and today's daily leaderboard ID.
+      $hash = md5($leaderboardId . $entry->steamid );
+      // We'll put all results into an array so that we can weed out the hackers.
+      $scores[] = array('hash' => $hash, 'dayId' => $leaderboardId, 'steamID' => $entry->steamid, 'score' => $entry->score, 'rank' => $entry->rank);
+    }
+  }
+
+  // Sort by rank.
+  usort($scores, function($a, $b) {
+    return $a['rank'] - $b['rank'];
+  });
+
+  // get list of banned people
+  $banned = array();
+  
+  foreach ($db->query('SELECT steamid FROM throne_players WHERE suspected_hacker = 1') as $row) {
+        $banned[] = $row['steamid'];
+  }
+    
+  $rank = 1;
   try {
 
     $db->beginTransaction();
 
-    foreach ($xmlLeaderboard->entries->entry as $entry) {
-      // Don't count runs with no score (score = -1).
-      if ($entry->score >= 0) {
-        // For each score, we shall make a unique hash, by combining their steamid
-        // and today's daily leaderboard ID.
-        $hash = md5($leaderboardId . $entry->steamid );
+    foreach ($scores as $score) {
+        if (array_search($score['steamID'], $banned) === false) {
         // Prepare the SQL statement
         $stmt = $db->prepare("INSERT INTO throne_scores(hash, dayId, steamId, score, rank) VALUES(:hash, :dayId,:steamID,:score,:rank) ON DUPLICATE KEY UPDATE rank=VALUES(rank), score=VALUES(score);");
         // Insert data into the database, pulled straight from XML.
-        $stmt->execute(array(':hash' => $hash, ':dayId' => $leaderboardId, ':steamID' => $entry->steamid, ':score' => $entry->score, ':rank' => $entry->rank));
+        $stmt->execute(array(':hash' => $score['hash'], ':dayId' => $score['dayId'], ':steamID' => $score['steamID'], ':score' => $score['score'], ':rank' => $rank));
+        $rank += 1;
       }
     }
     // Commit our efforts.
@@ -132,8 +168,8 @@ function update_steam_profiles() {
         // For each player, we get their profile page and save their name and a link
         // to their avatar.
         try {
-          $xmlUserData = file_get_contents("http://steamcommunity.com/profiles/" . $row['steamId'] . "/?xml=1");
-          $user = new SimpleXMLElement($xmlUserData);
+          $xmlUserData = get_data("http://steamcommunity.com/profiles/" . $row['steamId'] . "/?xml=1");
+          @$user = new SimpleXMLElement($xmlUserData);
 
           $stmt = $db->prepare("INSERT INTO throne_players(steamid, name, avatar) VALUES(:steamid, :name, :avatar) ON DUPLICATE KEY UPDATE name=VALUES(name), avatar=VALUES(avatar), last_updated=NOW();");
           $stmt->execute(array(':steamid' => $row['steamId'], ':name' => $user->steamID, ':avatar' => $user->avatarIcon));
@@ -164,7 +200,7 @@ function update_steam_profiles() {
 function update_twitch() {
   global $db_username, $db_password;
 
-  $streamJson = file_get_contents("https://api.twitch.tv/kraken/search/streams?limit=25&q=nuclear+throne");
+  $streamJson = get_data("https://api.twitch.tv/kraken/search/streams?limit=25&q=nuclear+throne");
   $streams = json_decode($streamJson, true);
 
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
