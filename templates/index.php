@@ -18,7 +18,7 @@
         <td>Rank</td>
         <td>Player</td>
         {% if session.admin > 0 %}
-        <td>First seen</td>
+        <td><abbr title="The time that this score first showed up in the Steam Leaderboards">Time completed</abbr></td>
         {% endif %}
         <td>Score</td>
       </thead>
