@@ -9,12 +9,15 @@ ini_set('display_errors', 'On');
 
 require "config.php";
 
+global $db_username, $db_password;
+
 // include and register Twig auto-loader
 require_once 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('templates');
 $twig   = new Twig_Environment($loader /*, array('cache' => 'cache', 'debug' => false)*/ );
 
 session_start();
+
 
 $openid = new LightOpenID($steam_callback);
 if (!$openid->mode) {
@@ -46,8 +49,10 @@ if (!$openid->mode) {
         foreach ($json_decoded->response->players as $player) {
           $_SESSION["steamname"] = $player->personaname;
         }
+        $_SESSION["admin"] = check_your_privilege($_SESSION["steamid"]);
     }
 }
+
 
 if (isset($_GET["logout"])) {
   session_destroy();

@@ -17,18 +17,30 @@
       <thead>
         <td>Rank</td>
         <td>Player</td>
+        {% if session.admin > 0 %}
+        <td>Last update</td>
+        {% endif %}
         <td>Score</td>
       </thead>
       <tbody>
         {% for player in data.players %}
+        {% if player.hidden == 0 %}
         <tr>
           <td width="30px">{{ player.rank }}</td>
           <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamId }}">{{ player.name }}</a>
           {% if player.suspected_hacker %}
             <span class="label label-danger pull-right">Suspected Hacker</span>
           {% endif %}</td>
+          {% if session.admin > 0 %}
+          <td>{{ player.last_updated }}</td>
+          {% endif %}
           <td>{{ player.score }}</td>
         </tr>
+        {% else %}
+        <tr>
+          <td colspan="3"><i>A score from a suspected hacker was hidden. <a href="/player/{{ player.steamId}}">Visit their profile here.</a></i></td>
+        </tr>
+        {% endif %}
         {% endfor %}
       </tbody>
       </table>
