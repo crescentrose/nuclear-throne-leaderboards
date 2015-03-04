@@ -218,6 +218,7 @@ function get_player($steamid)
     $player['runs']     = $count;
     return array(
         'player' => $player,
+        'steamid' => $steamid,
         'scores' => $scores,
         'scores_reverse' => array_reverse($scores)
     );

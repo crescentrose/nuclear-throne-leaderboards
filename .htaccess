@@ -30,3 +30,6 @@ RewriteRule ^admin/player/(.*)/mark/$ index.php?do=admin&act=mark&player=$1
 
 RewriteRule ^admin/player/(.*)/unmark$ index.php?do=admin&act=unmark&player=$1
 RewriteRule ^admin/player/(.*)/unmark/$ index.php?do=admin&act=unmark&player=$1
+
+RewriteRule ^admin/player/(.*)/update$ index.php?do=admin&act=update&player=$1
+RewriteRule ^admin/player/(.*)/update/$ index.php?do=admin&act=update&player=$1

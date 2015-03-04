@@ -33,6 +33,14 @@ function render($twig, $sdata = array()) {
 				echo $twig->render("404.php", $sdata);
 			}
 		}	
+		if ($_GET["act"] == "update" && isset($_GET["player"])) {
+			if($_SESSION["admin"] > 0) {
+				update_profile($_GET["player"]);
+				header("Location: /player/" . $_GET["player"]);
+			} else {
+				echo $twig->render("404.php", $sdata);
+			}
+		}
 	} else {
 		echo $twig->render("404.php", $sdata);
 	}

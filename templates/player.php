@@ -43,7 +43,7 @@
   <div class="col-md-6">
     <div class="col-md-12">
     {% if player.suspected_hacker %}<div class="text-danger"><h3>Suspected hacker</h3> {{ player.name }} is marked as a <span class="label label-danger">Suspected Hacker</span>. <a href="/about" class="text-danger"><b>Click here</b></a> to learn more about the hacker marking process.</div> {% endif %}
-    {% if session.admin > 0 %}<div class="text-danger"><h3>Admin tools</h3><p><a href="/admin/player/{{ player.steamid }}/mark">Mark as hacker</a> | <a href="/admin/player/{{ player.steamid }}/unmark">Remove hacker mark</a></p>
+    {% if session.admin > 0 %}<div class="text-danger"><h3>Admin tools</h3><p><a href="/admin/player/{{ player.steamid }}/mark">Mark as hacker</a> | <a href="/admin/player/{{ player.steamid }}/unmark">Remove hacker mark</a> | <a href="/admin/player/{{ steamid }}/update">Manual profile update</a></p>
     <p>Note: Marked hackers will keep their scores until the next update.</p></div>{% endif %}
     <h3>All-time rank</h3>
     {% if player.totalrank == -1 %}
@@ -53,7 +53,7 @@
     {% endif %}
       <h3>Daily History</h3>
       <table class="table table-responsive table-hover">
-        <thead>
+        <thead> 
           <td>Date</td>
           <td>Rank</td>
           <td><abbr title="Player's performance relative to the other runs of that day - e.g., 25% means that the player was in the top 25% of players that day.">Top %</abbr></td>
