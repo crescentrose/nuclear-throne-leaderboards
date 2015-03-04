@@ -115,17 +115,25 @@ function update_leaderboard($leaderboardId = "") {
   }
     
   $rank = 1;
+  $rank_hax = count($scores) + 1;
   try {
 
     $db->beginTransaction();
 
     foreach ($scores as $score) {
-        if (array_search($score['steamID'], $banned) === false) {
+      if (array_search($score['steamID'], $banned) === false) {
         // Prepare the SQL statement
         $stmt = $db->prepare("INSERT INTO throne_scores(hash, dayId, steamId, score, rank) VALUES(:hash, :dayId,:steamID,:score,:rank) ON DUPLICATE KEY UPDATE rank=VALUES(rank), score=VALUES(score);");
-        // Insert data into the database, pulled straight from XML.
+        // Insert data into the database
         $stmt->execute(array(':hash' => $score['hash'], ':dayId' => $score['dayId'], ':steamID' => $score['steamID'], ':score' => $score['score'], ':rank' => $rank));
         $rank += 1;
+      } else {
+        // Hackers get their own special rank.
+        // Prepare the SQL statement
+        $stmt = $db->prepare("INSERT INTO throne_scores(hash, dayId, steamId, score, rank, hidden) VALUES(:hash, :dayId,:steamID,:score,:rank,:hidden) ON DUPLICATE KEY UPDATE rank=VALUES(rank), score=VALUES(score), hidden=VALUES(hidden);");
+        // Insert data into the database
+        $stmt->execute(array(':hash' => $score['hash'], ':dayId' => $score['dayId'], ':steamID' => $score['steamID'], ':score' => $score['score'], ':rank' => $rank_hax, ":hidden" => 1);
+        $rank_hax += 1;
       }
     }
     // Commit our efforts.
