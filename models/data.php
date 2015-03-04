@@ -32,7 +32,7 @@ function get_latest_daily($page = 0)
         $players_yesterday[] = $row;
     } //$db->query('SELECT throne_scores.steamId, throne_players.suspected_hacker, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_scores.dayId = ' . $yesterday . ' ORDER BY rank ASC LIMIT 0,5') as $row
     
-    foreach ($db->query('SELECT throne_scores.steamId, throne_players.suspected_hacker, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_scores.dayId = ' . $today . ' ORDER BY rank ASC LIMIT ' . $page * 30 . ', 30') as $row) {
+    foreach ($db->query('SELECT throne_scores.steamId, throne_players.suspected_hacker, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_scores.last_updated, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_scores.dayId = ' . $today . ' ORDER BY rank ASC LIMIT ' . $page * 30 . ', 30') as $row) {
         $row['avatar_medium'] = substr($row['avatar'], 0, -4) . "_medium.jpg";
         if ($row['name'] === "") {
             $row['name'] = "[no profile]";
