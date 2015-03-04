@@ -88,6 +88,7 @@ if (isset($_GET['do'])) {
 
 render($twig, array(
     'session' => $_SESSION,
-    'weekday' => date("w") + 1
+    'weekday' => date("w") + 1,
+    'get' => $_GET
 ));
 ?>

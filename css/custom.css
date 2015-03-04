@@ -2,6 +2,7 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
   color: #ddd;
+  background: #333;
 }
 
 .background1 {
@@ -135,6 +136,10 @@ body {
 .stream-desc {
   font-size: 9pt;
 }
+.hidden-score {
+  color:#999;
+}
+
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }

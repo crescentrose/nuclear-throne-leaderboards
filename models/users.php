@@ -18,4 +18,32 @@ function check_your_privilege($steamid) {
     $player                  = $rows[0];
     return $player['admin'];
 }
+
+function hide_score($hash, $state = 1) {
+    global $db_username, $db_password;
+    $db                = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(
+        PDO::ATTR_EMULATE_PREPARES => false,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ));
+
+    $stmt = $db->prepare("UPDATE throne_scores SET hidden = :state WHERE hash = :hash");
+    $stmt->execute(array(
+        ':hash' => $hash,
+        ':state' => $state
+    ));
+}
+
+function mark_hacker($user, $state = 1) {
+    global $db_username, $db_password;
+    $db                = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(
+        PDO::ATTR_EMULATE_PREPARES => false,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ));
+
+    $stmt = $db->prepare("UPDATE throne_players SET suspected_hacker = :state WHERE steamid = :user");
+    $stmt->execute(array(
+        ':user' => $user,
+        ':state' => $state
+    ));
+}
 ?>

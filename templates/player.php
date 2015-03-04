@@ -43,6 +43,8 @@
   <div class="col-md-6">
     <div class="col-md-12">
     {% if player.suspected_hacker %}<div class="text-danger"><h3>Suspected hacker</h3> {{ player.name }} is marked as a <span class="label label-danger">Suspected Hacker</span>. <a href="/about" class="text-danger"><b>Click here</b></a> to learn more about the hacker marking process.</div> {% endif %}
+    {% if session.admin > 0 %}<div class="text-danger"><h3>Admin tools</h3><p><a href="/admin/player/{{ player.steamid }}/mark">Mark as hacker</a> | <a href="/admin/player/{{ player.steamid }}/unmark">Remove hacker mark</a></p>
+    <p>Note: Marked hackers will keep their scores until the next update.</p></div>{% endif %}
     <h3>All-time rank</h3>
     {% if player.totalrank == -1 %}
     <p>This player is not ranked at the moment, either because they were marked as a suspected hacker or because the scores did not yet update.</p>
@@ -56,15 +58,22 @@
           <td>Rank</td>
           <td><abbr title="Player's performance relative to the other runs of that day - e.g., 25% means that the player was in the top 25% of players that day.">Top %</abbr></td>
           <td>Score</td>
+          {% if session.admin > 0 %}
+          <td class="text-danger">Admin</td>
+          {% endif %}
         </thead>
         <tbody>
-          {% for score in scores %}
-          <tr onclick="document.location = '/score/{{ score.hash}}'">
+          {% for score in scores_reverse %}
+          <tr onclick="document.location = '/score/{{ score.hash}}'" {% if score.hidden %}class="hidden-score"{% endif %} >
             <td>{{ score.date }}</td>
-            <td><b>{{ score.rank }}</b></a></td>
+            <td><b>#{{ score.rank }}</b></a></td>
             <td>{{ score.percentage }}%</td>
             <td>{{ score.score }}</td>
+            {% if session.admin > 0 %}
+            <td><a href="/admin/player/{{ player.steamid }}/score/{{ score.hash }}/delete" class="text-danger">Hide</a></td>
+            {% endif %}
           </tr>
+          
           {% endfor %}
         </tbody>
         </table>
