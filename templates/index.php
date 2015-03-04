@@ -18,7 +18,7 @@
         <td>Rank</td>
         <td>Player</td>
         {% if session.admin > 0 %}
-        <td>Last update</td>
+        <td>First seen</td>
         {% endif %}
         <td>Score</td>
       </thead>
@@ -32,7 +32,7 @@
             <span class="label label-danger pull-right">Suspected Hacker</span>
           {% endif %}</td>
           {% if session.admin > 0 %}
-          <td>{{ player.last_updated }}</td>
+          <td>{{ player.first_created }}</td>
           {% endif %}
           <td>{{ player.score }}</td>
         </tr>
