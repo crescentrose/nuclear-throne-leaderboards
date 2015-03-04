@@ -132,7 +132,7 @@ function update_leaderboard($leaderboardId = "") {
         // Prepare the SQL statement
         $stmt = $db->prepare("INSERT INTO throne_scores(hash, dayId, steamId, score, rank, hidden) VALUES(:hash, :dayId,:steamID,:score,:rank,:hidden) ON DUPLICATE KEY UPDATE rank=VALUES(rank), score=VALUES(score), hidden=VALUES(hidden);");
         // Insert data into the database
-        $stmt->execute(array(':hash' => $score['hash'], ':dayId' => $score['dayId'], ':steamID' => $score['steamID'], ':score' => $score['score'], ':rank' => $rank_hax, ":hidden" => 1);
+        $stmt->execute(array(':hash' => $score['hash'], ':dayId' => $score['dayId'], ':steamID' => $score['steamID'], ':score' => $score['score'], ':rank' => $rank_hax, ":hidden" => 1));
         $rank_hax += 1;
       }
     }
