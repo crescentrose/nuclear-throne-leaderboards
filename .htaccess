@@ -1,6 +1,6 @@
 RewriteEngine on
 
-RewriteRule ^(img|css|js)/ - [L]
+RewriteRule ^(img|css|js|updater)/ - [L]
 
 RewriteRule ^score/([0-9a-z]+)$ index.php?do=score&hash=$1
 RewriteRule ^score/([0-9a-z]+)/$ index.php?do=score&hash=$1

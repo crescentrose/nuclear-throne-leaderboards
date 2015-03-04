@@ -1,5 +1,5 @@
 <?php
-require "config.php";
+require("../config.php");
 
 function get_data($url) {
 	$ch = curl_init();
@@ -12,7 +12,7 @@ function get_data($url) {
 	return $data;
 }
 
-if (!isset($db_username)) { $db_username="root"; } // My dev box sucks.
+// if (!isset($db_username)) { $db_username="root"; } // My dev box sucks.
 
 // This file should be in a cron job to run every 15 minutes, depending on
 // service load.
@@ -51,7 +51,7 @@ function update_leaderboard($leaderboardId = "") {
 
       if ($leaderboardDate < 0) {
         $last += 1;
-	      print("Leaderboard not found, going to last - ". $last);
+	      print("Leaderboard not found, going to last - ". $last . "\n");
         continue;
       } else {
         print ($leaderboardDate[0]);
@@ -140,21 +140,20 @@ function update_leaderboard($leaderboardId = "") {
   echo "Finished updating today's leaderboards.\n";
 }
 function update_steam_profiles() {
-  global $db_username, $db_password;
+  global $db_username, $db_password, $steam_apikey;
   $db = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-
   set_time_limit(0);
 
   // Check which steam ids are eligible for an update
   // SteamIDs will update only if they've been active on the leaderboards in the
-  // past five days and if they have not been updated in the past three days (or
+  // past five days and if they have not been updated in the past day (or
   // at all)
 
   $result = $db->query('SELECT DISTINCT throne_scores.steamId
   FROM throne_scores
   LEFT JOIN throne_players ON throne_scores.steamId = throne_players.steamid
   WHERE DATEDIFF(NOW(), throne_scores.last_updated) < 5
-  AND (DATEDIFF(NOW(), throne_players.last_updated) > 3
+  AND (DATEDIFF(NOW(), throne_players.last_updated) > 1
    OR throne_players.last_updated IS NULL);');
 
   $t = $result->rowCount();
@@ -168,16 +167,19 @@ function update_steam_profiles() {
         // For each player, we get their profile page and save their name and a link
         // to their avatar.
         try {
-          $xmlUserData = get_data("http://steamcommunity.com/profiles/" . $row['steamId'] . "/?xml=1");
-          @$user = new SimpleXMLElement($xmlUserData);
+          global $steam_apikey;
+          $jsonUserData = get_data("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=".$steam_apikey."&steamids=" . $row['steamId']);
+          $user = json_decode($jsonUserData, true);
 
           $stmt = $db->prepare("INSERT INTO throne_players(steamid, name, avatar) VALUES(:steamid, :name, :avatar) ON DUPLICATE KEY UPDATE name=VALUES(name), avatar=VALUES(avatar), last_updated=NOW();");
-          $stmt->execute(array(':steamid' => $row['steamId'], ':name' => $user->steamID, ':avatar' => $user->avatarIcon));
+          $stmt->execute(array(':steamid' => $row['steamId'], ':name' => $user["response"]["players"][0]["personaname"], ':avatar' => $user["response"]["players"][0]["avatar"]));
 
           // Log the update.
-          echo '[' . $c . '/' . $t . '] Updated ' . $row['steamId'] . " as " . $user->steamID ."\n";
+          echo '[' . $c . '/' . $t . '] Updated ' . $row['steamId'] . " as " .  $user["response"]["players"][0]["personaname"] ."\n";
         } catch (Exception $e) {
           echo '[' . $c . '/' . $t . '] Failed to update ' . $row['steamId'] . ' due to ' . $e->getMessage() . "\n";
+          echo '[' . $c . '/' . $t . "]   Pulled from: " . "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=".$steam_apikey."&steamids=" . $row['steamId'] . " \n";
+          echo '[' . $c . '/' . $t . "]   Result: " .  var_dump($jsonUserData)." \n";
         }
         // Wait for 0.2 seconds so that we don't piss off Lord GabeN and mistakenly
         // DoS Steam.
