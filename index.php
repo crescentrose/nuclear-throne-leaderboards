@@ -16,8 +16,12 @@ require_once 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('templates');
 $twig   = new Twig_Environment($loader /*, array('cache' => 'cache', 'debug' => false)*/ );
 
-session_start();
+// include all models
+foreach (glob("models/*.php") as $filename) {
+    include $filename;
+}
 
+session_start();
 
 $openid = new LightOpenID($steam_callback);
 if (!$openid->mode) {
@@ -67,10 +71,6 @@ foreach (glob("controllers/*.php") as $filename) {
     $controller_list[] = $match[1];
 }
 
-// include all models
-foreach (glob("models/*.php") as $filename) {
-    include $filename;
-}
 
 // route requests
 if (isset($_GET['do'])) {
