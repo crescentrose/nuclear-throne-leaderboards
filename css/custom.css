@@ -140,6 +140,16 @@ body {
   color:#999;
 }
 
+.global {
+  text-align: center;
+  margin: 15px;
+  padding: 5px 0 0 0;
+}
+
+.stat {
+  display: inline;
+  padding: 10%;
+}
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }

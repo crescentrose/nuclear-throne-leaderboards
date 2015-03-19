@@ -45,19 +45,22 @@ function get_latest_daily($page = 0)
             $row['first_created'] = "n/a";
         }
         $players[] = $row;
-    } //$db->query('SELECT throne_scores.steamId, throne_players.suspected_hacker, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_scores.dayId = ' . $today . ' ORDER BY rank ASC LIMIT ' . $page * 30 . ', 30') as $row
+    }
     $results     = $db->query('SELECT * FROM throne_streams ORDER BY viewers DESC LIMIT 0,3');
     $streamcount = $results->rowCount();
     foreach ($results as $row) {
         $streams[] = $row;
     } //$results as $row
     
+    $globalstats = $db->query('SELECT COUNT(*) AS amount, AVG(score) AS average FROM throne_scores WHERE throne_scores.dayId = ' . $today)->fetchAll(PDO::FETCH_ASSOC);
+
     return array(
         'date' => $today_date,
         'players' => $players,
         'players_yesterday' => $players_yesterday,
         'streams' => $streams,
         'streamcount' => $streamcount,
+        'global' => $globalstats[0],
         'page' => $page + 1
     );
 }
