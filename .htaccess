@@ -4,19 +4,27 @@ RewriteRule ^(img|css|js|updater)/ - [L]
 
 RewriteRule ^score/([0-9a-z]+)$ index.php?do=score&hash=$1
 RewriteRule ^score/([0-9a-z]+)/$ index.php?do=score&hash=$1
+
 RewriteRule ^player/(.*)$ index.php?do=player&steamid=$1
 RewriteRule ^player/(.*)/$ index.php?do=player&steamid=$1
+
 RewriteRule ^daily/([0-9]+)$ index.php?page=$1
+
 RewriteRule ^archive/$ index.php?do=archive
 RewriteRule ^archive$ index.php?do=archive
+
 RewriteRule ^about$ index.php?do=about
 RewriteRule ^about/$ index.php?do=about
+
 RewriteRule ^all-time$ index.php?do=alltime
-RewriteRule ^all-time/$ index.php?do=alltime
-RewriteRule ^all-time/([0-9]+)$ index.php?do=alltime&page=$1
-RewriteRule ^all-time/([0-9]+)/$ index.php?do=alltime&page=$1
+RewriteRule ^all-time/(total|avg)?$ index.php?do=alltime&sort=$1
+RewriteRule ^all-time/([0-9]+)/(total|avg)?$ index.php?do=alltime&page=$1&sort=$2
+RewriteRule ^all-time/([0-9]+)/(total|avg)?$ index.php?do=alltime&page=$1&sort=$2
+
 RewriteRule ^archive/([0-9]+)/([0-9]+)/([0-9]+)/page-([0-9]+)/$ index.php?do=archive&date=$1-$2-$3&page=$4
 RewriteRule ^archive/([0-9]+)/([0-9]+)/([0-9]+)/page-([0-9]+)$ index.php?do=archive&date=$1-$2-$3&page=$4
+
+
 
 RewriteRule ^admin/player/(.*)/score/([0-9a-z]+)/delete$ index.php?do=admin&act=hide&hash=$2&player=$1
 RewriteRule ^admin/player/(.*)/score/([0-9a-z]+)/delete/$ index.php?do=admin&act=hide&hash=$2&player=$1

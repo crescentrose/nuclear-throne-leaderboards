@@ -65,7 +65,7 @@ function get_latest_daily($page = 0)
     );
 }
 
-function get_alltime($page = 1)
+function get_alltime($page = 1, $sort = "total")
 {
     global $db_username, $db_password;
     $db      = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(
@@ -74,6 +74,11 @@ function get_alltime($page = 1)
     ));
     $alltime = array();
     $page    = $page - 1;
+    if ($sort == "total") {
+        $order_by = "score";
+    } elseif ($sort == "avg") {
+        $order_by = "avg";
+    }
     foreach ($db->query('SELECT  d.*, p.*, c.ranks, r.runs
                       FROM (
                         SELECT    score, @rank:=@rank+1 Ranks
