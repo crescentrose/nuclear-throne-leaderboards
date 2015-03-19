@@ -33,3 +33,8 @@ RewriteRule ^admin/player/(.*)/unmark/$ index.php?do=admin&act=unmark&player=$1
 
 RewriteRule ^admin/player/(.*)/update$ index.php?do=admin&act=update&player=$1
 RewriteRule ^admin/player/(.*)/update/$ index.php?do=admin&act=update&player=$1
+
+
+<IfModule headers_module>
+    header set X-Clacks-Overhead "GNU Terry Pratchett"
+</IfModule>
