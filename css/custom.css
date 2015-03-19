@@ -111,6 +111,11 @@ body {
   font-weight: bold;
 }
 
+.ranktable>thead {
+  border-bottom: 1px solid rgba(255,255,255, 0.3);
+  font-weight: normal;
+}
+
 .ranktable > tbody > tr:nth-child(odd) > td {
    background-color: rgba(0,0,0,0.3);
 }

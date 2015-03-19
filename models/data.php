@@ -74,12 +74,24 @@ function get_alltime($page = 1, $sort = "total")
     ));
     $alltime = array();
     $page    = $page - 1;
-    if ($sort == "total") {
-        $order_by = "score";
-    } elseif ($sort == "avg") {
-        $order_by = "avg";
-    }
-    foreach ($db->query('SELECT  d.*, p.*, c.ranks, r.runs
+    if ($sort == "avg") {
+        $result = $db->query('SELECT  d.*, p.*, c.ranks, r.runs
+                      FROM (
+                        SELECT    average, @rank:=@rank+1 Ranks
+                        FROM (
+                                    SELECT  DISTINCT average 
+                                    FROM    throne_alltime a
+                                    ORDER   BY average DESC
+                                ) t, (SELECT @rank:= 0) r
+                               ) c 
+                      INNER JOIN throne_alltime d ON c.average = d.average
+                      LEFT JOIN throne_players p ON p.steamid = d.steamid
+                      LEFT JOIN (
+                        SELECT steamid, COUNT(*) AS runs FROM throne_scores GROUP BY steamid
+                      ) r ON r.steamid = d.steamid 
+                        ORDER BY c.ranks LIMIT ' . $page * 30 . ', 30');
+    } else {
+        $result = $db->query('SELECT  d.*, p.*, c.ranks, r.runs
                       FROM (
                         SELECT    score, @rank:=@rank+1 Ranks
                         FROM (
@@ -92,7 +104,9 @@ function get_alltime($page = 1, $sort = "total")
                       LEFT JOIN throne_players p ON p.steamid = d.steamid
                       LEFT JOIN (
                         SELECT steamid, COUNT(*) AS runs FROM throne_scores GROUP BY steamid
-                      ) r ON r.steamid = d.steamid LIMIT ' . $page * 30 . ', 30') as $row) {
+                      ) r ON r.steamid = d.steamid LIMIT ' . $page * 30 . ', 30'); 
+    }
+    foreach ($result as $row) {
         if ($row['name'] === "") {
             $row['name'] = "[no profile]";
         } //$row['name'] === ""
@@ -104,7 +118,8 @@ function get_alltime($page = 1, $sort = "total")
     
     return array(
         'alltime' => $alltime,
-        'page' => $page + 1
+        'page' => $page + 1,
+        'sort' => $sort
     );
 }
 
