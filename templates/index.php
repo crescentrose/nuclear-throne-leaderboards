@@ -61,6 +61,7 @@
             <thead>
               <td>Rank</td>
               <td>Player</td>
+              <td></td>
               <td>Score</td>
             </thead>
             <tbody>
@@ -71,6 +72,10 @@
                 {% if player.suspected_hacker %}
                   <span class="label label-danger pull-right">Suspected Hacker</span>
                 {% endif %}</td>
+                <td>
+                {% if player.wins > 0 %}
+                    <span class="crown"><img src="/img/crown.png" alt="This player has won on {{ player.wins }} day(s)!" /><span class="wins">{{ player.wins }}</span></span>
+                  {% endif %}</td>
                 <td>{{ player.score }}</td>
               </tr>
               {% endfor %}

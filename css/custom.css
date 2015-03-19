@@ -163,9 +163,11 @@ body {
 }
 
 .crown {
-  margin-right: 20px;
+  margin: 5px 10px 5px 0;
 }
+
 .wins {
+  z-index: 99;
   font-family: "Press Start K";
   font-size: 12px;
   position:relative;
