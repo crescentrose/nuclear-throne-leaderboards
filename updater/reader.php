@@ -1,5 +1,6 @@
 <?php
-require("config.php");
+require("..\config.php");
+require("codebird.php");
 
 function get_data($url) {
 	$ch = curl_init();
@@ -22,7 +23,8 @@ function get_data($url) {
 // This function will pull the latest leaderboard data from Steam and update the
 // data for that day's daily in the database for caching purposes.
 function update_leaderboard($leaderboardId = "") {
-  global $db_username, $db_password;
+  global $db_username, $db_password, $twitter_settings, $steam_apikey;
+
   if ($leaderboardId === "") {
     // Fetch the XML file for Nuclear Throne.
     $xmlLeaderboardList = get_data('http://steamcommunity.com/stats/242680/leaderboards/?xml=1');
@@ -121,6 +123,28 @@ function update_leaderboard($leaderboardId = "") {
     $db->beginTransaction();
 
     foreach ($scores as $score) {
+      if ($rank == 1) {
+        if ($score["steamID"] != file_get_contents("first.txt") && $score["score"] > 300) {
+          $file = fopen("first.txt", "w");
+          fwrite($file, $score["steamID"]);
+          fclose($file);
+
+          \Codebird\Codebird::setConsumerKey($twitter_settings["consumer_key"], $twitter_settings["consumer_secret"]);
+          $cb = \Codebird\Codebird::getInstance();
+          $cb->setToken($twitter_settings["oauth_access_token"], $twitter_settings["oauth_access_token_secret"]);
+
+          $jsonUserData = get_data("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=".$steam_apikey."&steamids=" . $score['steamID']);
+          $user = json_decode($jsonUserData, true);
+
+          $username = $user["response"]["players"][0]["personaname"];
+
+          $params = array(
+            'status' => $username . " has taken the lead with " . $score["score"] . " kills!"
+          );
+          $reply = $cb->statuses_update($params);
+        }
+
+      }
       if (array_search($score['steamID'], $banned) === false) {
         // Prepare the SQL statement
         $stmt = $db->prepare("INSERT INTO throne_scores(hash, dayId, steamId, score, rank, first_created) VALUES(:hash, :dayId,:steamID,:score,:rank,NOW()) ON DUPLICATE KEY UPDATE rank=VALUES(rank), score=VALUES(score);");
@@ -242,7 +266,7 @@ if (isset($argv[1])) {
   update_leaderboard();
 }
 update_twitch();
-update_steam_profiles();
+update_steam_profiles(); 
 
 echo "End update: " . date("Y-m-d H:i:s") . "\n";
 ?>

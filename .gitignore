@@ -8,6 +8,7 @@ Desktop.ini
 # Configuration file
 config.php
 updater/config.php
+updater/first.txt
 steamauth/settings.php
 vendor/
 composer.lock
@@ -50,3 +51,4 @@ Temporary Items
 .apdisk
 
 announcement.txt
+composer.phar
