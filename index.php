@@ -89,6 +89,7 @@ if (isset($_GET['do'])) {
 render($twig, array(
     'session' => $_SESSION,
     'weekday' => date("w") + 1,
-    'get' => $_GET
+    'get' => $_GET,
+    'notice' => @file_get_contents("announcement.txt")
 ));
 ?>

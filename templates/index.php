@@ -1,6 +1,12 @@
 {% extends "default.php" %}
 
 {% block content %}
+
+{% if notice %}
+<div class="alert alert-info row">
+{{ notice|raw }}
+</div>
+{% endif %}
 <!-- Main page -->
 <div class="container-fluid ">
   <div class="row">
@@ -36,7 +42,7 @@
                     <span class="label label-danger pull-right">Suspected Hacker</span>
                   {% endif %}
                   {% if player.wins > 0 %}
-                    <span class="pull-right crown"><img src="/img/crown.png" alt="This player has won on {{ player.wins }} day(s)!" /><span class="wins">{{ player.wins }}</span></span>
+                    <span class="pull-right crown"><img src="/img/crown.png" alt="Previous wins" title="This player has won on {{ player.wins }} day(s)!" /><span class="wins">{{ player.wins }}</span></span>
                   {% endif %}
                 </td>
                 {% if session.admin > 0 %}
@@ -74,7 +80,7 @@
                 {% endif %}</td>
                 <td>
                 {% if player.wins > 0 %}
-                    <span class="crown"><img src="/img/crown.png" alt="This player has won on {{ player.wins }} day(s)!" /><span class="wins">{{ player.wins }}</span></span>
+                    <span class="crown"><img src="/img/crown.png" title="This player has won on {{ player.wins }} day(s)!" alt="Previous wins" /><span class="wins">{{ player.wins }}</span></span>
                   {% endif %}</td>
                 <td>{{ player.score }}</td>
               </tr>

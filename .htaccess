@@ -1,3 +1,5 @@
+Options -Indexes 
+
 RewriteEngine on
 
 RewriteRule ^(img|css|js|updater)/ - [L]

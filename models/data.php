@@ -52,7 +52,7 @@ function get_latest_daily($page = 0)
         $streams[] = $row;
     } //$results as $row
     
-    $globalstats = $db->query('SELECT COUNT(*) AS amount, AVG(score) AS average FROM throne_scores WHERE throne_scores.dayId = ' . $today)->fetchAll(PDO::FETCH_ASSOC);
+    $globalstats = $db->query('SELECT COUNT(*) AS amount, ROUND(AVG(score)) AS average FROM throne_scores WHERE throne_scores.dayId = ' . $today)->fetchAll(PDO::FETCH_ASSOC);
 
     return array(
         'date' => $today_date,
