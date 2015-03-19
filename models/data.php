@@ -75,7 +75,7 @@ function get_alltime($page = 1, $sort = "total")
     $alltime = array();
     $page    = $page - 1;
     if ($sort == "avg") {
-        $result = $db->query('SELECT  d.*, p.*, c.ranks, r.runs, w.*
+        $result = $db->query('SELECT  d.*, p.*, c.ranks, w.*
                       FROM (
                         SELECT    average, @rank:=@rank+1 Ranks
                         FROM (
@@ -87,10 +87,7 @@ function get_alltime($page = 1, $sort = "total")
                       INNER JOIN throne_alltime d ON c.average = d.average
                       LEFT JOIN throne_players p ON p.steamid = d.steamid
                       LEFT JOIN ((SELECT COUNT(*) as wins, steamid FROM throne_scores WHERE rank = 1 GROUP BY steamid) AS w) ON w.steamid = d.steamid
-                      LEFT JOIN (
-                        SELECT steamid, COUNT(*) AS runs FROM throne_scores GROUP BY steamid
-                      ) r ON r.steamid = d.steamid 
-                        ORDER BY c.ranks LIMIT ' . $page * 30 . ', 30');
+                      ORDER BY c.ranks LIMIT ' . $page * 30 . ', 30');
     } else {
         $result = $db->query('SELECT  d.*, p.*, c.ranks, r.runs, w.*
                       FROM (

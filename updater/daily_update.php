@@ -15,8 +15,8 @@ function update_alltime() {
 
     $db->query("TRUNCATE TABLE throne_alltime");
 
-    $db->query("INSERT INTO throne_alltime(steamid, score, average) 
-  		SELECT throne_scores.steamid, SUM(score) as score, AVG(score) as average
+    $db->query("INSERT INTO throne_alltime(steamid, score, average, runs) 
+  		SELECT throne_scores.steamid, SUM(score) as score, AVG(score) as average, COUNT(score) AS runs
   		FROM `throne_scores`
   		LEFT JOIN throne_players ON throne_scores.steamid = throne_players.steamid
   		WHERE suspected_hacker = 0
