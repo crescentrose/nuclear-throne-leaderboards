@@ -1,7 +1,5 @@
 <?php 
 function render($twig, $sdata = array()) {
-	if (!isset($_GET["sort"]))
-		$_GET["sort"] == "total";
 	if(isset($_GET["page"])) {
 		$data = get_alltime($_GET["page"], $_GET["sort"]);
 	} else {
