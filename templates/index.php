@@ -30,10 +30,15 @@
               {% if player.hidden == 0 %}
               <tr>
                 <td width="30px">{{ player.rank }}</td>
-                <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamId }}">{{ player.name }}</a>
-                {% if player.suspected_hacker %}
-                  <span class="label label-danger pull-right">Suspected Hacker</span>
-                {% endif %}</td>
+                <td>
+                  <img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamId }}">{{ player.name }}</a>
+                  {% if player.suspected_hacker %}
+                    <span class="label label-danger pull-right">Suspected Hacker</span>
+                  {% endif %}
+                  {% if player.wins > 0 %}
+                    <span class="pull-right crown"><img src="/img/crown.png" alt="This player has won on {{ player.wins }} day(s)!" /><span class="wins">{{ player.wins }}</span></span>
+                  {% endif %}
+                </td>
                 {% if session.admin > 0 %}
                 <td>{{ player.first_created }}</td>
                 {% endif %}

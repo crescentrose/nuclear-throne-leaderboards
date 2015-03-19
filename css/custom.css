@@ -1,3 +1,9 @@
+
+@font-face {
+    font-family: "Press Start K";
+    src: url("/fonts/prstartk.ttf");
+}
+
 body {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -155,7 +161,24 @@ body {
   display: inline;
   padding: 10%;
 }
+
+.crown {
+  margin-right: 20px;
+}
+.wins {
+  font-family: "Press Start K";
+  font-size: 12px;
+  position:relative;
+  top: 8px;
+  left: -7px;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */
+
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
 }

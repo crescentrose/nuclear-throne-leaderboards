@@ -5,7 +5,7 @@
 <!-- Main page -->
 <div class="row col-md-12 main center-block">
 	<h1>All-time leaderboards</h1>
-  <p>Click on one of the score columns to sort by it. Data is updated every hour.</p>
+  <p>Click on one of the score columns to sort by it. Average scores might need some time to load while we process the data for you.</p>
   <table class="table table-responsive ranktable">
     <thead>
       <td class="col-sm-1">Rank</td>
