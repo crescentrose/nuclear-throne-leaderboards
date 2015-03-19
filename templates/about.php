@@ -6,7 +6,16 @@
   <h1>About</h1>
   <p>Hi! I made this website so that I could have a better overview over my Nuclear Throne daily runs, which aren't available on public Steam leaderboards.</p>
   <p>You can contact me via <a href="http://steamcommunity.com/id/i542">Steam</a> if you're a fellow gamer, or via mail: <code>tko.netko&lt;at&gt;gmail.com</code>.</p>
-  <p>You can also <a href="https://twitter.com/somwhatparanoid">follow me on Twitter</a> for site updates.</p>
+
+  <p>These glorious individuals have helped shape the site:
+    <ul>
+      <li><a href="/player/76561198043826390">Ledraps</a> - site moderator</li>
+      <li><b>Gieron</b> - advertised the site a lot and put me in touch with the devs</li>
+      <li><b>jwaap</b> - suggested Top% in profile view</li>
+      <li><b>Hunty Mgee</b> - suggested global stats</li>
+      <li><b>mtar</b> - suggested sorting all time stats by average</li>
+    </ul>
+  </p>
   <p>This page would not be possible without:
   <ul><li><a href="http://store.steampowered.com">Steam</a> Web API</li>
   <li><a href="http://nuclearthrone.com/">Nuclear Throne</a>, the game</li>

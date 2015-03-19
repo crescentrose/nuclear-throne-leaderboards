@@ -85,7 +85,7 @@
       </nav>
       {% block content %}{% endblock %}
      <div class="row col-md-12 footer center-block">
-       Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[WA]Darwin</a>. This site is open-source - <a href="https://github.com/notyourshield/nuclear-throne-leaderboards">check it out on GitHub!</a> I've found the background with one of the patch notes - sorry for stealing, contact me if you're the original artist so that I can credit you or remove your work if you so desire!
+       Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[WA]Darwin</a>. Art was made by Justin Chan for Nuclear Throne update notes.
      </div>
     </div> <!-- /container -->
   </body>
