@@ -1,5 +1,5 @@
 <?php
-require("..\config.php");
+require("config.php");
 require("codebird.php");
 
 // Connect to the database.

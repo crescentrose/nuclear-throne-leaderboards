@@ -66,7 +66,7 @@
             {% if session.steamid == "" %}
               <form action="/?login" method="post" class="navbar-form navbar-right">
                 <div class="form-group">
-                  <input type="image" src="http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_small.png">
+                  <input type="image" src="/img/sits_small.png">
                 </div>
               </form>
             {% else %}

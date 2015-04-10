@@ -1,5 +1,5 @@
 <?php
-require("..\config.php");
+require("config.php");
 require("codebird.php");
 
 function get_data($url) {
@@ -115,6 +115,12 @@ function update_leaderboard($leaderboardId = "") {
   foreach ($db->query('SELECT steamid FROM throne_players WHERE suspected_hacker = 1') as $row) {
         $banned[] = $row['steamid'];
   }
+
+  // get a list of hidden players for today
+  foreach ($db->query('SELECT steamid FROM throne_scores WHERE hidden = 1 AND dayId = ' . $leaderboardId) as $row) {
+	$banned[] = $row['steamid'];
+	echo("[DEBUG] Hiding scores by " . $row['steamid'] . " today.\n");
+}
     
   $rank = 1;
   $rank_hax = count($scores) + 1;
@@ -246,7 +252,7 @@ function update_twitch() {
     foreach ($streams['streams'] as $stream) {  
       $stmt = $db->prepare("INSERT INTO throne_streams(name, status, viewers, preview) VALUES(:name, :status, :viewers, :preview)");
       // ON DUPLICATE KEY UPDATE name=VALUES(name), avatar=VALUES(avatar);
-      $stmt->execute(array(':name' => $stream['channel']['name'], ':status' => $stream['channel']['status'], ':viewers' => $stream['viewers'], ':preview' => $stream['preview']['small']));
+      $stmt->execute(array(':name' => $stream['channel']['name'], ':status' => $stream['channel']['status'], ':viewers' => $stream['viewers'], ':preview' => str_replace("http://", "https://", $stream['preview']['small'])));
     }
 
     $db->commit();

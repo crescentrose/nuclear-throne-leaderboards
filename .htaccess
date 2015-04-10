@@ -2,6 +2,9 @@ Options -Indexes
 
 RewriteEngine on
 
+RewriteCond %{HTTPS} on
+RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI} 
+
 RewriteRule ^(img|css|js|updater)/ - [L]
 
 RewriteRule ^score/([0-9a-z]+)/?$ index.php?do=score&hash=$1
@@ -36,3 +39,4 @@ RewriteRule ^admin/player/(.*)/update/$ index.php?do=admin&act=update&player=$1
 <IfModule headers_module>
     header set X-Clacks-Overhead "GNU Terry Pratchett"
 </IfModule>
+
