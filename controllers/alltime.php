@@ -16,6 +16,8 @@ function render($twig, $sdata = array()) {
 		$sort = "average";
 	} elseif ($_GET["sort"] == "runs") {
 		$sort = "runs";
+	} elseif ($_GET["sort"] == "wins") {
+		$sort = "wins";
 	} else {
 		$sort = "score";
 	}
