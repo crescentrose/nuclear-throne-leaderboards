@@ -4,11 +4,11 @@
 
 		public function __construct($data) {
 			if (isset($data["search"])) {
-				$db = new Database();
-				$result = $db->execute("SELECT * FROM `throne_players`
-					WHERE steamid = :steamid",
-					array(':steamid' => $data["search"]))[0];
-				$data = $result->fetchAll();
+				$db = Application::connect();
+				$stmt = $db->prepare("SELECT * FROM `throne_players` WHERE steamid = :steamid");
+				$stmt->execute(array(':steamid' => $data["search"]));
+				$data = $stmt->fetchAll()[0];
+				$data["raw"] = $data;
 			}
 
 			$this->steamid = $data["steamid"];
@@ -34,6 +34,7 @@
 			return array("steamid" 				=> $this->steamid,
 						 "name"					=> $this->name,
 						 "avatar" 				=> $this->avatar,
+						 "avatar_medium"		=> $this->avatar_medium,
 						 "suspected_hacker"		=> $this->suspected_hacker,
 						 "admin"				=> $this->admin,
 						 "raw" 					=> $this->raw);

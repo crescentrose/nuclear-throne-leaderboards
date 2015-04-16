@@ -8,11 +8,17 @@
 		// Otherwise, pass an array with data provided by the table.
 		public function __construct($data) {
 			if (isset($data["hash"])) {
-				$db = new Database();
-				$data = $db->execute("SELECT * FROM `throne_scores`
-					WHERE hash = :hash",
-					array(':hash' => $data["hash"]))->fetchAll()[0];
-				$data["player"] = new Player(array("search" => $data["player"]));
+				$db = Application::connect();
+				try {
+					$stmt= $db->prepare("SELECT * FROM `throne_scores` WHERE `hash` = :hash");
+					$stmt->execute(array(':hash' => $data["hash"]));
+					$result = $stmt->fetchAll();
+				} catch (Exception $e) {
+					die ("Error reading score: " . $e->getMessage());
+				}
+				$data = $result[0];
+				$data["player"] = new Player(array("search" => $data["steamId"]));
+				$data["raw"] = $data;
 			}
 
 			$this->player = $data["player"];

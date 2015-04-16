@@ -58,35 +58,6 @@ function get_alltime($page = 1, $sort = "total")
     );
 }
 
-
-function get_score($hash)
-{
-    global $db_username, $db_password;
-    $db   = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(
-        PDO::ATTR_EMULATE_PREPARES => false,
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ));
-    $stmt = $db->prepare("SELECT * FROM throne_scores LEFT JOIN throne_players on throne_scores.steamId = throne_players.steamid LEFT JOIN throne_dates ON throne_dates.dayId = throne_scores.dayId WHERE hash = :hash");
-    $stmt->execute(array(
-        ':hash' => $hash
-    ));
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if ($stmt->rowCount() == 1) {
-        $rows[0]['avatar_medium'] = substr($rows[0]['avatar'], 0, -4) . "_medium.jpg";
-        if ($rows[0]['name'] === "") {
-            $rows[0]['name'] = "[no profile]";
-        } //$rows[0]['name'] === ""
-        if ($rows[0]['avatar'] === "") {
-            $rows[0]['avatar_medium'] = "/img/no-avatar.png";
-            $rows[0]['avatar']        = "/img/no-avatar-small.png";
-        } //$rows[0]['avatar'] === ""
-        return $rows[0];
-    } //$stmt->rowCount() == 1
-    else {
-        return false;
-    }
-}
-
 function get_player($steamid)
 {
     global $db_username, $db_password;

@@ -37,7 +37,7 @@
               <tr>
                 <td width="30px">{{ score.rank }}</td>
                 <td>
-                  <img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamId }}">{{ score.player.name }}</a>
+                  <img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamid }}">{{ score.player.name }}</a>
                   {% if score.player.suspected_hacker %}
                     <span class="label label-danger pull-right">Suspected Hacker</span>
                   {% endif %}
@@ -91,10 +91,10 @@
         <div class="sidebar-box">
           <h4>Currently popular streams</h4> 
           <div class="streams container-fluid">
-          {% if data.streamcount == 0 %}
+          {% if streamcount == 0 %}
             <p>Noone is streaming right now :( It can take up to 15 minutes for streams to show up here, so be patient!</p>
           {% else %}
-          {% for stream in data.streams %}   
+          {% for stream in streams %}   
             <div class="stream row">
               <div class="stream-pic-container col-md-3">
                 <a href="http://twitch.tv/{{ stream.name }}"><img src="{{ stream.preview }}" class="stream-pic" /></a>
