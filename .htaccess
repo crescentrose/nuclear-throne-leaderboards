@@ -14,7 +14,7 @@ RewriteRule ^daily/([0-9]+)$ index.php?page=$1
 RewriteRule ^archive/?$ index.php?do=archive
 RewriteRule ^about/?$ index.php?do=about
 
-RewriteRule ^all-time/([0-9]+)?/?(\w*)?/?$ index.php?do=alltime&page=$1&sort=$2
+RewriteRule ^all-time/?([0-9]+)?/?(\w*)?/?$ index.php?do=alltime&page=$1&sort=$2
 
 RewriteRule ^archive/([0-9]+)/([0-9]+)/([0-9]+)/page-([0-9]+)/?$ index.php?do=archive&date=$1-$2-$3&page=$4
 
