@@ -11,7 +11,7 @@
 <div class="container-fluid ">
   <div class="row">
       <div class="col-md-8 main">
-          <h1>Daily run leaderboards for {{ data.date }}</h1>
+          <h1>Daily run leaderboards for {{ date }}</h1>
           <h4>Data updated every 15 minutes.</h4>
           <form class="form-inline" id="searchform">
             <div class="form-group">
@@ -20,7 +20,7 @@
             <button type="submit" class="btn btn-default">Search</button>
           </form>
           <div class="global">
-            <div class="stat">Entries today: <b>{{ data.global.amount }}</b></div><div class="stat">Average score: <b>{{ data.global.average }}</b></div>
+            <div class="stat">Entries today: <b>{{ global.amount }}</b></div><div class="stat">Average score: <b>{{ global.average }}</b></div>
           </div>
           <table class="table table-responsive ranktable">
             <thead>
@@ -32,23 +32,23 @@
               <td>Score</td>
             </thead>
             <tbody>
-              {% for player in data.players %}
-              {% if player.hidden == 0 %}
+              {% for score in scores %}
+              {% if score.hidden == 0 %}
               <tr>
-                <td width="30px">{{ player.rank }}</td>
+                <td width="30px">{{ score.rank }}</td>
                 <td>
-                  <img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamId }}">{{ player.name }}</a>
-                  {% if player.suspected_hacker %}
+                  <img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamId }}">{{ score.player.name }}</a>
+                  {% if score.player.suspected_hacker %}
                     <span class="label label-danger pull-right">Suspected Hacker</span>
                   {% endif %}
-                  {% if player.wins > 0 %}
-                    <span class="pull-right crown"><img src="/img/crown.png" alt="Previous wins" title="This player has won on {{ player.wins }} day(s)!" /><span class="wins">{{ player.wins }}</span></span>
+                  {% if score.player.raw.wins > 0 %}
+                    <span class="pull-right crown"><img src="/img/crown.png" alt="Previous wins" title="This player has won on {{ score.player.raw.wins }} day(s)!" /><span class="wins">{{ score.player.raw.wins }}</span></span>
                   {% endif %}
                 </td>
                 {% if session.admin > 0 %}
-                <td>{{ player.first_created }}</td>
+                <td>{{ score.first_created }}</td>
                 {% endif %}
-                <td>{{ player.score }}</td>
+                <td>{{ score.score }}</td>
               </tr>
               {% else %}
               <tr class="hidden-score">
@@ -71,18 +71,18 @@
               <td>Score</td>
             </thead>
             <tbody>
-              {% for player in data.players_yesterday %}
+              {% for score in scores_yesterday %}
               <tr>
-                <td width="30px">{{ player.rank }}</td>
-                <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamId }}">{{ player.name }}</a>
-                {% if player.suspected_hacker %}
+                <td width="30px">{{ score.rank }}</td>
+                <td><img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamId }}">{{ score.player.name }}</a>
+                {% if score.player.suspected_hacker %}
                   <span class="label label-danger pull-right">Suspected Hacker</span>
                 {% endif %}</td>
                 <td>
-                {% if player.wins > 0 %}
-                    <span class="crown"><img src="/img/crown.png" title="This player has won on {{ player.wins }} day(s)!" alt="Previous wins" /><span class="wins">{{ player.wins }}</span></span>
+                {% if score.player.raw.wins > 0 %}
+                    <span class="crown"><img src="/img/crown.png" title="This player has won on {{ score.player.raw.wins }} day(s)!" alt="Previous wins" /><span class="wins">{{ score.player.raw.wins }}</span></span>
                   {% endif %}</td>
-                <td>{{ player.score }}</td>
+                <td>{{ score.score }}</td>
               </tr>
               {% endfor %}
             </tbody>

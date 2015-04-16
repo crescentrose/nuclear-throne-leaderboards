@@ -13,8 +13,6 @@ function get_data($url) {
 	return $data;
 }
 
-// if (!isset($db_username)) { $db_username="root"; } // My dev box sucks.
-
 // This file should be in a cron job to run every 15 minutes, depending on
 // service load.
 // With one second pause between downloads, this should be enough provided that

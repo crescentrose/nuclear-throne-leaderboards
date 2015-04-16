@@ -3,13 +3,13 @@
 // Darwinian 100% Professional PHP Controller Page Router Thing(tm)(r)
 // Safety of using in production: 1%
 
-// enable development options
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
-
 require "config.php";
 
-global $db_username, $db_password;
+if ($config_development == true) {
+    // enable development options
+    error_reporting(E_ALL);
+    ini_set('display_errors', 'On');
+}
 
 // include and register Twig auto-loader
 require_once 'vendor/autoload.php';
@@ -70,7 +70,6 @@ foreach (glob("controllers/*.php") as $filename) {
     preg_match("/controllers\/(\w*)\.php/xi", $filename, $match);
     $controller_list[] = $match[1];
 }
-
 
 // route requests
 if (isset($_GET['do'])) {

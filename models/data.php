@@ -1,69 +1,7 @@
 <?php
 date_default_timezone_set("UTC");
+global $db;
 
-function get_latest_daily($page = 0)
-{
-    global $db_username, $db_password;
-    $db                = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(
-        PDO::ATTR_EMULATE_PREPARES => false,
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ));
-    $players           = array();
-    $players_yesterday = array();
-    $streams           = array();
-    
-    // Get latest day ID (clumsy!)
-    $daily      = $db->query('SELECT * FROM throne_dates ORDER BY dayId DESC LIMIT 0,2');
-    $result     = $daily->fetchAll();
-    $today      = $result[0]['dayId'];
-    $today_date = $result[0]['date'];
-    
-    $yesterday = $result[1]['dayId'];
-    
-    foreach ($db->query('SELECT throne_scores.steamId, throne_players.suspected_hacker, throne_scores.hash, throne_scores.hidden, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar, w.wins FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId LEFT JOIN ((SELECT COUNT(*) as wins, steamid FROM throne_scores WHERE rank = 1 GROUP BY steamid) AS w) ON w.steamid = throne_scores.steamid WHERE throne_scores.dayId = ' . $yesterday . ' ORDER BY rank ASC LIMIT 0,5') as $row) {
-        $row['avatar_medium'] = substr($row['avatar'], 0, -4) . "_medium.jpg";
-        if ($row['name'] === "") {
-            $row['name'] = "[no profile]";
-        } //$row['name'] === ""
-        if ($row['avatar'] === "") {
-            $row['avatar_medium'] = "/img/no-avatar.png";
-            $row['avatar']        = "/img/no-avatar-small.png";
-        } //$row['avatar'] === ""
-        $players_yesterday[] = $row;
-    } //$db->query('SELECT throne_scores.steamId, throne_players.suspected_hacker, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_players.avatar FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId WHERE throne_scores.dayId = ' . $yesterday . ' ORDER BY rank ASC LIMIT 0,5') as $row
-    
-    foreach ($db->query('SELECT throne_scores.steamId, throne_players.suspected_hacker, throne_scores.hash, throne_scores.rank, throne_scores.score, throne_players.name, throne_scores.last_updated, throne_scores.hidden, throne_scores.first_created, throne_players.avatar, w.wins FROM throne_scores LEFT JOIN throne_players ON throne_players.steamid = throne_scores.steamId LEFT JOIN ((SELECT COUNT(*) as wins, steamid FROM throne_scores WHERE rank = 1 GROUP BY steamid) AS w) ON w.steamid = throne_scores.steamid WHERE throne_scores.dayId = ' . $today . ' ORDER BY rank ASC LIMIT ' . $page * 30 . ', 30') as $row) {
-        $row['avatar_medium'] = substr($row['avatar'], 0, -4) . "_medium.jpg";
-        if ($row['name'] === "") {
-            $row['name'] = "[no profile]";
-        } //$row['name'] === ""
-        if ($row['avatar'] === "") {
-            $row['avatar_medium'] = "/img/no-avatar.png";
-            $row['avatar']        = "/img/no-avatar-small.png";
-        } //$row['avatar'] === ""
-        if ($row['first_created'] == "0000-00-00 00:00:00") {
-            $row['first_created'] = "n/a";
-        }
-        $players[] = $row;
-    }
-    $results     = $db->query('SELECT * FROM throne_streams ORDER BY viewers DESC LIMIT 0,3');
-    $streamcount = $results->rowCount();
-    foreach ($results as $row) {
-        $streams[] = $row;
-    } //$results as $row
-    
-    $globalstats = $db->query('SELECT COUNT(*) AS amount, ROUND(AVG(score)) AS average FROM throne_scores WHERE throne_scores.dayId = ' . $today)->fetchAll(PDO::FETCH_ASSOC);
-
-    return array(
-        'date' => $today_date,
-        'players' => $players,
-        'players_yesterday' => $players_yesterday,
-        'streams' => $streams,
-        'streamcount' => $streamcount,
-        'global' => $globalstats[0],
-        'page' => $page + 1
-    );
-}
 
 function get_alltime($page = 1, $sort = "total")
 {
