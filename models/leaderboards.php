@@ -31,26 +31,23 @@ class Leaderboard {
 	}
 
 	public function create_alltime($start = 0, $size = 30, $order_by = "score", $direction = "DESC") {
-		$stmt = $this->db->prepare("SELECT d.*, p.*, c.ranks, w.*
-						FROM (
-							SELECT $order_by, @rank:=@rank+1 Ranks
-							FROM (
-								SELECT  DISTINCT $order_by 
-								FROM    throne_alltime a
-								ORDER BY $order_by $direction
-								) t, (SELECT @rank:= 0) r
-							) c 
-						INNER JOIN throne_alltime d ON c.$order_by = d.$order_by
-						LEFT JOIN throne_players p ON p.steamid = d.steamid
-						LEFT JOIN (
-							(
-								SELECT COUNT(*) as wins, steamid
-								FROM throne_scores
-								WHERE rank = 1
-								GROUP BY steamid
-							) 
-						AS w) ON w.steamid = d.steamid
-						ORDER BY c.ranks LIMIT :start, :size");
+		$this->db->query("SET @prev_value = NULL");
+		$this->db->query("SET @rank_count = 0");
+		$stmt = $this->db->prepare("SELECT * FROM (
+									SELECT a.score, a.average, a.runs, w.*, p.*, CASE
+										WHEN @prev_value = $order_by THEN @rank_count
+    									WHEN @prev_value := $order_by THEN @rank_count := @rank_count + 1
+									END AS rank
+									FROM throne_alltime a
+									LEFT JOIN throne_players p ON p.steamid = a.steamid
+									LEFT JOIN ( (
+										SELECT COUNT(*) as wins, steamid AS sid
+										FROM throne_scores
+										WHERE rank = 1
+										GROUP BY steamid
+									) AS w) ON w.sid = a.steamid
+									ORDER BY $order_by DESC ) AS t
+									LIMIT :start, :size");
 		$stmt->execute(array(":start" => $start, ":size" => $size));
 		$entries = $stmt->fetchAll();
 
