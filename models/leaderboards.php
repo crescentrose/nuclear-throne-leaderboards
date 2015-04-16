@@ -44,6 +44,7 @@ class Leaderboard {
 			LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId
 			WHERE `date` = "' . $this->date . "\"")->fetchAll(PDO::FETCH_ASSOC)[0];
 	}
+	
 	// Helper function to help build the query.
 	private function make_leaderboard($where, $condition, $start, $size, $order_by, $direction) {
 

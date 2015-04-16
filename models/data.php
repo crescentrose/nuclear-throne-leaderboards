@@ -182,48 +182,6 @@ function get_player($steamid)
     );
 }
 
-function get_archive($dayid, $page = 1)
-{
-    global $db_username, $db_password;
-    
-    try {
-        $date = new DateTime($dayid);
-    }
-    catch (Exception $e) {
-        return false;
-    }
-    $page = $page - 1;
-    $db   = new PDO('mysql:host=localhost;dbname=throne;charset=utf8', $db_username, $db_password, array(
-        PDO::ATTR_EMULATE_PREPARES => false,
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ));
-    $stmt = $db->prepare("SELECT * FROM throne_scores LEFT JOIN throne_players on throne_scores.steamId = throne_players.steamid LEFT JOIN throne_dates ON throne_dates.dayId = throne_scores.dayId WHERE throne_dates.`date` = :day ORDER BY rank LIMIT " . $page * 30 . ', 30');
-    $stmt->execute(array(
-        ':day' => $dayid
-    ));
-    $rows    = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $players = array();
-    
-    if ($stmt->rowCount() > 0) {
-        foreach ($rows as $row) {
-            if ($row['name'] === "") {
-                $row['name'] = "[private]";
-            } //$row['name'] === ""
-            $players[] = $row;
-        } //$rows as $row
-    } //$stmt->rowCount() > 0
-    else {
-        return false;
-    }
-    return array(
-        'year' => $date->format("Y"),
-        'month' => $date->format("m"),
-        'day' => $date->format("d"),
-        'players' => $players,
-        'page' => $page + 1
-    );
-}
-
 // Ported from my LotusClan web admin interface thing.
 function convertSteamId($steamid)
 {
