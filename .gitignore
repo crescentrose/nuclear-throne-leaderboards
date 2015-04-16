@@ -7,7 +7,7 @@ Desktop.ini
 
 # Configuration file
 config.php
-config.json
+config/config.json
 updater/config.php
 updater/first.txt
 steamauth/settings.php
