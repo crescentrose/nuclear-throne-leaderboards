@@ -10,6 +10,32 @@ body {
   background: #333;
 }
 
+.title {
+  font-family: "Press Start K";
+  text-align: center;
+}
+
+h5.title {
+  font-size: 16px ;
+}
+
+.stroke {
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
+
+
+.stroke-hard {
+  text-shadow:
+   -2px -2px 0 #000,  
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+     2px 2px 0 #000;
+}
+
 .inactive {
   filter: gray; 
   filter: grayscale(1); 
@@ -22,11 +48,6 @@ body {
   top: -20px;
   left: 62px;
   font-size: 12px;
-  text-shadow:
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-     1px 1px 0 #000;
 }
 .navbar-brand {
   padding: 7px;
@@ -106,8 +127,8 @@ body {
    background-attachment: fixed;
 }
 
-.nav {
-
+.navbar {
+  background-color: #1d2a38;
 }
 
 .main {
@@ -192,16 +213,6 @@ body {
   color:#999;
 }
 
-.global {
-  text-align: center;
-  margin: 15px;
-  padding: 5px 0 0 0;
-}
-
-.stat {
-  display: inline;
-  padding: 10%;
-}
 
 .crown {
   margin: 5px 10px 5px 0;
@@ -214,11 +225,6 @@ body {
   position:relative;
   top: 8px;
   left: -7px;
-  text-shadow:
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-     1px 1px 0 #000;
 }
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */
 

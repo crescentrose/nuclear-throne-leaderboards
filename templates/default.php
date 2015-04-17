@@ -75,7 +75,7 @@
             <a class="navbar-brand" href="/">
               <div class="hidden-sm hidden-xs">
                 <img alt="Nuclear Throne Daily Run Stats" src="/img/thronebutt-logo-big.png">
-                <div class="tagline">[PLAYER] STRESS</div>
+                <div class="tagline stroke">[PLAYER] STRESS</div>
               </div>
               <div class="visible-xs visible-sm">Nuclear Throne Leaderboards</div></a>
           </div>
@@ -146,7 +146,7 @@
       <div class="container">
         {% block content %}{% endblock %}
         <div class="row col-md-12 footer center-block">
-        Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[WA]Darwin</a>. Art was made by Justin Chan for Nuclear Throne update notes.
+          Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[WA]Darwin</a>. Art was made by Justin Chan for Nuclear Throne update notes.
         </div><!-- /container -->
       </div>
   </body>

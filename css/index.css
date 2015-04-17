@@ -1,0 +1,38 @@
+.leaderboard {
+	outline: 2px solid black;
+
+}
+
+.title-row {
+	background-image: url("/img/textures/top-bottom.png"),  url("/img/textures/top-main.png");
+	background-position: center bottom, left top;
+	background-repeat: repeat-x, repeat;
+	-webkit-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.20);
+	-moz-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.20);
+	box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.20);
+	position: relative;
+	z-index: 10;
+	height: 130px;
+}
+
+.table-row {
+	background-image: url("/img/textures/palace-floor.png");
+	background-repeat: repeat;
+}
+
+.global {
+  text-align: center;
+  margin: 10px 0 10px 0;
+  padding: 5px 0 0 0;
+  font-family: "Press Start K";
+  font-size: 12px;
+}
+.stat {
+  display: inline;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ranktable > thead {
+	font-weight: bold;
+}
