@@ -226,6 +226,12 @@ h5.title {
   top: 8px;
   left: -7px;
 }
+
+.warning {
+  font-size: 12pt;
+  background-color: #990000;
+  color: white !important;
+}
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */
 
 @-moz-document url-prefix() {

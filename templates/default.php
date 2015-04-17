@@ -122,6 +122,9 @@
                   </a>
               </li>
             </ul>
+            <p class="navbar-text warning">
+            <b>This is a test version. Don't report bugs. <a href="http://thronebutt.com">Click here to go back.</a></b>
+            </p>
             <ul class="nav navbar-nav navbar-right">
               {% if session.steamid == "" %}
                 <li>
