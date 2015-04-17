@@ -5,7 +5,13 @@
 		public function __construct($data) {
 			if (isset($data["search"])) {
 				$db = Application::connect();
-				$stmt = $db->prepare("SELECT * FROM `throne_players` WHERE steamid = :steamid");
+				$stmt = $db->prepare("SELECT * FROM `throne_players`
+					LEFT JOIN 
+						((SELECT COUNT(*) AS wins, steamid 
+						FROM throne_scores 
+						WHERE rank = 1	
+						GROUP BY steamid) AS w) ON w.steamid = throne_players.steamid
+					WHERE throne_players.steamid = :steamid");
 				$stmt->execute(array(':steamid' => $data["search"]));
 				$data = $stmt->fetchAll()[0];
 				$data["raw"] = $data;
@@ -28,6 +34,14 @@
 			$this->suspected_hacker = $data["suspected_hacker"];
 			$this->admin = $data["admin"];
 			$this->raw = $data["raw"];
+		}
+
+		public function get_rank() {
+			// TODO
+		}
+
+		public function get_total_kills() {
+			// TODO
 		}
 
 		public function to_array() {

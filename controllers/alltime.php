@@ -21,7 +21,7 @@ function render($twig, $sdata = array()) {
 	} else {
 		$sort = "score";
 	}
-	$data = array("scores" => $leaderboard->create_alltime($page * 30, 30, $sort, "DESC"), "sort_by" => $_GET["sort"], "page" => $page);
+	$data = array("location" => "alltime", "scores" => $leaderboard->create_alltime($page * 30, 30, $sort, "DESC"), "sort_by" => $_GET["sort"], "page" => $page);
 	if ($data != false) {
 		echo $twig->render('alltime.php', array_merge($sdata, $data));
 	} else {

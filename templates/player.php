@@ -1,6 +1,8 @@
 {% extends "default.php" %}
 
-{% block content %}
+{% block head %}
+<link rel="stylesheet" href="/css/player.css" />
+
 <!--Load the chart API-->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
@@ -21,7 +23,7 @@
         data.addColumn('number', 'Rank');
         data.addRows([
           {% for score in scores %}
-            ['{{ score.date }}', {{ score.rank }}],
+            ['{{ score.raw.date }}', {{ score.rank }}],
           {% endfor %}
         ]);
 
@@ -34,6 +36,12 @@
         chart.draw(data, options);
       }
 </script>
+{% endblock %}
+
+{% block title %}| {{ player.name }}'s profile{% endblock %}
+
+{% block content %}
+
 
 <!-- Main page -->
 <div class="row col-md-12 main center-block">
@@ -63,9 +71,9 @@
           {% endif %}
         </thead>
         <tbody>
-          {% for score in scores_reverse %}
+          {% for score in scores %}
           <tr onclick="document.location = '/score/{{ score.hash}}'" {% if score.hidden %}class="hidden-score"{% endif %} >
-            <td>{{ score.date }}</td>
+            <td>{{ score.raw.date }}</td>
             <td><b>#{{ score.rank }}</b></a></td>
             <td>{{ score.percentage }}%</td>
             <td>{{ score.score }}</td>

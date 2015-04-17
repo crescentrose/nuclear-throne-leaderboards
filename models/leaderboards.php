@@ -27,7 +27,7 @@ class Leaderboard {
 
 	// Creates a leaderboard based on a steamid. 
 	public function create_player($player, $start, $size, $order_by = "date", $direction = "DESC") {
-		return $this->make_leaderboard("throne_players", $player, $start, $size, $order_by, $direction);
+		return $this->make_leaderboard("throne_scores`.`steamId", $player, $start, $size, $order_by, $direction);
 	}
 
 	public function create_alltime($start = 0, $size = 30, $order_by = "score", $direction = "DESC") {

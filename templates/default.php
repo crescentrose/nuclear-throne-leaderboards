@@ -7,7 +7,6 @@
     <meta name="description" content="View current statistics for daily runs in the game Nuclear Throne, as well as your personal history and global stats.">
     <meta name="author" content="">
     <meta name="keywords" content="nuclear throne,daily run,statistics">
-    <link rel="icon" href="favicon.ico">
 
     <title>Nuclear Throne Daily Leaderboards {% block title %}{% endblock %}</title>
 
@@ -17,8 +16,21 @@
     <link href="/css/datepicker3.css" rel="stylesheet">
     
     <!-- Custom page CSS -->
-    <link href="/css/custom.css?v=20150319" rel="stylesheet">
+    <link href="/css/custom.css?v=20150417" rel="stylesheet">
 
+    <!-- To preface, I never asked for this. I simply googled "favicon best practices."
+    I guess that it's a cool thing that you can pin thronebutt to iOS now and it won't
+    look like crap. But it might be a bit overkill. -->
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/ico/apple-touch-icon-57x57.png?v=PYndGmY7N0">
+    <link rel="apple-touch-icon" sizes="60x60" href="/ico/apple-touch-icon-60x60.png?v=PYndGmY7N0">
+    <link rel="icon" type="image/png" href="/ico/favicon-32x32.png?v=PYndGmY7N0" sizes="32x32">
+    <link rel="icon" type="image/png" href="/ico/favicon-16x16.png?v=PYndGmY7N0" sizes="16x16">
+    <link rel="manifest" href="/ico/manifest.json?v=PYndGmY7N0">
+    <link rel="shortcut icon" href="/ico/favicon.ico?v=PYndGmY7N0">
+    <meta name="msapplication-TileColor" content="#9f00a7">
+    <meta name="msapplication-config" content="/ico/browserconfig.xml?v=PYndGmY7N0">
+    <meta name="theme-color" content="#ffffff">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -39,13 +51,14 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+
+
+    {% block head %}{% endblock %}
   </head>
 
   <body class="background-home background{{ weekday }}">
-
-    <div class="container">
       <!-- Static navbar -->
-      <nav class="navbar navbar-default navbar-inverse">
+      <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -54,14 +67,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Nuclear Throne Stats</a>
+            <a class="navbar-brand" href="/"><img alt="Brand" src="/img/thronebutt.png"></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="/">Today's Daily</a></li>
-              <li><a href="/all-time">All-time ranks</a></li>
-              <li><a href="/archive">Archive</a></li>          
-              <li><a href="/about">About</a></li>
+              <li><a href="/"><img src="/img/daily.png" {% if location != "daily" %}class="inactive"{% endif %} alt="Today's Daily"></a></li>
+              <li><a href="/all-time"><img src="/img/alltime.png" {% if location != "alltime" %}class="inactive"{% endif %} alt="All-time stats"></a></li>
+              <li><a href="/archive"><img src="/img/archive.png" {% if location != "archive" %}class="inactive"{% endif %} alt="Archive"></a></li>
+              <li><a href="/about"><img src="/img/about.png" {% if location != "about" %}class="inactive"{% endif %} alt="About"></a></li>
             </ul>
             {% if session.steamid == "" %}
               <form action="/?login" method="post" class="navbar-form navbar-right">
@@ -83,10 +96,11 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-      {% block content %}{% endblock %}
-     <div class="row col-md-12 footer center-block">
-       Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[WA]Darwin</a>. Art was made by Justin Chan for Nuclear Throne update notes.
-     </div>
-    </div> <!-- /container -->
+      <div class="container">
+        {% block content %}{% endblock %}
+        <div class="row col-md-12 footer center-block">
+        Nuclear Throne is property of Vlambeer. Steam is a trademark of Valve Incorporated. Neither Vlambeer nor Valve are affiliated with this site. This site was coded by <a href="http://steamcommunity.com/id/i542">[WA]Darwin</a>. Art was made by Justin Chan for Nuclear Throne update notes.
+        </div><!-- /container -->
+      </div>
   </body>
 </html>

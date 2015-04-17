@@ -5,10 +5,34 @@
 }
 
 body {
-  padding-top: 20px;
   padding-bottom: 20px;
   color: #ddd;
   background: #333;
+}
+
+.inactive {
+  filter: gray; 
+  filter: grayscale(1); 
+  -webkit-filter: grayscale(1); 
+}
+
+.navbar-brand {
+  padding: 10px;
+}
+
+.navbar-nav > li > a {
+  margin: 9px 5px 0 0;
+  padding: 0;
+}
+
+.navbar-nav > li > a > img {
+  border: 1px solid black;
+}
+
+.navbar-nav > li > a > img:hover {
+  border: 1px solid black;
+  filter: none;
+  -webkit-filter: grayscale(0);
 }
 
 .background1 {
@@ -65,8 +89,8 @@ body {
    background-attachment: fixed;
 }
 
-.navbar {
-  margin-bottom: 20px;
+.nav {
+
 }
 
 .main {

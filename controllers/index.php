@@ -21,6 +21,7 @@ function render($twig, $sdata = array()) {
     $yesterday = $leaderboards_yesterday->create_global(1, 0, 5)->to_array();
 
 	$data = array(
+        'location' => "daily",
         'date' => $leaderboards_today->date,
         'scores' => $today,
         'scores_yesterday' => $yesterday,
