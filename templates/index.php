@@ -15,13 +15,13 @@
 <!-- Main page -->
 <div class="row">
     <div class="col-md-6 leaderboard">
-      <div class="row title-row ">
+      <div class="row palace-wall">
         <div class="col-md-12">
           <h3 class="title stroke-hard">Daily Leaderboard</h3>
           <h5 class="title stroke">{{ date }}</h5>
         </div>
       </div>
-      <div class="row table-row">
+      <div class="row palace-floor">
         <div class="col-md-12">
           <div class="global stroke">
             <div class="stat">Entries today: <b>{{ global.amount }}</b></div><div class="stat">Average score: <b>{{ global.average }}</b></div>
@@ -66,33 +66,41 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 sidebar">
       <div class="sidebar-box">
-        <h4>Yesterday's top 5</h4>
-         <table class="table table-responsive table-condensed ranktable"> 
-          <thead>
-            <td>Rank</td>
-            <td>Player</td>
-            <td></td>
-            <td>Score</td>
-          </thead>
-          <tbody>
-            {% for score in scores_yesterday %}
-            <tr>
-              <td width="30px">{{ score.rank }}</td>
-              <td><img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamid }}">{{ score.player.name }}</a>
-              {% if score.player.suspected_hacker %}
-                <span class="label label-danger pull-right">Suspected Hacker</span>
-              {% endif %}</td>
-              <td>
-              {% if score.player.raw.wins > 0 %}
-                  <span class="crown"><img src="/img/crown.png" title="This player has won on {{ score.player.raw.wins }} day(s)!" alt="Previous wins" /><span class="wins">{{ score.player.raw.wins }}</span></span>
+        <div class="row vault-wall">
+          <div class="col-md-12">
+            <h4 class="title stroke">Yesterday's top 5</h4>
+          </div>
+        </div>
+        <div class="row vault-floor">
+          <div class="col-md-12">
+           <table class="table table-responsive table-condensed ranktable"> 
+            <thead>
+              <td>Rank</td>
+              <td>Player</td>
+              <td></td>
+              <td>Score</td>
+            </thead>
+            <tbody>
+              {% for score in scores_yesterday %}
+              <tr>
+                <td width="30px">{{ score.rank }}</td>
+                <td><img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamid }}">{{ score.player.name }}</a>
+                {% if score.player.suspected_hacker %}
+                  <span class="label label-danger pull-right">Suspected Hacker</span>
                 {% endif %}</td>
-              <td>{{ score.score }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+                <td>
+                {% if score.player.raw.wins > 0 %}
+                    <span class="crown"><img src="/img/crown.png" title="This player has won on {{ score.player.raw.wins }} day(s)!" alt="Previous wins" /><span class="wins">{{ score.player.raw.wins }}</span></span>
+                  {% endif %}</td>
+                <td>{{ score.score }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
       </div>
       <div class="sidebar-box">
         <h4>Currently popular streams</h4> 

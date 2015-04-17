@@ -15,7 +15,7 @@ body {
   text-align: center;
 }
 
-h5.title {
+h5.title, h4.title {
   font-size: 16px ;
 }
 
@@ -137,18 +137,6 @@ h5.title {
   padding-bottom: 10px;
 }
 
-.sidebar-box {
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 4px;
-  padding: 5px 0px 5px 5px;  
-  margin-bottom: 10px;
-}
-
-.sidebar-box hr {
-  margin: -1px 1px 0 -1px;
-  border-color: rgba(255,255,255,0.5);
-}
-
 .footer {
   margin-top: 10px;
   padding: 10px;
@@ -213,6 +201,13 @@ h5.title {
   color:#999;
 }
 
+.sidebar {
+  margin-left: 12px;
+}
+
+.sidebar-box {
+  outline: 2px solid black;
+}
 
 .crown {
   margin: 5px 10px 5px 0;

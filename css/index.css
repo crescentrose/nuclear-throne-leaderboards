@@ -3,7 +3,7 @@
 
 }
 
-.title-row {
+.palace-wall {
 	background-image: url("/img/textures/top-bottom.png"),  url("/img/textures/top-main.png");
 	background-position: center bottom, left top;
 	background-repeat: repeat-x, repeat;
@@ -15,11 +15,31 @@
 	height: 130px;
 }
 
-.table-row {
+.palace-floor {
 	background-image: url("/img/textures/palace-floor.png");
 	background-repeat: repeat;
 }
 
+.vault-wall {
+	background-image: url("/img/textures/vault-top-bottom.png"),  url("/img/textures/vault-top-main.png");
+	background-position: center bottom, left top;
+	background-repeat: repeat-x, repeat;
+	-webkit-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.20);
+	-moz-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.20);
+	box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.20);
+	position: relative;
+	z-index: 10;
+	height: 77px;
+}
+
+.vault-wall > .col-md-12 > h4 {
+	margin-top: 17px;
+}
+
+.vault-floor {
+	background-image: url("/img/textures/vault-floor.png");
+	background-repeat: repeat;
+}
 .global {
   text-align: center;
   margin: 10px 0 10px 0;
