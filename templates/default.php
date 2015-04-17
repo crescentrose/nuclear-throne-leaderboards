@@ -48,10 +48,15 @@
       ga('create', 'UA-58437854-1', 'auto');
       ga('send', 'pageview');
     </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-
+    
+    <script>
+      $( document ).ready (function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+    
 
     {% block head %}{% endblock %}
   </head>
@@ -67,23 +72,65 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img alt="Brand" src="/img/thronebutt.png"></a>
+            <a class="navbar-brand" href="/">
+              <div class="hidden-sm hidden-xs">
+                <img alt="Nuclear Throne Daily Run Stats" src="/img/thronebutt-logo-big.png">
+                <div class="tagline">[PLAYER] STRESS</div>
+              </div>
+              <div class="visible-xs visible-sm">Nuclear Throne Leaderboards</div></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="/"><img src="/img/daily.png" {% if location != "daily" %}class="inactive"{% endif %} alt="Today's Daily"></a></li>
-              <li><a href="/all-time"><img src="/img/alltime.png" {% if location != "alltime" %}class="inactive"{% endif %} alt="All-time stats"></a></li>
-              <li><a href="/archive"><img src="/img/archive.png" {% if location != "archive" %}class="inactive"{% endif %} alt="Archive"></a></li>
-              <li><a href="/about"><img src="/img/about.png" {% if location != "about" %}class="inactive"{% endif %} alt="About"></a></li>
+            <ul class="nav navbar-nav navbar-icons">
+              <li>
+                <a href="/">
+                  <div class="hidden-sm hidden-xs">
+                    <img data-toggle="tooltip" title="Today's Daily Challenge" data-placement="bottom" src="/img/daily.png" {% if location != "daily" %}class="inactive"{% endif %} alt="Today's Daily">
+                  </div>
+                  <div class="visible-sm visible-xs">
+                    Today's Leaderboards
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="/all-time">
+                  <div class="hidden-sm hidden-xs">
+                    <img src="/img/alltime.png" data-toggle="tooltip" title="All-time stats" data-placement="bottom" {% if location != "alltime" %}class="inactive"{% endif %} alt="All-time stats">
+                  </div>
+                  <div class="visible-sm visible-xs">
+                    All-time stats
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="/archive">
+                  <div class="hidden-sm hidden-xs">
+                    <img src="/img/archive.png" data-toggle="tooltip" data-placement="bottom" title="Archives" {% if location != "archive" %}class="inactive"{% endif %} alt="Archive">
+                  </div>
+                  <div class="visible-sm visible-xs">
+                    Archives
+                  </div>
+                  </a>
+                </li>
+              <li>
+                <a href="/about">
+                  <div class="hidden-sm hidden-xs">
+                    <img src="/img/about.png" data-toggle="tooltip" data-placement="bottom" title="About" {% if location != "about" %}class="inactive"{% endif %} alt="About">
+                  </div>
+                  <div class="visible-sm visible-xs">
+                    About
+                  </div>
+                  </a>
+              </li>
             </ul>
-            {% if session.steamid == "" %}
-              <form action="/?login" method="post" class="navbar-form navbar-right">
-                <div class="form-group">
-                  <input type="image" src="/img/sits_small.png">
-                </div>
-              </form>
-            {% else %}
             <ul class="nav navbar-nav navbar-right">
+              {% if session.steamid == "" %}
+                <li>
+                  <a href="/?login" class="steam-login">
+                    <img src="/img/sits_small.png" alt="Sign in via Steam">
+                  </a>
+                </li>
+                {% endif%}
+              {% if session.steamid != "" %}
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hi, {{ session.steamname }}! <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">

@@ -74,7 +74,7 @@
               {% for score in scores_yesterday %}
               <tr>
                 <td width="30px">{{ score.rank }}</td>
-                <td><img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamId }}">{{ score.player.name }}</a>
+                <td><img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamid }}">{{ score.player.name }}</a>
                 {% if score.player.suspected_hacker %}
                   <span class="label label-danger pull-right">Suspected Hacker</span>
                 {% endif %}</td>

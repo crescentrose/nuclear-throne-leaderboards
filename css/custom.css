@@ -16,21 +16,38 @@ body {
   -webkit-filter: grayscale(1); 
 }
 
+.tagline {
+  font-family: "Press Start K";
+  position:relative;
+  top: -20px;
+  left: 62px;
+  font-size: 12px;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
 .navbar-brand {
-  padding: 10px;
+  padding: 7px;
 }
 
-.navbar-nav > li > a {
-  margin: 9px 5px 0 0;
-  padding: 0  ;
+
+.navbar-icons > li > a {
+  margin: 9px 5px 9px 0;
+  padding: 0;
+  border: 1px solid black;
+}
+
+.steam-login {
+  margin-top: 5px;
 }
 
 .navbar-nav > li > a > img {
   border: 1px solid black;
 }
 
-.navbar-nav > li > a > img:hover {
-  border: 1px solid black;
+.navbar-icons img:hover {
   filter: none;
   -webkit-filter: grayscale(0);
 }
