@@ -92,7 +92,7 @@
                 {% endif %}</td>
                 <td>
                 {% if score.player.raw.wins > 0 %}
-                    <span class="crown"><img src="/img/crown.png" title="This player has won on {{ score.player.raw.wins }} day(s)!" alt="Previous wins" /><span class="wins">{{ score.player.raw.wins }}</span></span>
+                    <span class="crown"><img src="/img/crown.png" title="This player has won on {{ score.player.raw.wins }} day(s)!" alt="Previous wins" /><span class="wins stroke">{{ score.player.raw.wins }}</span></span>
                   {% endif %}</td>
                 <td>{{ score.score }}</td>
               </tr>
