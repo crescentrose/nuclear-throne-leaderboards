@@ -1,0 +1,17 @@
+{
+	"name": "ThroneButt",
+	"icons": [
+		{
+			"src": "\/android-chrome-36x36.png?v=PYndGmY7N0",
+			"sizes": "36x36",
+			"type": "image\/png",
+			"density": "0.75"
+		},
+		{
+			"src": "\/android-chrome-48x48.png?v=PYndGmY7N0",
+			"sizes": "48x48",
+			"type": "image\/png",
+			"density": "1.0"
+		}
+	]
+}
