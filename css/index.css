@@ -47,6 +47,28 @@
 	height: 77px;
 }
 
+.mansion-wall {
+	background-image: url("/img/textures/mansion-top-bottom.png"),  url("/img/textures/mansion-top-main.png");
+	background-position: center bottom, left top;
+	background-repeat: repeat-x, repeat;
+	-webkit-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+	box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+	position: relative;
+	z-index: 10;
+	height: 77px;
+}
+
+
+.mansion-floor {
+	background-image: url("/img/textures/mansion-floor.png");
+	background-repeat: repeat;
+}
+
+.mansion-floor > .col-md-12 {
+	position:relative;
+	z-index: 20;
+}
 
 .palace-floor {
 	background-image: url("/img/textures/palace-floor.png");

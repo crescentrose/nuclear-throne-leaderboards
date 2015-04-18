@@ -69,6 +69,24 @@
       </div>
     </div>
     <div class="col-md-4 sidebar">
+        <div class="sidebar-box">
+        <div class="row mansion-wall">
+          <div class="col-md-12">
+            <h4 class="title stroke sidebar-title">Steam Integration</h4>
+          </div>
+        </div>
+        <div class="row mansion-floor">
+          <div class="col-md-12 sidebar-text">
+          {% if session.steamid == "" %}
+            <div class="center">
+              <p>Login with your Steam account to edit your profile, link YouTube videos to your 
+              scores and interact with other players!</p>
+              <img src="/img/sits_small.png" alt="Sign in via Steam">
+            </div>
+          {% endif %}
+          </div>
+      </div>
+      </div>
       <div class="sidebar-box">
         <div class="row vault-wall">
           <div class="col-md-12">

@@ -129,18 +129,6 @@
             <b>This is a test version. Don't report bugs. <a href="http://thronebutt.com">Click here to go back.</a></b>
             </p>
             <ul class="nav navbar-nav navbar-right">
-              {% if session.steamid == "" %}
-                <li>
-                  <a href="/?login" class="steam-login">
-                    <div class="hidden-sm">
-                      <img src="/img/sits_small.png" alt="Sign in via Steam">
-                    </div>
-                    <div class="visible-sm">
-                      <img src="/img/steam_login_alt.png" alt="Sign in via Steam">
-                    </div>
-                  </a>
-                </li>
-                {% endif%}
               {% if session.steamid != "" %}
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hi, {{ session.steamname }}! <span class="caret"></span></a>

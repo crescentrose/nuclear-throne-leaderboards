@@ -201,6 +201,13 @@ h5.title, h4.title {
   fieldset { display: table-cell; }
 }
 
+.sidebar-text {
+  padding: 10px;
+}
+
+.center {
+  text-align: center;
+}
 /* Tablet and desktop only rules. */
 .navbar-brand {
   padding: 7px;
