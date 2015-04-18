@@ -27,7 +27,7 @@ function render($twig, $sdata = array()) {
         'scores_yesterday' => $yesterday,
         'streams' => $oStreams->streams,
         'streamcount' => count($oStreams->streams),
-        'global' => $leaderboards_today->get_global_stats(),
+        'global' => $leaderboards_today->global_stats,
         'page' => $page + 1
     );
  	echo $twig->render('index.php', array_merge($sdata, $data));

@@ -2,7 +2,7 @@
 
 class Leaderboard {
 
-	public $scores, $date;
+	public $scores, $date, $global_stats;
 	private $db;
 
 	public function __construct() {
@@ -38,14 +38,19 @@ class Leaderboard {
 	// with $size.
 	// Returns the class instance for easy manipulation. Results are stored in 
 	// $this->scores.
-	public function create_global($date, $order_by = "rank", $direction = "ASC") {
+	public function create_global($date, $order_by = "rank", $direction = "ASC", $start = 0, $length = 30) {
 		if (is_int($date)) {
 			$leaderboard = $this->db->query('SELECT * FROM throne_dates ORDER BY dayId DESC');
     		$result = $leaderboard->fetchAll();
+    		$dateId = $result[$date]['dayId'];
     		$date = $result[$date]['date'];
 		} 
 		$this->date = $date;
-		return $this->make_leaderboard("date", $date, $order_by, $direction);
+		$stats = $this->db->query("SELECT COUNT(*) AS runcount, AVG(score) AS avgscore
+			FROM throne_scores
+			WHERE `dayId` = " . $dateId);
+		$this->global_stats = $stats->fetchAll()[0];
+		return $this->make_leaderboard("date", $date, $order_by, $direction, $start, $length);
 	}
 
 	// Creates a leaderboard based on a steamid. 
@@ -87,8 +92,13 @@ class Leaderboard {
 	}
 
 	// Helper function to help build the query.
-	private function make_leaderboard($where, $condition, $order_by, $direction) {
+	private function make_leaderboard($where, $condition, $order_by, $direction, $start = 0, $len = 0) {
 
+		if ($len > 0) {
+			$limit = "LIMIT $start, $len";
+		} else {
+			$limit = "";
+		}
 		try {
 			$query = $this->db->prepare("SELECT * FROM `throne_scores`
 				LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId
@@ -103,7 +113,8 @@ class Leaderboard {
 					FROM throne_scores
 					GROUP BY dayid) x ON x.d = throne_scores.dayId
 				WHERE `$where` = :cnd
-				ORDER BY `$order_by` $direction");
+				ORDER BY `$order_by` $direction
+				". $limit);
 			$query->execute(array(":cnd" => $condition));
 			$entries = $query->fetchAll();
 		} catch (Exception $e) {
