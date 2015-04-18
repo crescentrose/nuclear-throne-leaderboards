@@ -135,7 +135,13 @@
         </div>
       </div>
      <div class="sidebar-box">
-        <h4>Community links</h4>
+      <div class="row frozen-wall">
+        <div class="col-md-12">
+          <h4 class="title stroke sidebar-title">Community links</h4>
+        </div>
+      </div>
+      <div class="row frozen-floor">
+        <div class="col-md-12">
         <ul>
           <li><a href="http://nuclear-throne.wikia.com/wiki/Nuclear_Throne_Wiki">Nuclear Throne wiki</a></li>
           <li><a href="http://reddit.com/r/NuclearThrone">Nuclear Throne subreddit</a></li>
@@ -143,10 +149,10 @@
           <li><a href="http://www.twitch.tv/vlambeer">Developer Livestreams</a></li>
         </ul>
       </div>
+      </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
 <script>$('#searchform').submit(function(e) {
   window.location = '/player/' + $('#search').val();
   e.preventDefault();
