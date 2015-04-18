@@ -64,7 +64,7 @@
     {% block head %}{% endblock %}
   </head>
 
-  <body class="background-home background{{ weekday }}">
+  <body class="">
       <!-- Static navbar -->
       <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container-fluid">

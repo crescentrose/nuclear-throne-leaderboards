@@ -14,7 +14,7 @@
 {% endif %}
 <!-- Main page -->
 <div class="row">
-    <div class="col-md-6 leaderboard">
+    <div class="col-md-7 leaderboard">
       <div class="row palace-wall">
         <div class="col-md-12">
           <h3 class="title stroke-hard">Daily Leaderboard</h3>
