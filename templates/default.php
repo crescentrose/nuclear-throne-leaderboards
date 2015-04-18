@@ -32,6 +32,9 @@
     <meta name="msapplication-config" content="/ico/browserconfig.xml?v=PYndGmY7N0">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- REMOVE ME BEFORE PUSHING TO REAL SITE OR SUFFER GRAVE CONSEQUENCES, YOU PUNY HUMAN. -->
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
