@@ -3,8 +3,6 @@
 <link rel="stylesheet" href="/css/index.css" />
 {% endblock %}
 {% block content %}
-
-<!-- Main page -->
 <div class="row">
     <div class="col-md-12 leaderboard">
     <div class="inner">
@@ -43,6 +41,8 @@
           <center><a class="btn btn-default " href="/all-time/{{ page + 1 }}/{{ sort_by }}">More</a></center>
         </div>
       </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
