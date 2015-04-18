@@ -167,6 +167,11 @@
 	float: left;
 	margin-right: 10px;
 }
+
+.login-modal-content {
+	background-color: #333;
+}
+
 /* Mobile rules. */
 
 @media only screen and (max-width: 992px) {

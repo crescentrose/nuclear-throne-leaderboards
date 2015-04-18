@@ -23,16 +23,22 @@ require_once 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('templates');
 $twig   = new Twig_Environment($loader /*, array('cache' => 'cache', 'debug' => false)*/ );
 
+
 // include all models
 foreach (glob("models/*.php") as $filename) {
     include $filename;
 }
+
+Application::connect();
 
 session_start();
 
 $openid = new LightOpenID($steam_callback);
 if (!$openid->mode) {
     if (isset($_GET['login'])) {
+        if ($_POST["remember-me"] == "remember-me")
+            $_SESSION["persist_login"] = true;
+
         $openid->identity = 'http://steamcommunity.com/openid/?l=english';
         header('Location: ' . $openid->authUrl());
     }
@@ -60,15 +66,45 @@ if (!$openid->mode) {
         foreach ($json_decoded->response->players as $player) {
           $_SESSION["steamname"] = $player->personaname;
         }
-        $_SESSION["admin"] = check_your_privilege($_SESSION["steamid"]);
+
+        if (isset ($_SESSION["persist_login"])) {
+            Application::generate_token($_SESSION["steamid"]);
+        }
     }
 }
 
+if (isset($_SESSION["steamid"])) {
+    $_SESSION["admin"] = check_your_privilege($_SESSION["steamid"]);
+}
+
+if (isset($_COOKIE["authtoken"]) && !isset($_SESSION["steamid"])) {
+    $steamid_login = Application::check_login($_COOKIE["authtoken"]);
+
+    if ($steamid_login != false) {
+        $_SESSION["steamid"] = $steamid_login;
+        $url          = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" . $steam_apikey . "&steamids=" . $steamid_login;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $json_decoded = json_decode($result);
+        
+        foreach ($json_decoded->response->players as $player) {
+          $_SESSION["steamname"] = $player->personaname;
+        }   
+    }
+}
 
 if (isset($_GET["logout"])) {
-  session_destroy();
-  session_unset();
-  header('Location: ' . $steam_callback);
+    Application::remove_token($_COOKIE["authtoken"]);
+    session_destroy();
+    session_unset();
+    header('Location: ' . $steam_callback);
 }
 // List legal controllers - everything else will go to 404.
 $controller_list = array();
@@ -78,7 +114,6 @@ foreach (glob("controllers/*.php") as $filename) {
     $controller_list[] = $match[1];
 }
 
-Application::connect();
 
 // route requests
 if (isset($_GET['do'])) {

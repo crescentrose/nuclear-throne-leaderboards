@@ -70,7 +70,33 @@
     </div>
     <div class="col-md-4 sidebar">
     {% if session.steamid == "" %}
-        <div class="sidebar-box">
+      <div class="modal fade login-modal" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content login-modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="loginModalLabel">Log in with Steam</h4>
+            </div>
+            <div class="modal-body">
+              <p>Click the button below to be redirected to Steam for authentication.</p>
+
+              <form id="login" action="/?login" method="POST">
+                <center>
+                  <input type="image" src="/img/sits_small.png" id="sign-in-btn" /><br/>
+                  <input type="checkbox" name="remember-me" value="remember-me"  /> Remember me
+                </center>
+              </form>
+              <br/>
+              <p>Before logging in, please take a look at the <a href="/about" target="_blank">site rules and
+              the privacy policy.</a> TL;DR - your data is as safe as we can make it, behave like
+              you would in front of your mother.</p>
+              <p><strong>If you select "Remember me", </strong> your login persists for up to two weeks, or until you clear your biscuits.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
         <div class="row mansion-wall">
           <div class="col-md-12">
             <h4 class="title stroke sidebar-title">Steam Integration</h4>
@@ -81,7 +107,7 @@
             <div class="center">
               <p>Login with your Steam account to edit your profile, link YouTube videos to your 
               scores and interact with other players!</p>
-              <a href="/?login"><img src="/img/sits_small.png" alt="Sign in via Steam"></a>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".login-modal">Log in</button>
             </div>
           </div>
       </div>
@@ -205,5 +231,8 @@
 <script>$('#searchform').submit(function(e) {
   window.location = '/player/' + $('#search').val();
   e.preventDefault();
+  $( "#sign-in-btn" ).click(function() {
+    $( "#login-form" ).submit();
+  });
 })</script>
 {% endblock %}
