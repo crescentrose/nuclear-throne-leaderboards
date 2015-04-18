@@ -136,11 +136,14 @@ class Leaderboard {
 		$scores = array();
 		
 		foreach ($entries as $entry) {
+
+			$meta = array("wins" => $entry["wins"]);
 			$player = new Player(array(	"steamid" => $entry["steamId"],
 										"name" => $entry["name"],
 										"avatar" => $entry["avatar"],
 										"suspected_hacker" => $entry["suspected_hacker"],
-										"admin" => $entry["admin"]));
+										"admin" => $entry["admin"],
+										"raw" => $meta));
 
 			$scores[] = new Score(array(	"player" => $player,
 											"score" => $entry["score"],
