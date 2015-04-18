@@ -55,11 +55,11 @@ class Leaderboard {
 	}
 
 	// Creates a leaderboard based on a steamid. 
-	public function create_player($player, $order_by = "date", $direction = "DESC") {
-		return $this->make_leaderboard("throne_scores`.`steamId", $player, $order_by, $direction);
+	public function create_player($steamid, $order_by = "date", $direction = "DESC", $start = 0, $length = 0, $date = -1) {
+		return $this->make_leaderboard("throne_scores`.`steamid", $steamid, $order_by, $direction, $start, $length, $date);
 	}
 
-	public function to_array($start = 0, $length = 30) {
+	public function to_array($start = 0, $length = -1) {
 		$array_scores = array();
 		if ($length == -1) {
 			$length = count($this->scores) + 1;
@@ -93,12 +93,21 @@ class Leaderboard {
 	}
 
 	// Helper function to help build the query.
-	private function make_leaderboard($where, $condition, $order_by, $direction, $start = 0, $len = 0) {
+	private function make_leaderboard($where, $condition, $order_by, $direction, $start = 0, $len = 0, $date = -1) {
 
 		if ($len > 0) {
 			$limit = "LIMIT $start, $len";
 		} else {
 			$limit = "";
+		}
+
+		if ($date > -1) {
+			$leaderboard = $this->db->query('SELECT * FROM throne_dates ORDER BY dayId DESC');
+    		$result = $leaderboard->fetchAll();
+    		$date_today = $result[$date]['date'];
+    		$date_query = "AND throne_dates.date = '" . $date_today . "'";
+		} else {
+			$date_query = "";
 		}
 		try {
 			$query = $this->db->prepare("SELECT * FROM `throne_scores`
@@ -114,10 +123,12 @@ class Leaderboard {
 					FROM throne_scores
 					GROUP BY dayid) x ON x.d = throne_scores.dayId
 				WHERE `$where` = :cnd
+				$date_query
 				ORDER BY `$order_by` $direction
 				$limit"	);
 			$query->execute(array(":cnd" => $condition));
 			$entries = $query->fetchAll();
+
 		} catch (Exception $e) {
 			die ("Error fetching leaderboard: " . $e->getMessage());
 		}
@@ -129,15 +140,13 @@ class Leaderboard {
 										"name" => $entry["name"],
 										"avatar" => $entry["avatar"],
 										"suspected_hacker" => $entry["suspected_hacker"],
-										"admin" => $entry["admin"],
-										"raw" => $entry));
+										"admin" => $entry["admin"]));
 
 			$scores[] = new Score(array(	"player" => $player,
 											"score" => $entry["score"],
 											"rank" => $entry["rank"],
 											"first_created" => $entry["first_created"],
-											"percentile" => $entry["rank"] / $entry["runs"],
-											"raw" => $entry));
+											"percentile" => $entry["rank"] / $entry["runs"]));
 		}
 		$this->scores = $scores;
 		return $this;

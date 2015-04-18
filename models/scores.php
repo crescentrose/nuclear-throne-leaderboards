@@ -25,7 +25,9 @@
 			$this->percentile = $data["percentile"];
 			$this->score = $data["score"];
 			$this->rank = $data["rank"];
-			$this->raw = $data["raw"];
+			if (isset($data["raw"])) {
+				$this->raw = $data["raw"];
+			}
 
         	if ($data['first_created'] == "0000-00-00 00:00:00") {
             	$data['first_created'] = "n/a";

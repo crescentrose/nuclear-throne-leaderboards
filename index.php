@@ -15,6 +15,7 @@ if ($config_development == true) {
     // enable development options
     error_reporting(E_ALL);
     ini_set('display_errors', 'On');
+    ini_set("xdebug.var_display_max_depth", "-1");
 }
 
 // include and register Twig auto-loader

@@ -15,6 +15,7 @@
 					WHERE throne_players.steamid = :steamid");
 				$stmt->execute(array(':steamid' => $data["search"]));
 				$data = $stmt->fetchAll()[0];
+				$data["steamid"] = $data[0]; // wat
 				$data["raw"] = $data;
 			}
 
@@ -34,11 +35,13 @@
         	$this->name = $data['name'];
 			$this->suspected_hacker = $data["suspected_hacker"];
 			$this->admin = $data["admin"];
-			$this->raw = $data["raw"];
+			if (isset($data["raw"])) {
+				$this->raw = $data["raw"];
+			}
 		}
 
 		public function get_rank() {
-			$stmt = $this->db->prepare("SELECT  d.*, c.ranks
+			$stmt = $this->db->prepare("SELECT d.*, c.ranks
                 FROM (
                 	SELECT    score, @rank:=@rank+1 ranks
                			FROM (
@@ -55,6 +58,11 @@
 			}
 			$data = $stmt->fetchAll()[0];
 			return $data["ranks"];
+		}
+
+		public function get_rank_today() {
+			$userboard = new Leaderboard();
+			return $userboard->create_player($this->steamid, "date", "DESC", 0, 1, 0)->to_array()[0]["rank"];	
 		}
 
 		public function to_array() {

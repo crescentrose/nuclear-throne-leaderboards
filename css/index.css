@@ -152,7 +152,21 @@
 	font-weight: bold;
 }
 
+.name {
+	font-family: "Press Start K";
+	font-size: 16px;
+	word-break: break-all;
+}
 
+.subname {
+	font-family: "Press Start K";
+	font-size: 12px;
+}
+
+.user-picture {
+	float: left;
+	margin-right: 10px;
+}
 /* Mobile rules. */
 
 @media only screen and (max-width: 992px) {

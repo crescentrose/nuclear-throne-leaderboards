@@ -69,6 +69,7 @@
       </div>
     </div>
     <div class="col-md-4 sidebar">
+    {% if session.steamid == "" %}
         <div class="sidebar-box">
         <div class="row mansion-wall">
           <div class="col-md-12">
@@ -77,16 +78,43 @@
         </div>
         <div class="row mansion-floor">
           <div class="col-md-12 sidebar-text">
-          {% if session.steamid == "" %}
             <div class="center">
               <p>Login with your Steam account to edit your profile, link YouTube videos to your 
               scores and interact with other players!</p>
-              <img src="/img/sits_small.png" alt="Sign in via Steam">
+              <a href="/?login"><img src="/img/sits_small.png" alt="Sign in via Steam"></a>
             </div>
-          {% endif %}
           </div>
       </div>
       </div>
+      {% else %}
+        <div class="sidebar-box">
+        <div class="row mansion-wall">
+          <div class="col-md-12">
+            <h5 class="title stroke sidebar-title">Your profile</h5>
+          </div>
+        </div>
+        <div class="row mansion-floor">
+          <div class="col-md-12 sidebar-text">
+            <div class="col-md-12">
+              <div class="usercard">
+                <img src="{{ userdata.avatar_medium }}" class="user-picture" alt="Your avatar"/>
+                <div class="name stroke">{{ session.steamname }}</div>
+                <div class="subname stroke">All-time: #{{ userdata.rank }}</div>
+              </div>
+            </div>
+            <div class="col-md-12 user-today">
+              <strong>Today's performance:</strong>
+              {% if userdata.today_rank %}
+                <p>Rank: #{{ userdata.today_rank }}<br/>
+                Percentile: {{ userdata.percentile }}%</p>
+              {% else %}
+              <br/>No data available... yet!
+              {% endif %}
+            </div>
+          </div>
+      </div>
+      </div>
+      {% endif %}
       <div class="sidebar-box">
         <div class="row vault-wall">
           <div class="col-md-12">
