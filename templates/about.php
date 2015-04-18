@@ -62,7 +62,7 @@
               <li><a href="/player/76561198043826390">Ledraps</a> - site moderator</li>
               <li><b>Gieron</b> - advertised the site a lot and put me in touch with the devs</li>
               <li><b>jwaap</b> - suggested Top% in profile view</li>
-              <li><b>Hunty Mgee</b> - suggested global stats</li>
+              <li><b>Hunty Mgee</b> - suggested global stats, made the default no-profile YV avatar</li>
               <li><b>mtar</b> - suggested sorting all time stats by average</li>
               <li><b>squireofthedance</b> - beta tester</li>
             </ul>
@@ -84,7 +84,7 @@
 
           <p><b>Q: What does [no profile] mean?</b><br/>
           A: It means that the user did not set up their Steam profile yet. While they have a profile on this site, they did not yet
-          set their community name or avatar, meaning that they will be hooked up with a dank YV picture and a "[no profile]" name.</p>
+          set their community name or avatar, meaning that they will be hooked up with a dank YV picture courtesy of <a href="http://steamcommunity.com/id/theoriginalhunty/">HuntyMgee</a> and a "[no profile]" name.</p>
 
           <p><b>Q: Why was I marked as a hacker?</b><br/>
           A: Our moderators have deemed that your score is unlikely to be legitimate. You may appeal your
