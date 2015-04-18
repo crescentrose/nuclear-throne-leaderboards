@@ -75,7 +75,7 @@
             <a class="navbar-brand" href="/">
               <div class="hidden-sm hidden-xs">
                 <img alt="Nuclear Throne Daily Run Stats" src="/img/thronebutt-logo-big.png">
-                <div class="tagline stroke">[PLAYER] STRESS</div>
+                <div class="tagline stroke">NUCLEAR THRONE LEADERBOARDS</div>
               </div>
               <div class="visible-xs visible-sm">Nuclear Throne Leaderboards</div></a>
           </div>

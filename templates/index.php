@@ -70,7 +70,7 @@
       <div class="sidebar-box">
         <div class="row vault-wall">
           <div class="col-md-12">
-            <h4 class="title stroke">Yesterday's top 5</h4>
+            <h4 class="title stroke  sidebar-title">Yesterday's top 5</h4>
           </div>
         </div>
         <div class="row vault-floor">
@@ -95,7 +95,7 @@
                     <span class="crown"><img src="/img/crown.png" title="This player has won on {{ score.player.raw.wins }} day(s)!" alt="Previous wins" /><span class="wins stroke">{{ score.player.raw.wins }}</span></span>
                   {% endif %}</td>
                 <td>{{ score.score }}</td>
-              </tr>
+              </tr> 
               {% endfor %}
             </tbody>
           </table>
@@ -103,13 +103,19 @@
       </div>
       </div>
       <div class="sidebar-box">
-        <h4>Currently popular streams</h4> 
-        <div class="streams container-fluid">
+          <div class="row desert-wall">
+            <div class="col-md-12">
+              <h4 class="title stroke">Currently popular livestreams</h4> 
+            </div>
+          </div>
+          <div class="row desert-floor">    
+            <div class="col-md-12">
         {% if streamcount == 0 %}
-          <p>Noone is streaming right now :( It can take up to 15 minutes for streams to show up here, so be patient!</p>
+          <p>No one is livestreaming Nuclear Throne right now.</p>
         {% else %}
+        <div class="streams">
         {% for stream in streams %}   
-          <div class="stream row">
+          <div class="stream">
             <div class="stream-pic-container col-md-3">
               <a href="http://twitch.tv/{{ stream.name }}"><img src="{{ stream.preview }}" class="stream-pic" /></a>
             </div>
@@ -121,9 +127,11 @@
                 on <a href="http://twitch.tv/{{ stream.name }}">{{ stream.name }}</a> | {{ stream.viewers }} viewers
               </div>
             </div>
-          </div>
+       </div>
         {% endfor %}
+        </div>
         {% endif %}
+        </div>
         </div>
       </div>
      <div class="sidebar-box">
