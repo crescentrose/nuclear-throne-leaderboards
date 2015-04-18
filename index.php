@@ -1,5 +1,11 @@
 <?php
 
+
+$time = microtime();
+$time = explode(' ', $time);
+$time = $time[1] + $time[0];
+$start = $time;
+
 // Darwinian 100% Professional PHP Controller Page Router Thing(tm)(r)
 // Safety of using in production: 1%
 
@@ -71,6 +77,8 @@ foreach (glob("controllers/*.php") as $filename) {
     $controller_list[] = $match[1];
 }
 
+Application::connect();
+
 // route requests
 if (isset($_GET['do'])) {
     // see if the page requested is in the controllers list
@@ -91,4 +99,12 @@ render($twig, array(
     'get' => $_GET,
     'notice' => @file_get_contents("announcement.txt")
 ));
+
+$time = microtime();
+$time = explode(' ', $time);
+$time = $time[1] + $time[0];
+$finish = $time;
+$total_time = round(($finish - $start), 4);
+echo '<!-- Page generated in '.$total_time.' seconds. -->';
+
 ?>

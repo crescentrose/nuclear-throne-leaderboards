@@ -6,28 +6,7 @@ class Leaderboard {
 	private $db;
 
 	public function __construct() {
-		$this->db = Application::connect();
-	}
-
-	// Creates a leaderboard based on either a date in YYYY-MM-DD format or 
-	// an offset from today's date.
-	// Offsets the leaderboard from the start with $start and defines its length
-	// with $size.
-	// Returns the class instance for easy manipulation. Results are stored in 
-	// $this->scores.
-	public function create_global($date, $start, $size, $order_by = "rank", $direction = "ASC") {
-		if (is_int($date)) {
-			$leaderboard = $this->db->query('SELECT * FROM throne_dates ORDER BY dayId DESC');
-    		$result = $leaderboard->fetchAll();
-    		$date = $result[$date]['date'];
-		} 
-		$this->date = $date;
-		return $this->make_leaderboard("date", $date, $start, $size, $order_by, $direction);
-	}
-
-	// Creates a leaderboard based on a steamid. 
-	public function create_player($player, $start, $size, $order_by = "date", $direction = "DESC") {
-		return $this->make_leaderboard("throne_scores`.`steamId", $player, $start, $size, $order_by, $direction);
+		$this->db = Application::$db;
 	}
 
 	public function create_alltime($start = 0, $size = 30, $order_by = "score", $direction = "DESC") {
@@ -53,40 +32,79 @@ class Leaderboard {
 		return $entries;
 	}
 
-	public function to_array() {
+	// Creates a leaderboard based on either a date in YYYY-MM-DD format or 
+	// an offset from today's date.
+	// Offsets the leaderboard from the start with $start and defines its length
+	// with $size.
+	// Returns the class instance for easy manipulation. Results are stored in 
+	// $this->scores.
+	public function create_global($date, $order_by = "rank", $direction = "ASC") {
+		if (is_int($date)) {
+			$leaderboard = $this->db->query('SELECT * FROM throne_dates ORDER BY dayId DESC');
+    		$result = $leaderboard->fetchAll();
+    		$date = $result[$date]['date'];
+		} 
+		$this->date = $date;
+		return $this->make_leaderboard("date", $date, $order_by, $direction);
+	}
+
+	// Creates a leaderboard based on a steamid. 
+	public function create_player($player, $order_by = "date", $direction = "DESC") {
+		return $this->make_leaderboard("throne_scores`.`steamId", $player, $order_by, $direction);
+	}
+
+	public function to_array($start = 0, $length = 30) {
 		$array_scores = array();
-		foreach ($this->scores as $score) {
+		if ($length == -1) {
+			$length = count($this->scores) + 1;
+		}
+		foreach (array_slice($this->scores, $start, $length, TRUE) as $score) {
 			$array_scores[] = $score->to_array();
 		}
 		return $array_scores;
 	}
 
 	public function get_global_stats() {
-		return $this->db->query('SELECT COUNT(*) AS amount, ROUND(AVG(score)) AS average 
+		$array_scores = array();
+
+		foreach ($this->scores as $score) {
+			$array_scores[] = $score->score;
+		}
+
+		asort($array_scores);
+
+		$stats = array();
+		$stats["count"] = count($array_scores);
+		$stats["sum"] = array_sum($array_scores);
+		$stats["average"] = round($stats["sum"] / $stats["count"]);
+		$stats["average_top10"] = round(array_sum(array_slice($array_scores, -10)) / 10);
+
+		return $stats;
+		/* return $this->db->query('SELECT COUNT(*) AS amount, ROUND(AVG(score)) AS average 
 			FROM throne_scores
 			LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId
-			WHERE `date` = "' . $this->date . "\"")->fetchAll(PDO::FETCH_ASSOC)[0];
+			WHERE `date` = "' . $this->date . "\"")->fetchAll(PDO::FETCH_ASSOC)[0]; */
 	}
 
 	// Helper function to help build the query.
-	private function make_leaderboard($where, $condition, $start, $size, $order_by, $direction) {
+	private function make_leaderboard($where, $condition, $order_by, $direction) {
 
 		try {
 			$query = $this->db->prepare("SELECT * FROM `throne_scores`
 				LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId
 				LEFT JOIN throne_players ON throne_scores.steamId = throne_players.steamid
 				LEFT JOIN 
-						((SELECT COUNT(*) AS wins, steamid 
-						FROM throne_scores 
-						WHERE rank = 1	
-						GROUP BY steamid) AS w)
-				ON w.steamid = throne_scores.steamid
+					((SELECT COUNT(*) AS wins, steamid 
+					FROM throne_scores 
+					WHERE rank = 1	
+					GROUP BY steamid) AS w) ON w.steamid = throne_scores.steamid
+				LEFT JOIN (
+					SELECT dayid AS d, COUNT(*) AS runs
+					FROM throne_scores
+					GROUP BY dayid) x ON x.d = throne_scores.dayId
 				WHERE `$where` = :cnd
-				ORDER BY `$order_by` $direction
-				LIMIT :str, :siz");
-			$query->execute(array(":cnd" => $condition, 
-				":str" => $start,
-				":siz" => $size));
+				ORDER BY `$order_by` $direction");
+			$query->execute(array(":cnd" => $condition));
 			$entries = $query->fetchAll();
 		} catch (Exception $e) {
 			die ("Error fetching leaderboard: " . $e->getMessage());
@@ -106,11 +124,13 @@ class Leaderboard {
 											"score" => $entry["score"],
 											"rank" => $entry["rank"],
 											"first_created" => $entry["first_created"],
+											"percentile" => $entry["rank"] / $entry["runs"],
 											"raw" => $entry));
 		}
 		$this->scores = $scores;
 		return $this;
 	}
+
 }
 
 ?>

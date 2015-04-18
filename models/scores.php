@@ -1,14 +1,14 @@
 <?php
 	class Score {
-		public $player, $score, $rank, $raw, $first_created;
+		public $player, $score, $rank, $raw, $percentile, $first_created;
 
 		// This class doubles as score retrieval and score storage class.
 		// I know, right?
 		// To look for a score, just pass an array with hash: { "hash" => $hash }
 		// Otherwise, pass an array with data provided by the table.
 		public function __construct($data) {
+			$db = Application::$db;
 			if (isset($data["hash"])) {
-				$db = Application::connect();
 				try {
 					$stmt= $db->prepare("SELECT * FROM `throne_scores` WHERE `hash` = :hash");
 					$stmt->execute(array(':hash' => $data["hash"]));
@@ -22,6 +22,7 @@
 			}
 
 			$this->player = $data["player"];
+			$this->percentile = $data["percentile"];
 			$this->score = $data["score"];
 			$this->rank = $data["rank"];
 			$this->raw = $data["raw"];
@@ -38,6 +39,7 @@
 						 "score" 	=> $this->score,
 						 "rank"		=> $this->rank,
 						 "first_created" => $this->first_created,
+						 "percentile" => ceil($this->percentile * 100),
 						 "raw" 		=> $this->raw);
 		}
 	}

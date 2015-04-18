@@ -5,11 +5,11 @@ function render($twig, $sdata = array()) {
 		$player = new Player(array("search"=>$_GET["steamid"]));
 
 		$scoreboard = new Leaderboard();
+		$scores = $scoreboard->create_player($player->steamid)->to_array(0, -1);
 
-		// Display the last 10 scores
-		$scores = $scoreboard->create_player($player->steamid, 0, 10)->to_array();
-
-		$data = array("player" => $player, "scores" => $scores);
+		$data = array("player" => $player, "scores" => $scores,
+			"rank" => $player->get_rank(), "total" => $scoreboard->get_global_stats(),
+			"scores_graph" => array_reverse($scoreboard->to_array(0, 30)));
 		if ($data != false) {
 			echo $twig->render('player.php', array_merge($sdata, $data));
 		} else {

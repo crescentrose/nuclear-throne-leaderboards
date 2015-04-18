@@ -1,11 +1,12 @@
 <?php
 	class Player {
 		public $steamid, $name, $avatar, $avatar_medium, $suspected_hacker, $admin, $raw;
+		private $db;
 
 		public function __construct($data) {
+			$this->db = Application::$db;
 			if (isset($data["search"])) {
-				$db = Application::connect();
-				$stmt = $db->prepare("SELECT * FROM `throne_players`
+				$stmt = $this->db->prepare("SELECT * FROM `throne_players`
 					LEFT JOIN 
 						((SELECT COUNT(*) AS wins, steamid 
 						FROM throne_scores 
@@ -37,11 +38,23 @@
 		}
 
 		public function get_rank() {
-			// TODO
-		}
-
-		public function get_total_kills() {
-			// TODO
+			$stmt = $this->db->prepare("SELECT  d.*, c.ranks
+                FROM (
+                	SELECT    score, @rank:=@rank+1 ranks
+               			FROM (
+		        			SELECT DISTINCT score
+		            		FROM throne_alltime a
+							ORDER BY score DESC
+                        ) t, (SELECT @rank:= 0) r
+					) c 
+				INNER JOIN throne_alltime d ON c.score = d.score
+				WHERE d.steamid = :steamid");
+			$stmt->execute(array(':steamid' => $this->steamid));
+			if ($stmt->rowCount() != 1) {
+				return -1;
+			}
+			$data = $stmt->fetchAll()[0];
+			return $data["ranks"];
 		}
 
 		public function to_array() {

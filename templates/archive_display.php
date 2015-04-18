@@ -39,7 +39,7 @@
           <tr>
             <td width="30px">{{ score.rank }}</td>
             <td>
-              <img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamId }}">{{ score.player.name }}</a>
+              <img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamid }}">{{ score.player.name }}</a>
               {% if score.player.suspected_hacker %}
               <span class="label label-danger pull-right">Suspected Hacker</span>
               {% endif %}
@@ -54,7 +54,7 @@
           </tr>
           {% else %}
           <tr class="hidden-score">
-            <td colspan="6"><i><center>A score was hidden by the site administrator. {% if session.admin > 0 %}[Admin: <a href="/score/{{ player.hash }}">score</a> | <a href="/player/{{ player.steamId }}">profile</a> ]{% endif%}</center></i></td>
+            <td colspan="6"><i><center>A score was hidden by the site administrator. {% if session.admin > 0 %}[Admin: <a href="/score/{{ player.hash }}">score</a> | <a href="/player/{{ player.steamid }}">profile</a> ]{% endif%}</center></i></td>
           </tr>
           {% endif %}
           {% endfor %}

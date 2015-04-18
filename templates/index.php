@@ -25,7 +25,7 @@
       <div class="row palace-floor">
         <div class="col-md-12">
           <div class="global stroke">
-            <div class="stat">Entries today: <b>{{ global.amount }}</b></div><div class="stat">Average score: <b>{{ global.average }}</b></div>
+            <div class="stat">Entries today: <b>{{ global.count }}</b></div><div class="stat">Average score: <b>{{ global.average }}</b></div>
           </div>
         <table class="table table-responsive ranktable">
           <thead>
@@ -152,7 +152,7 @@
         </ul>
       </div>
       </div>
-      </div>
+    </div>
     </div>
     </div>
   </div>

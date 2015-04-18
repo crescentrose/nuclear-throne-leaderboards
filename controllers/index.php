@@ -14,11 +14,11 @@ function render($twig, $sdata = array()) {
 
     // Get today's leaderboards
     $leaderboards_today = new Leaderboard();
-    $today = $leaderboards_today->create_global(0, $page * 30, 30)->to_array();
+    $today = $leaderboards_today->create_global(0)->to_array($page * 30, 30);
 
     // Get yesterday's leaderboards
     $leaderboards_yesterday = new Leaderboard();
-    $yesterday = $leaderboards_yesterday->create_global(1, 0, 5)->to_array();
+    $yesterday = $leaderboards_yesterday->create_global(1)->to_array(0, 5);
 
 	$data = array(
         'location' => "daily",

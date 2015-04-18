@@ -12,7 +12,7 @@ function render($twig, $sdata = array()) {
 			$date = new DateTime($_GET["date"]);
 
 			$leaderboard = new Leaderboard();
-			$scores = $leaderboard->create_global($_GET["date"], ($page - 1) * 30, 30)->to_array();
+			$scores = $leaderboard->create_global($_GET["date"])->to_array(($page - 1) * 30, 30);
 			$data = array(
 				'location' => "archive",
 	        	'year' => $date->format("Y"),

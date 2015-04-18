@@ -22,14 +22,14 @@
         data.addColumn('string', 'Date');
         data.addColumn('number', 'Rank');
         data.addRows([
-          {% for score in scores %}
+          {% for score in scores_graph %}
             ['{{ score.raw.date }}', {{ score.rank }}],
           {% endfor %}
         ]);
 
         // Set chart options
         var options = {'title':'{{ player.name }}\'s rank',
-                       'vAxis': { 'direction': -1},};
+                       'vAxis': { 'direction': -1}};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.LineChart(document.getElementById('chart'));
@@ -54,10 +54,11 @@
     {% if session.admin > 0 %}<div class="text-danger"><h3>Admin tools</h3><p><a href="/admin/player/{{ player.steamid }}/mark">Mark as hacker</a> | <a href="/admin/player/{{ player.steamid }}/unmark">Remove hacker mark</a> | <a href="/admin/player/{{ steamid }}/update">Manual profile update</a></p>
     <p>Note: Marked hackers will keep their scores until the next update.</p></div>{% endif %}
     <h3>All-time rank</h3>
-    {% if player.totalrank == -1 %}
+    {% if rank == -1 %}
     <p>This player is not ranked at the moment, either because they were marked as a suspected hacker or because the scores did not yet update.</p>
     {% else %}
-    <p>{{ player.name }} is ranked <b>#{{ player.totalrank }} all-time</b> with <b>{{ player.totalkills }} lifetime kills</b> over <b>{{ player.runs }}</b> runs!</p>
+    <p>{{ player.name }} is ranked <b>#{{ rank }} all-time</b> with <b>{{ total.sum }} lifetime kills</b> over <b>{{ total.count }}</b> runs!</p>
+    <p>Average kills: {{ total.average }}.  Average score over top 10 best runs: {{ total.average_top10 }}. These stats will be moved later.</p>
     {% endif %}
       <h3>Daily History</h3>
       <table class="table table-responsive table-hover">
@@ -75,7 +76,7 @@
           <tr onclick="document.location = '/score/{{ score.hash}}'" {% if score.hidden %}class="hidden-score"{% endif %} >
             <td>{{ score.raw.date }}</td>
             <td><b>#{{ score.rank }}</b></a></td>
-            <td>{{ score.percentage }}%</td>
+            <td>{{ score.percentile }}%</td>
             <td>{{ score.score }}</td>
             {% if session.admin > 0 %}
             <td><a href="/admin/player/{{ player.steamid }}/score/{{ score.hash }}/delete" class="text-danger">Hide</a></td>
@@ -91,35 +92,6 @@
   <div class="col-md-12">
     <h3>Rank history</h3>
     <div id="chart"></div>
-  </div>
-  <div class="col-md-12">
-    <h3>Total score</h3>
-    <table class="table">
-      <tr>
-        <td>Most kills</td>
-        <td>{{ player.hiscore }}</td>
-      </tr>
-      <tr>
-        <td>Least kills</td>
-        <td>{{ player.loscore }}</td>
-      </tr>
-      <tr>
-        <td>Average kills</td>
-        <td>{{ player.avgscore }}</td>
-      </tr>
-      <tr>
-        <td>Lowest rank</td>
-        <td>{{ player.hirank }}</td>
-      </tr>
-      <tr>
-        <td>Highest rank</td>
-        <td>{{ player.lorank }}</td>
-      </tr>
-      <tr>
-        <td>Average rank</td>
-        <td>{{ player.avgrank }}</td>
-      </tr>
-    </table>
   </div>
   </div>
 </div>

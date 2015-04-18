@@ -5,7 +5,7 @@ class Database {
 	private $query;
 
 	public function __construct() {
-		$this->db = Application::connect();
+		$this->db = Application::$db;
 	}
 
 	public function execute($query, $arguments = array()) {
