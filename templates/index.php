@@ -14,7 +14,8 @@
 {% endif %}
 <!-- Main page -->
 <div class="row">
-    <div class="col-md-7 leaderboard">
+    <div class="col-md-8 leaderboard">
+    <div class="inner">
       <div class="row palace-wall">
         <div class="col-md-12">
           <h3 class="title stroke-hard">Daily Leaderboard</h3>
@@ -64,6 +65,7 @@
           </table>
           <center><a class="btn btn-default " href="/daily/{{ data.page }}">More</a></center>
         </div>
+      </div>
       </div>
     </div>
     <div class="col-md-4 sidebar">
@@ -151,6 +153,7 @@
       </div>
       </div>
       </div>
+    </div>
     </div>
   </div>
 <script>$('#searchform').submit(function(e) {

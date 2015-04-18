@@ -4,6 +4,7 @@
     src: url("/fonts/prstartk.ttf");
 }
 
+
 body {
   padding-bottom: 20px;
   color: #ddd;
@@ -48,16 +49,6 @@ h5.title, h4.title {
   top: -20px;
   left: 62px;
   font-size: 12px;
-}
-.navbar-brand {
-  padding: 7px;
-}
-
-
-.navbar-icons > li > a {
-  margin: 9px 5px 9px 0;
-  padding: 0;
-  border: 1px solid black;
 }
 
 .steam-login {
@@ -180,9 +171,6 @@ h5.title, h4.title {
   color:#999;
 }
 
-.sidebar {
-  margin-left: 12px;
-}
 
 .sidebar-box {
   margin-bottom: 10px;
@@ -211,4 +199,17 @@ h5.title, h4.title {
 
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
+}
+
+/* Tablet and desktop only rules. */
+.navbar-brand {
+  padding: 7px;
+}
+@media only screen and (min-width: 768px) {
+  .navbar-icons > li > a {
+    margin: 9px 5px 9px 0;
+    padding: 0;
+    border: 1px solid black;
+  }
+  
 }

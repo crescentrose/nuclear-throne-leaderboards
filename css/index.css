@@ -1,7 +1,4 @@
-.leaderboard {
-	outline: 2px solid black;
 
-}
 
 .desert-wall {
 	background-image: url("/img/textures/desert-top-bottom.png"),  url("/img/textures/desert-top-main.png");
@@ -93,8 +90,10 @@
 	z-index: 20;
 }
 
-.leaderboard {
-	margin-bottom: 20px;
+.leaderboard > .inner {
+	padding: 0 10px 0px 10px;
+	outline: 2px solid black;
+	margin-bottom: 10px;
 }
 
 .sidebar-title {
@@ -129,4 +128,13 @@
 
 .stream-title {
 	font-weight: bold;
+}
+
+
+/* Mobile rules. */
+
+@media only screen and (max-width: 992px) {
+	.sidebar-box {
+		padding: 0 10px 0px 10px;
+	}
 }

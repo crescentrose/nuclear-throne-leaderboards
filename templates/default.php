@@ -76,63 +76,68 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">
-              <div class="hidden-sm hidden-xs">
+              <div class="hidden-xs">
                 <img alt="Nuclear Throne Daily Run Stats" src="/img/thronebutt-logo-big.png">
                 <div class="tagline stroke">NUCLEAR THRONE LEADERBOARDS</div>
               </div>
-              <div class="visible-xs visible-sm">Nuclear Throne Leaderboards</div></a>
+              <div class="visible-xs  ">Nuclear Throne Leaderboards</div></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-icons">
               <li>
                 <a href="/">
-                  <div class="hidden-sm hidden-xs">
+                  <div class="hidden-xs">
                     <img data-toggle="tooltip" title="Today's Daily Challenge" data-placement="bottom" src="/img/daily.png" {% if location != "daily" %}class="inactive"{% endif %} alt="Today's Daily">
                   </div>
-                  <div class="visible-sm visible-xs">
+                  <div class="visible-xs">
                     Today's Leaderboards
                   </div>
                 </a>
               </li>
               <li>
                 <a href="/all-time">
-                  <div class="hidden-sm hidden-xs">
+                  <div class="hidden-xs">
                     <img src="/img/alltime.png" data-toggle="tooltip" title="All-time stats" data-placement="bottom" {% if location != "alltime" %}class="inactive"{% endif %} alt="All-time stats">
                   </div>
-                  <div class="visible-sm visible-xs">
+                  <div class="visible-xs">
                     All-time stats
                   </div>
                 </a>
               </li>
               <li>
                 <a href="/archive">
-                  <div class="hidden-sm hidden-xs">
+                  <div class="hidden-xs">
                     <img src="/img/archive.png" data-toggle="tooltip" data-placement="bottom" title="Archives" {% if location != "archive" %}class="inactive"{% endif %} alt="Archive">
                   </div>
-                  <div class="visible-sm visible-xs">
+                  <div class="visible-xs">
                     Archives
                   </div>
                   </a>
                 </li>
               <li>
                 <a href="/about">
-                  <div class="hidden-sm hidden-xs">
+                  <div class="hidden-xs">
                     <img src="/img/about.png" data-toggle="tooltip" data-placement="bottom" title="About" {% if location != "about" %}class="inactive"{% endif %} alt="About">
                   </div>
-                  <div class="visible-sm visible-xs">
+                  <div class="visible-xs">
                     About
                   </div>
                   </a>
               </li>
             </ul>
-            <p class="navbar-text warning">
+            <p class="navbar-text warning hidden-sm hidden-xs">
             <b>This is a test version. Don't report bugs. <a href="http://thronebutt.com">Click here to go back.</a></b>
             </p>
             <ul class="nav navbar-nav navbar-right">
               {% if session.steamid == "" %}
                 <li>
                   <a href="/?login" class="steam-login">
-                    <img src="/img/sits_small.png" alt="Sign in via Steam">
+                    <div class="hidden-sm">
+                      <img src="/img/sits_small.png" alt="Sign in via Steam">
+                    </div>
+                    <div class="visible-sm">
+                      <img src="/img/steam_login_alt.png" alt="Sign in via Steam">
+                    </div>
                   </a>
                 </li>
                 {% endif%}
