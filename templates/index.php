@@ -63,7 +63,7 @@
             {% endfor %}
           </tbody>
           </table>
-          <center><a class="btn btn-default " href="/daily/{{ data.page }}">More</a></center>
+          <center><a class="btn btn-default " href="/daily/{{ page }}">More</a></center>
         </div>
       </div>
       </div>

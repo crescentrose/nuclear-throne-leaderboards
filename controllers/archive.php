@@ -12,9 +12,10 @@ function render($twig, $sdata = array()) {
 			$date = new DateTime($_GET["date"]);
 
 			$leaderboard = new Leaderboard();
-			$scores = $leaderboard->create_global($_GET["date"])->to_array(($page - 1) * 30, 30);
+			$scores = $leaderboard->create_global($_GET["date"], "rank", "ASC", ($page - 1) * 30, 30)->to_array();
 			$data = array(
 				'location' => "archive",
+				'global' =>$leaderboard->global_stats,
 	        	'year' => $date->format("Y"),
 	        	'month' => $date->format("m"),
 	        	'day' => $date->format("d"),
@@ -22,14 +23,35 @@ function render($twig, $sdata = array()) {
 	        	'scores' => $scores,
 	        	'page' => $page
 	    	);
-			echo $twig->render('archive_display.php', array_merge($sdata, $data));
+			echo $twig->render('archive.php', array_merge($sdata, $data));
 		} catch (Exception $e) {
-			$data = array_merge(array('location' => "archive"), $sdata);
-			echo $twig->render('archive_picker.php', $data);
+			render_yesterday($twig, $sdata);
 		}
 	} else {
-		$data = array_merge(array('location' => "archive"), $sdata);
-		echo $twig->render('archive_picker.php', $data);
+			render_yesterday($twig, $sdata);
 	}
+}
+
+function render_yesterday($twig, $sdata = array()) {
+	if(isset($_GET["page"])) {
+		$page = (int)$_GET["page"];
+	} else {
+		$page = 1;	
+	}
+
+	$leaderboard = new Leaderboard();
+	$scores = $leaderboard->create_global(1, "rank", "ASC", ($page - 1) * 30, 30)->to_array();
+	$date = new DateTime($leaderboard->date);
+	$data = array(
+		'location' => "archive",
+		'global' =>$leaderboard->global_stats,
+	    'year' => $date->format("Y"),
+	    'month' => $date->format("m"),
+	    'day' => $date->format("d"),
+	    'count' => count($scores),	
+	    'scores' => $scores,
+	    'page' => $page
+	);
+	echo $twig->render('archive.php', array_merge($sdata, $data));
 }
 ?>

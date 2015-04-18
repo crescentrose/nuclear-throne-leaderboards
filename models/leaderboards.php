@@ -48,7 +48,8 @@ class Leaderboard {
 		$this->date = $date;
 		$stats = $this->db->query("SELECT COUNT(*) AS runcount, AVG(score) AS avgscore
 			FROM throne_scores
-			WHERE `dayId` = " . $dateId);
+			LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId
+			WHERE `date` = '" . $date . "'");
 		$this->global_stats = $stats->fetchAll()[0];
 		return $this->make_leaderboard("date", $date, $order_by, $direction, $start, $length);
 	}
@@ -114,7 +115,7 @@ class Leaderboard {
 					GROUP BY dayid) x ON x.d = throne_scores.dayId
 				WHERE `$where` = :cnd
 				ORDER BY `$order_by` $direction
-				". $limit);
+				$limit"	);
 			$query->execute(array(":cnd" => $condition));
 			$entries = $query->fetchAll();
 		} catch (Exception $e) {
