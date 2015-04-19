@@ -1,18 +1,50 @@
 {% extends "default.php" %}
 
 {% block content %}
+
+
 <!-- Main page -->
-<div class="row col-md-12 main center-block">
-  <h1><img src="{{ player.avatar_medium }}" class="player-avatar"/> <a href="/player/{{ player.steamid }}">{{ player.name }}</a> was #{{ rank }} on the {{ date }} daily!</h1>
-  <h4>{{ player.name }} killed {{ score }} enemies.</h2>
-  {% if session.admin > 0 %}
-  	<p><b>Admin tools:</b> {% if hidden %}<a href="/admin/player/{{ steamid }}/score/{{ hash }}/undelete">Unhide</a>{% else %}<a href="/admin/player/{{ steamid }}/score/{{ hash }}/delete">Hide</a>{% endif %}</p>  {% endif %}
-  <div class="row">
-    <div class="col-md-12">
-    {% if suspected_hacker %}<p class="text-danger"> Note: {{ player.name }} is marked as a <span class="label label-danger">Suspected Hacker</span>. <a href="/about" class="text-danger"><b>Click here</b></a> to learn more about the hacker marking process.</p> {% endif %}
-    {% if hidden %}<p class="text-danger"> Note: This score was hidden by the administrators. It won't show up on the front page or the archive page.</p>{% endif %}
-    Think you can do better? <a href="steam://run/242680"><b>Play Nuclear Throne!</b></a>
+<div class="row">
+  <div class="col-md-8 leaderboard">
+    <div class="inner">
+      <div class="row palace-wall">
+        <div class="col-md-12">
+          <h3 class="title stroke-hard">
+            <a href="/player/{{ player.steamid }}" class="more-link">{{ player.name }}'s run</a>
+          </h3>
+          <h5 class="title stroke">
+            {{ raw.date }}
+          </h5>
+        </div>
+      </div>
+
+      <div class="row palace-floor">
+        <div class="col-md-12">
+          <h4 class="profile-subtitle stroke">{{ score }} kills, ranked #{{ rank }}</h4>
+          {% if raw.video %}
+            {% if raw.video.type == "youtube" %}
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ raw.video.id }}" frameborder="0" allowfullscreen></iframe>
+            {% else %}
+
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 sidebar">
+    <div class="sidebar-box">
+      <div class="row mansion-wall">
+        <div class="col-md-12">
+          <h4 class="title stroke sidebar-title">About player</h4>
+        </div>
+      </div>
+      <div class="row mansion-floor">
+      </div>
     </div>
   </div>
 </div>
+<script src="/js/update.js"></script>
+
 {% endblock %}

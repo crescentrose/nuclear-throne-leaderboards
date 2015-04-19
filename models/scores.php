@@ -10,7 +10,9 @@
 			$db = Application::$db;
 			if (isset($data["hash"])) {
 				try {
-					$stmt= $db->prepare("SELECT * FROM `throne_scores` WHERE `hash` = :hash");
+					$stmt= $db->prepare("SELECT * FROM `throne_scores`
+						LEFT JOIN `throne_dates` ON `throne_dates`.dayId = `throne_scores`.dayId
+						WHERE `hash` = :hash");
 					$stmt->execute(array(':hash' => $data["hash"]));
 					$result = $stmt->fetchAll();
 				} catch (Exception $e) {

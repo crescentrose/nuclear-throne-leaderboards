@@ -46,6 +46,12 @@
                 {% if score.player.suspected_hacker %}
                   <span class="label label-danger pull-right">Suspected Hacker</span>
                 {% endif %}
+                {% if score.raw.video %}
+                  <span class="pull-right"><a href="{{ score.raw.video }}" target="_blank"><img src="/img/youtube.png" alt="Video link" title="There's a video attached to this score." /></a></span>
+                {% endif %}
+                {% if score.raw.comment && !score.raw.video %}
+                  <span class="pull-right"><a href="{{ score.raw.video }}" target="_blank"><img src="/img/youtube.png" alt="Comment link" title="There's a comment attached with this score." /></a></span>
+                {% endif %}
                 {% if score.player.raw.wins > 0 %}
                   <span class="pull-right crown"><img src="/img/crown.png" alt="Previous wins" title="This player has won on {{ score.player.raw.wins }} day(s)!" /><span class="wins stroke">{{ score.player.raw.wins }}</span></span>
                 {% endif %}
@@ -113,7 +119,7 @@
       </div>
       </div>
       {% else %}
-        <div class="sidebar-box">
+      <div class="sidebar-box">
         <div class="row mansion-wall">
           <div class="col-md-12">
             <h5 class="title stroke sidebar-title">Your profile</h5>
@@ -135,6 +141,7 @@
               {% if userdata.today_rank %}
                 <p>Rank: #{{ userdata.today_rank }}<br/>
                 Percentile: {{ userdata.percentile }}%</p>
+
               {% else %}
               <br/>No data available... yet!
               {% endif %}

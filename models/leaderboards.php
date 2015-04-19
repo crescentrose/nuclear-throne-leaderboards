@@ -141,10 +141,14 @@ class Leaderboard {
 
 		$scores = array();
 		
+		$parsedown = new Parsedown();
 		foreach ($entries as $entry) {
 
 			$meta = array("wins" => $entry["wins"]);
-			$meta_scores = array("date" => $entry["date"], "hash" => $entry["hash"]);
+			$meta_scores = array("date" => $entry["date"],
+				"hash" => $entry["hash"],
+				"video" => $entry["video"],
+				"comment" => $parsedown->text($entry["comment"]));
 			$player = new Player(array(	"steamid" => $entry["steamId"],
 										"name" => $entry["name"],
 										"avatar" => $entry["avatar"],

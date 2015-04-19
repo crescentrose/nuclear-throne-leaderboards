@@ -1,8 +1,6 @@
 {% extends "default.php" %}
 
 {% block head %}
-<link rel="stylesheet" href="/css/index.css" />
-
 <!--Load the chart API-->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
@@ -74,7 +72,7 @@
             </thead>
             <tbody>
               {% for score in best_moments %}
-              <tr onclick="document.location = '/score/{{ score.hash }}'" {% if score.hidden %}class="hidden-score"{% endif %} >
+              <tr {% if score.hidden %}class="hidden-score"{% endif %} >
                 <td>{{ score.raw.date }}</td>
                 <td>{{ score.percentile }}%</td>
                 <td><b>#{{ score.rank }}</b></td>
@@ -84,7 +82,7 @@
             </tbody>
           </table>
           <h3 class="profile-subtitle stroke">Score history</h3>
-          <h5 class="profile-subtitle stroke">Latest runs and scores</h5>
+          <h5 class="profile-subtitle stroke">Latest runs and scores - Click on a score to view details!</h5>
           <table class="table table-responsive table-hover">
             <thead> 
               <td>Date</td>
@@ -99,11 +97,16 @@
             </thead>
             <tbody id="latest_score_table">
               {% for score in scores %}
-              <tr onclick="document.location = '/score/{{ score.hash }}'" {% if score.hidden %}class="hidden-score"{% endif %} >
+              <tr {% if score.hidden %}class="hidden-score"{% endif %} >
                 <td>{{ score.raw.date }}</td>
                 <td>{{ score.percentile }}%</td>
                 <td><b>#{{ score.rank }}</b></td>
-                <td><b>{{ score.score }}</b></td>
+                <td><b>{{ score.score }}</b>
+                  {% if score.raw.video %}
+                    <span class="pull-right"><a href="{{ score.raw.video }}"><img src="/img/youtube.png" alt="Video link" title="There's a video attached to this score." /></a></span>
+                  {% endif %}
+                    <span class="pull-right"><a href="/score/{{ score.hash }}"><span class="glyphicon glyphicon-plus more-link"></span></a></span>
+                </td>
               </tr>
               {% endfor %}
             </tbody>

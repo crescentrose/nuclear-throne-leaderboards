@@ -198,8 +198,13 @@ h5.title, h4.title {
   text-align: center;
 }
 
+.more-link {
+  color: #fff;
+}
 
-
+.more-link:hover {
+  color: #3b4059;
+}
 .desert-wall {
   background-image: url("/img/textures/desert-top-bottom.png"),  url("/img/textures/desert-top-main.png");
   background-position: center bottom, left top;
