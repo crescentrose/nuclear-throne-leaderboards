@@ -139,6 +139,10 @@
 	font-weight: bold;
 }
 
+.ranktable a {
+	color: #ffffff;
+}
+
 .streams {
 	margin-top: 10px;
 	color: black;
@@ -166,6 +170,10 @@
 .user-picture {
 	float: left;
 	margin-right: 10px;
+}
+
+.usercard > a {
+	color: #ffffff;
 }
 
 .login-modal-content {

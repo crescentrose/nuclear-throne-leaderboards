@@ -42,7 +42,7 @@
             <tr>
               <td width="30px">{{ score.rank }}</td>
               <td>
-                <img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamid }}">{{ score.player.name }}</a>
+                <a href="/player/{{ score.player.steamid }}"><img src="{{ score.player.avatar }}" class="player-avatar"/></a> <a href="/player/{{ score.player.steamid }}">{{ score.player.name }}</a>
                 {% if score.player.suspected_hacker %}
                   <span class="label label-danger pull-right">Suspected Hacker</span>
                 {% endif %}
@@ -123,8 +123,10 @@
           <div class="col-md-12 sidebar-text">
             <div class="col-md-12">
               <div class="usercard">
-                <img src="{{ userdata.avatar_medium }}" class="user-picture" alt="Your avatar"/>
-                <div class="name stroke">{{ session.steamname }}</div>
+                <a href="/player/{{ session.steamid }}">
+                  <img src="{{ userdata.avatar_medium }}" class="user-picture" alt="Your avatar"/>
+                  <div class="name stroke">{{ session.steamname }}</div>
+                </a>
                 <div class="subname stroke">All-time: #{{ userdata.rank }}</div>
               </div>
             </div>
