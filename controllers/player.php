@@ -67,7 +67,7 @@ function json($sdata) {
 
 	// Scoreboards
 	$scoreboard = new Leaderboard();
-	$scores = $scoreboard->create_player($player->steamid, "date", "DESC", $_GET["page"] * 30, 30)->to_array(0, -1);
+	$scores = $scoreboard->create_player($player->steamid, "date", "DESC", $_GET["page"] * 15, 15)->to_array(0, -1);
 	$scores = array(array("scores" => $scores, "count" => $scoreboard->get_global_stats()["count"]));
 	echo json_encode($scores);
 }

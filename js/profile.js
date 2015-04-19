@@ -28,7 +28,7 @@ $('#nextPageBtn').click(function(event) {
             $('#latest_score_table').append('<tr><td>' + value.raw.date + '</td><td>' + value.percentile + '%</td><td><b>#' + value.rank + '</b></td><td><b>' + value.score + '</b></td>');
          });
 
-         if (parsed.count < 30) {
+         if (parsed.count < 15) {
             $('#nextPageBtn').html("That's all!");
          }
          page = page + 1;
