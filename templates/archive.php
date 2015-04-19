@@ -60,7 +60,7 @@
               {% endfor %}
             </tbody>
           </table>
-          <center><a class="btn btn-default " href="/archive/{{ year }}/{{ month }}/{{ day }}/page-{{ page + 1 }}/">More</a></center>
+          <center><a class="btn btn-retro stroke " href="/archive/{{ year }}/{{ month }}/{{ day }}/page-{{ page + 1 }}/">More</a></center>
         {% endif %}
       </div>
       </div>

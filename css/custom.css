@@ -64,68 +64,8 @@ h5.title, h4.title {
   -webkit-filter: grayscale(0);
 }
 
-.background1 {
-   background: #333 url('../img/background1.jpg') no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
-}
-
-.background2 {
-   background: #333 url('../img/background2.jpg') no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
-}
-
-.background3 {
-   background: #333 url('../img/background3.jpg') no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
-}
-
-.background4 {
-   background: #333 url('../img/background4.jpg') no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
-}
-
-.background5 {
-   background: #333 url('../img/background5.jpg') no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
-}
-
-.background6 {
-   background: #333 url('../img/background6.jpg') no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
-}
-
-.background7 {
-   background: #333 url('../img/background7.jpg') no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
-}
-
-.background8 {
-   background: #333 url('../img/background8.jpg') no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
-}
-
-.background9 {
-   background: #333 url('../img/background9.jpg') no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
-}
-
 .navbar {
   background-color: #1d2a38;
-}
-
-.main {
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 4px;  
-  padding-bottom: 10px;
 }
 
 .footer {
@@ -195,8 +135,26 @@ h5.title, h4.title {
   background-color: #990000;
   color: white !important;
 }
-/* Firefox hack for responsive tables (OPPAN IE STYLE) */
 
+.btn-retro {
+  padding: 5px;
+  margin: 3px;
+  font-family: "Press Start K";
+  text-transform: uppercase;
+  border-radius: 0;
+  border: #3b4059 3px solid;
+  background-color: #1d2a38;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+}
+
+.btn-retro:hover {
+  border: white 3px solid;
+  color: #fff;
+}
+
+/* Firefox hack for responsive tables (OPPAN IE STYLE) */
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
 }

@@ -38,7 +38,7 @@
             {% endfor %}
           </tbody>
           </table>
-          <center><a class="btn btn-default " href="/all-time/{{ page + 1 }}/{{ sort_by }}">More</a></center>
+          <center><a class="btn btn-retro stroke" href="/all-time/{{ page + 1 }}/{{ sort_by }}">More</a></center>
         </div>
       </div>
     </div>

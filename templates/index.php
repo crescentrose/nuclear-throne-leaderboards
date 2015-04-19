@@ -63,7 +63,7 @@
             {% endfor %}
           </tbody>
           </table>
-          <center><a class="btn btn-default " href="/daily/{{ page }}">More</a></center>
+          <center><a class="btn btn-retro stroke" href="/daily/{{ page }}">More</a></center>
         </div>
       </div>
       </div>
@@ -107,7 +107,7 @@
             <div class="center">
               <p>Login with your Steam account to edit your profile, link YouTube videos to your 
               scores and interact with other players!</p>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".login-modal">Log in</button>
+              <button type="button" class="btn btn-retro stroke" data-toggle="modal" data-target=".login-modal">Log in</button>
             </div>
           </div>
       </div>
