@@ -136,7 +136,7 @@ h5.title, h4.title {
   color: white !important;
 }
 
-.btn-retro {
+.btn-retro, .btn-retro:focus  {
   padding: 5px;
   margin: 3px;
   font-family: "Press Start K";
@@ -151,7 +151,11 @@ h5.title, h4.title {
 
 .btn-retro:hover {
   border: white 3px solid;
-  color: #fff;
+  color: #fff !important;
+}
+
+.btn-retro:active {
+  background-color: #3b4059;
 }
 
 /* Firefox hack for responsive tables (OPPAN IE STYLE) */

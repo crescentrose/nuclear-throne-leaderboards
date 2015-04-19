@@ -12,4 +12,8 @@ function render($twig, $sdata = array()) {
 		echo $twig->render('404.php', $sdata);
 	}
 }
+
+function json($sdata) {
+	
+}
 ?>

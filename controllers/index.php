@@ -48,4 +48,8 @@ function render($twig, $sdata = array()) {
 
  	echo $twig->render('index.php', array_merge($sdata, $data));
  }
+ 
+function json($sdata) {
+    
+}
  ?>

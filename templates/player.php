@@ -1,7 +1,7 @@
 {% extends "default.php" %}
 
 {% block head %}
-<link rel="stylesheet" href="/css/player.css" />
+<link rel="stylesheet" href="/css/index.css" />
 
 <!--Load the chart API-->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -36,64 +36,89 @@
         chart.draw(data, options);
       }
 </script>
+
+<meta name="steamid" content="{{ player.steamid }}" />
 {% endblock %}
 
 {% block title %}| {{ player.name }}'s profile{% endblock %}
 
 {% block content %}
-
-
 <!-- Main page -->
-<div class="row col-md-12 main center-block">
-    <h1><img src="{{ player.avatar_medium }}" class="player-avatar" /> <a href="http://steamcommunity.com/profiles/{{ player.steamid }}">{{ player.name }}</a>'s profile</h1>
-
 <div class="row">
-  <div class="col-md-6">
-    <div class="col-md-12">
-    {% if player.suspected_hacker %}<div class="text-danger"><h3>Suspected hacker</h3> {{ player.name }} is marked as a <span class="label label-danger">Suspected Hacker</span>. <a href="/about" class="text-danger"><b>Click here</b></a> to learn more about the hacker marking process.</div> {% endif %}
-    {% if session.admin > 0 %}<div class="text-danger"><h3>Admin tools</h3><p><a href="/admin/player/{{ player.steamid }}/mark">Mark as hacker</a> | <a href="/admin/player/{{ player.steamid }}/unmark">Remove hacker mark</a> | <a href="/admin/player/{{ steamid }}/update">Manual profile update</a></p>
-    <p>Note: Marked hackers will keep their scores until the next update.</p></div>{% endif %}
-    <h3>All-time rank</h3>
-    {% if rank == -1 %}
-    <p>This player is not ranked at the moment, either because they were marked as a suspected hacker or because the scores did not yet update.</p>
-    {% else %}
-    <p>{{ player.name }} is ranked <b>#{{ rank }} all-time</b> with <b>{{ total.sum }} lifetime kills</b> over <b>{{ total.count }}</b> runs!</p>
-    <p>Average kills: {{ total.average }}.  Average score over top 10 best runs: {{ total.average_top10 }}. These stats will be moved later.</p>
-    {% endif %}
-      <h3>Daily History</h3>
-      <table class="table table-responsive table-hover">
-        <thead> 
-          <td>Date</td>
-          <td>Rank</td>
-          <td><abbr title="Player's performance relative to the other runs of that day - e.g., 25% means that the player was in the top 25% of players that day.">Top %</abbr></td>
-          <td>Score</td>
-          {% if session.admin > 0 %}
-          <td class="text-danger">Admin</td>
-          {% endif %}
-        </thead>
-        <tbody>
-          {% for score in scores %}
-          <tr onclick="document.location = '/score/{{ score.hash}}'" {% if score.hidden %}class="hidden-score"{% endif %} >
-            <td>{{ score.raw.date }}</td>
-            <td><b>#{{ score.rank }}</b></a></td>
-            <td>{{ score.percentile }}%</td>
-            <td>{{ score.score }}</td>
-            {% if session.admin > 0 %}
-            <td><a href="/admin/player/{{ player.steamid }}/score/{{ score.hash }}/delete" class="text-danger">Hide</a></td>
-            {% endif %}
-          </tr>
-          
-          {% endfor %}
-        </tbody>
-        </table>
+  <div class="col-md-8 leaderboard">
+    <div class="inner">
+      <div class="row palace-wall">
+        <div class="col-md-12">
+          <h3 class="title stroke-hard player-title">
+            <img src="{{ player.avatar_medium }}" class="player-avatar" />
+            <a href="http://steamcommunity.com/profiles/{{ player.steamid }}">{{ player.name }}</a>'s profile
+          </h3>
+        </div>
+      </div>
+
+      <div class="row palace-floor">
+        <div class="col-md-12">
+          <h3 class="profile-subtitle stroke">Best moments</h3>
+          <h5 class="profile-subtitle stroke">Top ranks and highscores</h5>
+          <table class="table table-responsive table-hover">
+            <thead> 
+              <td>Date</td>
+              <td>
+                <abbr title="Player's performance relative to the other runs of that day - e.g., 25% means that the
+                player was in the top 25% of players that day.">
+                  Top %
+                </abbr>
+              </td>
+              <td>Rank</td>
+              <td>Score</td>
+            </thead>
+            <tbody>
+              {% for score in best_moments %}
+              <tr onclick="document.location = '/score/{{ score.hash }}'" {% if score.hidden %}class="hidden-score"{% endif %} >
+                <td>{{ score.raw.date }}</td>
+                <td>{{ score.percentile }}%</td>
+                <td><b>#{{ score.rank }}</b></td>
+                <td><b>{{ score.score }}</b></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <h3 class="profile-subtitle stroke">Score history</h3>
+          <h5 class="profile-subtitle stroke">Latest runs and scores</h5>
+          <table class="table table-responsive table-hover">
+            <thead> 
+              <td>Date</td>
+              <td>
+                <abbr title="Player's performance relative to the other runs of that day - e.g., 25% means that the
+                player was in the top 25% of players that day.">
+                  Top %
+                </abbr>
+              </td>
+              <td>Rank</td>
+              <td>Score</td>
+              {% if session.admin > 0 %}
+              <td class="text-danger">Admin</td>
+              {% endif %}
+            </thead>
+            <tbody id="latest_score_table">
+              {% for score in scores %}
+              <tr onclick="document.location = '/score/{{ score.hash }}'" {% if score.hidden %}class="hidden-score"{% endif %} >
+                <td>{{ score.raw.date }}</td>
+                <td>{{ score.percentile }}%</td>
+                <td><b>#{{ score.rank }}</b></td>
+                <td><b>{{ score.score }}</b></td>
+                {% if session.admin > 0 %}
+                <td><a href="/admin/player/{{ player.steamid }}/score/{{ score.hash }}/delete" class="text-danger">Hide</a></td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <center><button id="nextPageBtn" class="btn btn-retro">Older scores</button></center>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="col-md-5 col-md-offset-1">
-  <div class="col-md-12">
-    <h3>Rank history</h3>
-    <div id="chart"></div>
-  </div>
-  </div>
 </div>
-</div>
-{% endblock %}
+<script src="/js/profile.js"></script>
+  {% endblock %}

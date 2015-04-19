@@ -54,4 +54,8 @@ function render_yesterday($twig, $sdata = array()) {
 	);
 	echo $twig->render('archive.php', array_merge($sdata, $data));
 }
+
+function json($sdata) {
+	
+}
 ?>

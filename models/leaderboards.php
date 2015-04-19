@@ -82,8 +82,9 @@ class Leaderboard {
 		$stats = array();
 		$stats["count"] = count($array_scores);
 		$stats["sum"] = array_sum($array_scores);
-		$stats["average"] = round($stats["sum"] / $stats["count"]);
-		$stats["average_top10"] = round(array_sum(array_slice($array_scores, -10)) / 10);
+		$stats["average"] = round($stats["sum"] / max($stats["count"], 1));
+		$top10 = array_slice($array_scores, -10);
+		$stats["average_top10"] = round(array_sum($top10) / max(count($top10), 1));
 
 		return $stats;
 		/* return $this->db->query('SELECT COUNT(*) AS amount, ROUND(AVG(score)) AS average 
@@ -138,6 +139,7 @@ class Leaderboard {
 		foreach ($entries as $entry) {
 
 			$meta = array("wins" => $entry["wins"]);
+			$meta_scores = array("date" => $entry["date"], "hash" => $entry["hash"]);
 			$player = new Player(array(	"steamid" => $entry["steamId"],
 										"name" => $entry["name"],
 										"avatar" => $entry["avatar"],
@@ -149,7 +151,8 @@ class Leaderboard {
 											"score" => $entry["score"],
 											"rank" => $entry["rank"],
 											"first_created" => $entry["first_created"],
-											"percentile" => $entry["rank"] / $entry["runs"]));
+											"percentile" => $entry["rank"] / $entry["runs"],
+											"raw" => $meta_scores));
 		}
 		$this->scores = $scores;
 		return $this;

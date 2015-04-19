@@ -128,19 +128,20 @@ if (isset($_GET['do'])) {
 } else {
     include "controllers/index.php";
 }
+$data = array('session' => $_SESSION,
+            'weekday' => date("w") + 1,
+            'get' => $_GET,
+            'notice' => @file_get_contents("announcement.txt"));
 
-render($twig, array(
-    'session' => $_SESSION,
-    'weekday' => date("w") + 1,
-    'get' => $_GET,
-    'notice' => @file_get_contents("announcement.txt")
-));
-
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$finish = $time;
-$total_time = round(($finish - $start), 4);
-echo '<!-- Page generated in '.$total_time.' seconds. -->';
-
+if (isset($_GET['json'])) {
+    json($data);
+} else {
+    render($twig, $data);
+    $time = microtime();
+    $time = explode(' ', $time);
+    $time = $time[1] + $time[0];
+    $finish = $time;
+    $total_time = round(($finish - $start), 4);
+    echo '<!-- Page generated in '.$total_time.' seconds. -->';
+}
 ?>
