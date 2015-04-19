@@ -7,11 +7,6 @@
 
 {% block content %}
 
-{% if notice %}
-<div class="alert alert-info row">
-{{ notice|raw }}
-</div>
-{% endif %}
 <!-- Main page -->
 <div class="row">
     <div class="col-md-8 leaderboard">
@@ -49,7 +44,7 @@
                 {% if score.raw.video %}
                   <span class="pull-right"><a href="{{ score.raw.video }}" target="_blank"><img src="/img/youtube.png" alt="Video link" title="There's a video attached to this score." /></a></span>
                 {% endif %}
-                {% if score.raw.comment && !score.raw.video %}
+                {% if score.raw.comment and not score.raw.video %}
                   <span class="pull-right"><a href="{{ score.raw.video }}" target="_blank"><img src="/img/youtube.png" alt="Comment link" title="There's a comment attached with this score." /></a></span>
                 {% endif %}
                 {% if score.player.raw.wins > 0 %}
@@ -111,8 +106,7 @@
         <div class="row mansion-floor">
           <div class="col-md-12 sidebar-text">
             <div class="center">
-              <p>Login with your Steam account to edit your profile, link YouTube videos to your 
-              scores and interact with other players!</p>
+              <p>Login with your Steam account to view your personal details! More to come soon.</p>
               <button type="button" class="btn btn-retro stroke" data-toggle="modal" data-target=".login-modal">Log in</button>
             </div>
           </div>
@@ -185,6 +179,21 @@
         </div>
       </div>
       </div>
+      {% if notice %}
+     <div class="sidebar-box">
+      <div class="row frozen-wall">
+        <div class="col-md-12">
+          <h4 class="title stroke sidebar-title">Site news</h4>
+        </div>
+      </div>
+      <div class="row frozen-floor">
+        <div class="col-md-12">
+        {{ notice|raw }}
+      </div>
+      </div>
+    </div>
+      {% endif %}
+
       <div class="sidebar-box">
           <div class="row desert-wall">
             <div class="col-md-12">
@@ -217,23 +226,6 @@
         </div>
         </div>
       </div>
-     <div class="sidebar-box">
-      <div class="row frozen-wall">
-        <div class="col-md-12">
-          <h4 class="title stroke sidebar-title">Community links</h4>
-        </div>
-      </div>
-      <div class="row frozen-floor">
-        <div class="col-md-12">
-        <ul>
-          <li><a href="http://nuclear-throne.wikia.com/wiki/Nuclear_Throne_Wiki">Nuclear Throne wiki</a></li>
-          <li><a href="http://reddit.com/r/NuclearThrone">Nuclear Throne subreddit</a></li>
-          <li><a href="http://steamcommunity.com/app/242680/discussions/">Steam Community forums for Nuclear Throne</a></li>
-          <li><a href="http://www.twitch.tv/vlambeer">Developer Livestreams</a></li>
-        </ul>
-      </div>
-      </div>
-    </div>
     </div>
     </div>
   </div>
