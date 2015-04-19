@@ -85,6 +85,11 @@ class Leaderboard {
 		$stats["average"] = round($stats["sum"] / max($stats["count"], 1));
 		$top10 = array_slice($array_scores, -10);
 		$stats["average_top10"] = round(array_sum($top10) / max(count($top10), 1));
+		if ($stats["sum"] > 999) {
+			$stats["ksum"] = floor($stats["sum"] / 1000) . "K";
+		} else {
+			$stats["ksum"] = $stats["sum"];
+		}
 
 		return $stats;
 		/* return $this->db->query('SELECT COUNT(*) AS amount, ROUND(AVG(score)) AS average 

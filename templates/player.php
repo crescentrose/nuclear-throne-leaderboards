@@ -96,9 +96,6 @@
               </td>
               <td>Rank</td>
               <td>Score</td>
-              {% if session.admin > 0 %}
-              <td class="text-danger">Admin</td>
-              {% endif %}
             </thead>
             <tbody id="latest_score_table">
               {% for score in scores %}
@@ -107,14 +104,52 @@
                 <td>{{ score.percentile }}%</td>
                 <td><b>#{{ score.rank }}</b></td>
                 <td><b>{{ score.score }}</b></td>
-                {% if session.admin > 0 %}
-                <td><a href="/admin/player/{{ player.steamid }}/score/{{ score.hash }}/delete" class="text-danger">Hide</a></td>
-                {% endif %}
               </tr>
               {% endfor %}
             </tbody>
           </table>
           <center><button id="nextPageBtn" class="btn btn-retro">Older scores</button></center>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 sidebar">
+    <div class="sidebar-box">
+      <div class="row mansion-wall">
+        <div class="col-md-12">
+          <h4 class="title stroke sidebar-title">About player</h4>
+        </div>
+      </div>
+      <div class="row mansion-floor">
+        <div class="col-md-12">
+          <div class="badges">
+            {% if player.raw.wins > 0 %}
+              <div class="tbbadge">
+                <span class="crown  ">
+                  <img src="/img/big-crown.png" alt="Previous wins" data-toggle="tooltip" data-placement="right" title="This 
+                  player has won on {{ player.raw.wins }} day(s)!" />
+                  <span class="wins-big stroke">{{ player.raw.wins }}</span>
+                </span>
+              </div>
+            {% endif %}
+            <div class="tbbadge">
+              <span class="crown">
+                <img src="/img/kills.png" alt="Total pts" data-toggle="tooltip" data-placement="right" title="This 
+                player has {{ total.sum }} total kills!" />
+                <span class="wins-big stroke nudge-left">{{ total.ksum }}</span>
+              </span>
+            </div>
+            <div class="tbbadge" data-toggle="tooltip" data-placement="bottom" title="This 
+                player did {{ total.count }} daily runs!">
+              <span class="crown">
+                <img src="/img/runs.png" alt="Total runs"/>
+                <span class="wins-big stroke nudge-left">{{ total.count }}</span>
+              </span>
+            </div>
+          </div>
+          <p><span class="stat-title stroke">Average score:</span><br/><span class="stat-value stroke">{{ total.average }}</span></p>
+          <p><span class="stat-title stroke">Average of 10 best:</span><br/><span class="stat-value stroke">{{ total.average_top10 }}</span></p>
         </div>
       </div>
     </div>

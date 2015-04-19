@@ -130,6 +130,33 @@ h5.title, h4.title {
   left: -7px;
 }
 
+.wins-big {
+  z-index: 99;
+  font-family: "Press Start K";
+  font-size: 16px;
+  position:relative;
+  top: 32px;
+  left: -18px;
+}
+
+.player-title > a {
+  color: #fff;
+}
+
+.stat-title {
+  font-family: "Press Start K";
+  font-size: 8px;
+}
+
+.stat-value {
+  font-family: "Press Start K";
+  font-size: 16px;
+}
+
+.nudge-left {
+  left: -35px;
+}
+
 .warning {
   font-size: 12pt;
   background-color: #990000;
@@ -170,6 +197,215 @@ h5.title, h4.title {
 .center {
   text-align: center;
 }
+
+
+
+.desert-wall {
+  background-image: url("/img/textures/desert-top-bottom.png"),  url("/img/textures/desert-top-main.png");
+  background-position: center bottom, left top;
+  background-repeat: repeat-x, repeat;
+  -webkit-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 10;
+  height: 77px;
+}
+
+.palace-wall {
+  background-image: url("/img/textures/top-bottom.png"),  url("/img/textures/top-main.png");
+  background-position: center bottom, left top;
+  background-repeat: repeat-x, repeat;
+  -webkit-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 10;
+  height: 130px;
+}
+.vault-wall {
+  background-image: url("/img/textures/vault-top-bottom.png"),  url("/img/textures/vault-top-main.png");
+  background-position: center bottom, left top;
+  background-repeat: repeat-x, repeat;
+  -webkit-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 10;
+  height: 77px;
+}
+
+.frozen-wall {
+  background-image: url("/img/textures/frozen-top-bottom.png"),  url("/img/textures/frozen-top-main.png");
+  background-position: center bottom, left top;
+  background-repeat: repeat-x, repeat;
+  -webkit-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 10;
+  height: 77px;
+}
+
+.mansion-wall {
+  background-image: url("/img/textures/mansion-top-bottom.png"),  url("/img/textures/mansion-top-main.png");
+  background-position: center bottom, left top;
+  background-repeat: repeat-x, repeat;
+  -webkit-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 45px 0px 0px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 10;
+  height: 77px;
+}
+
+
+.mansion-floor {
+  background-image: url("/img/textures/mansion-floor.png");
+  background-repeat: repeat;
+}
+
+.mansion-floor > .col-md-12 {
+  position:relative;
+  z-index: 20;
+}
+
+.palace-floor {
+  background-image: url("/img/textures/palace-floor.png");
+  background-repeat: repeat;
+}
+
+.palace-floor > .col-md-12 {
+  position:relative;
+  z-index: 20;
+}
+
+.vault-floor {
+  background-image: url("/img/textures/vault-floor.png");
+  background-repeat: repeat;
+}
+
+
+.vault-floor > .col-md-12 {
+  position:relative;
+  z-index: 20;
+}
+
+.desert-floor {
+  background-image: url("/img/textures/desert-floor.png");
+  background-repeat: repeat;
+}
+
+.desert-floor > .col-md-12 {
+  position:relative;
+  z-index: 20;
+}
+
+.frozen-floor {
+  background-image: url("/img/textures/frozen-floor.png");
+  background-repeat: repeat;
+  color: black;
+}
+
+.frozen-floor > .col-md-12 {
+  position:relative;
+  z-index: 20;
+}
+
+.leaderboard > .inner {
+  padding: 0 10px 0px 10px;
+  outline: 2px solid black;
+  margin-bottom: 10px;
+}
+
+.sidebar-title {
+  margin-top: 17px;
+}
+
+.global {
+  text-align: center;
+  margin: 10px 0 10px 0;
+  padding: 5px 0 0 0;
+  font-family: "Press Start K";
+  font-size: 12px;
+}
+.stat {
+  display: inline;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ranktable > thead {
+  font-weight: bold;
+}
+
+.ranktable a {
+  color: #ffffff;
+}
+
+.streams {
+  margin-top: 10px;
+  color: black;
+}
+
+.stream {
+  height: 60px;
+}
+
+.stream-title {
+  font-weight: bold;
+}
+
+.name {
+  font-family: "Press Start K";
+  font-size: 16px;
+  word-break: break-all;
+}
+
+.subname {
+  font-family: "Press Start K";
+  font-size: 12px;
+}
+
+.user-picture {
+  float: left;
+  margin-right: 10px;
+}
+
+.usercard > a {
+  color: #ffffff;
+}
+
+.login-modal-content {
+  background-color: #333;
+}
+
+.player-title {
+  margin-top: 5px;
+}
+
+.profile-subtitle {
+  font-family: "Press Start K";
+  text-transform: uppercase;
+}
+
+.badges {
+  margin: 5px 5px 15px 0;
+  text-align: center;
+}
+
+.tbbadge {
+  margin: 0 -20px 0 0;
+  display: inline;
+}
+/* Mobile rules. */
+
+@media only screen and (max-width: 992px) {
+  .sidebar-box {
+    padding: 0 10px 0px 10px;
+  }
+}
+
 /* Tablet and desktop only rules. */
 .navbar-brand {
   padding: 7px;

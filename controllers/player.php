@@ -4,7 +4,7 @@ function render($twig, $sdata = array()) {
 		
 		$player = new Player(array("search"=>$_GET["steamid"]));
 
-		if ($player == false) {
+		if ($player->steamid == false) {
 			echo $twig->render("404.php", $sdata);
 			return;
 		}
@@ -14,11 +14,11 @@ function render($twig, $sdata = array()) {
 
 		// Top ranks
 		$top_ranks = new Leaderboard();
-		$top_ranks_list = $scoreboard->create_player($player->steamid, "rank", "ASC", 0, 2)->to_array(0, -1);
+		$top_ranks_list = $top_ranks->create_player($player->steamid, "rank", "ASC", 0, 2)->to_array(0, -1);
 
 		// Top scores
 		$top_scores = new Leaderboard();
-		$top_scores_list = $scoreboard->create_player($player->steamid, "score", "DESC", 0, 2)->to_array(0, -1);
+		$top_scores_list = $top_scores->create_player($player->steamid, "score", "DESC", 0, 2)->to_array(0, -1);
 
 		$best_moments = array();
 		$dates = array();
@@ -36,6 +36,7 @@ function render($twig, $sdata = array()) {
 			"rank" => $player->get_rank(),
 			"total" => $scoreboard->get_global_stats(),
 			"scores_graph" => array_reverse($scoreboard->to_array(0, 30)));
+
 		if ($data != false) {
 			echo $twig->render('player.php', array_merge($sdata, $data));
 		} else {

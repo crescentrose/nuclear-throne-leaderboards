@@ -13,13 +13,16 @@
 						WHERE rank = 1	
 						GROUP BY steamid) AS w) ON w.steamid = throne_players.steamid
 					WHERE throne_players.steamid = :steamid");
-				$stmt->execute(array(':steamid' => $data["search"]));
-				
-				if ($stmt->rowCount() != 1) 
-					return false;
+				$stmt->execute(array(':steamid' => $data["search"]));			
+				$data = $stmt->fetchAll();
+				if (!isset($data[0])) {
+					$data["steamid"] = false;
+					return;
+				} else {
+					$data = $data[0];
+					$data["steamid"] = $data[0]; // wat
+				}
 
-				$data = $stmt->fetchAll()[0];
-				$data["steamid"] = $data[0]; // wat
 				$data["raw"] = $data;
 			}
 

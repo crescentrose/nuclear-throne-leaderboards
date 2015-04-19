@@ -26,8 +26,8 @@ class Application {
 		$data = $stmt->fetchAll();
 
 		if (count($data) > 0) {
-			$stmt = self::$db->prepare("UPDATE `throne_tokens` SET `last_accessed` = CURRENT_TIMESTAMP() WHERE `token` = :token");
-			$stmt->execute(array(":token" => $token));
+				$stmt = self::$db->prepare("UPDATE `throne_tokens` SET `last_accessed` = CURRENT_TIMESTAMP() WHERE `token` = :token");
+				$stmt->execute(array(":token" => $token));
 			return $data[0]["user_id"];
 		} else {
 			return false;
