@@ -62,7 +62,12 @@
 
 		public function get_rank_today() {
 			$userboard = new Leaderboard();
-			return $userboard->create_player($this->steamid, "date", "DESC", 0, 1, 0)->to_array()[0]["rank"];	
+			$score = $userboard->create_player($this->steamid, "date", "DESC", 0, 1, 0)->to_array();
+			if (isset($score[0]["rank"])) {
+				return $score[0]["rank"];
+			} else {
+				return false;
+			}
 		}
 
 		public function to_array() {
