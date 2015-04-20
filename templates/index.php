@@ -44,7 +44,7 @@
                 {% if score.raw.video %}
                   <span class="pull-right"><a href="{{ score.raw.video }}" target="_blank"><img src="/img/youtube.png" alt="Video link" title="There's a video attached to this score." /></a></span>
                 {% endif %}
-                {% if score.raw.comment and not score.raw.video %}
+                {% if score.raw.comment %}
                   <span class="pull-right"><a href="{{ score.raw.video }}" target="_blank"><img src="/img/youtube.png" alt="Comment link" title="There's a comment attached with this score." /></a></span>
                 {% endif %}
                 {% if score.player.raw.wins > 0 %}

@@ -114,7 +114,6 @@ h5.title, h4.title {
 
 .sidebar-box {
   margin-bottom: 10px;
-  outline: 2px solid black;
 }
 
 .crown {
@@ -215,6 +214,10 @@ h5.title, h4.title {
   position: relative;
   z-index: 10;
   height: 77px;
+
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .palace-wall {
@@ -227,6 +230,11 @@ h5.title, h4.title {
   position: relative;
   z-index: 10;
   height: 130px;
+
+
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 .vault-wall {
   background-image: url("/img/textures/vault-top-bottom.png"),  url("/img/textures/vault-top-main.png");
@@ -238,6 +246,11 @@ h5.title, h4.title {
   position: relative;
   z-index: 10;
   height: 77px;
+
+
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .frozen-wall {
@@ -250,6 +263,11 @@ h5.title, h4.title {
   position: relative;
   z-index: 10;
   height: 77px;
+
+
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .mansion-wall {
@@ -262,12 +280,22 @@ h5.title, h4.title {
   position: relative;
   z-index: 10;
   height: 77px;
+
+
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 
 .mansion-floor {
   background-image: url("/img/textures/mansion-floor.png");
   background-repeat: repeat;
+
+
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .mansion-floor > .col-md-12 {
@@ -278,6 +306,11 @@ h5.title, h4.title {
 .palace-floor {
   background-image: url("/img/textures/palace-floor.png");
   background-repeat: repeat;
+
+
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .palace-floor > .col-md-12 {
@@ -288,6 +321,10 @@ h5.title, h4.title {
 .vault-floor {
   background-image: url("/img/textures/vault-floor.png");
   background-repeat: repeat;
+
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 
@@ -299,6 +336,11 @@ h5.title, h4.title {
 .desert-floor {
   background-image: url("/img/textures/desert-floor.png");
   background-repeat: repeat;
+
+
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .desert-floor > .col-md-12 {
@@ -310,6 +352,11 @@ h5.title, h4.title {
   background-image: url("/img/textures/frozen-floor.png");
   background-repeat: repeat;
   color: black;
+  
+
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .frozen-floor > .col-md-12 {
@@ -319,7 +366,6 @@ h5.title, h4.title {
 
 .leaderboard > .inner {
   padding: 0 10px 0px 10px;
-  outline: 2px solid black;
   margin-bottom: 10px;
 }
 
