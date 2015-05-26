@@ -3,7 +3,7 @@ function render($twig, $sdata = array()) {
 
 	// Get current page
 	if (isset($_GET["page"]) && (int)$_GET["page"] > 0) {
-		$page = $_GET["page"]; 
+		$page = $_GET["page"];
 	} else {
 		$page = 0;
 	}
@@ -45,11 +45,10 @@ function render($twig, $sdata = array()) {
         'global' => $global,
         'page' => $page + 1
     );
-
  	echo $twig->render('index.php', array_merge($sdata, $data));
  }
- 
+
 function json($sdata) {
-    
+
 }
  ?>

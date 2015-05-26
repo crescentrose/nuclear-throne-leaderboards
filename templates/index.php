@@ -50,11 +50,11 @@
                 {% if score.raw.video %}
                   <span class="pull-right"><a href="{{ score.raw.video }}" target="_blank"><img src="/img/youtube.png" alt="Video link" title="There's a video attached to this score." /></a></span>
                 {% endif %}
-                {% if score.raw.comment %}
-                  <span class="pull-right"><a href="{{ score.raw.video }}" target="_blank"><img src="/img/youtube.png" alt="Comment link" title="There's a comment attached with this score." /></a></span>
-                {% endif %}
                 {% if score.player.raw.wins > 0 %}
                   <span class="pull-right crown"><img src="/img/crown.png" alt="Previous wins" title="This player has won on {{ score.player.raw.wins }} day(s)!" /><span class="wins stroke">{{ score.player.raw.wins }}</span></span>
+                {% endif %}
+                {% if score.player.admin == 1 %}
+                  <span class="pull-right"><img src="/img/flair/idpd.png" class="crown" data-toggle="tooltip" title="This user is a site moderator" data-placement="bottom"  /></span>
                 {% endif %}
               </td>
               {% if session.admin > 0 %}
