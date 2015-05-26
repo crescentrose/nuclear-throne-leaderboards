@@ -3,7 +3,7 @@ var steamid = $("meta[name='steamid']").attr("content");
 var done = true;
 
 $('#nextPageBtn').click(function(event) {
-   event.preventDefault();  
+   event.preventDefault();
 
    if (done == false) {
       $('#nextPageBtn').html('Be patient!')
@@ -19,13 +19,18 @@ $('#nextPageBtn').click(function(event) {
       success: function(data) {
          parsed = JSON.parse(data)[0];
          $('#nextPageBtn').html('Older scores');
-         
+
          $.each( parsed.scores, function( index, value ){
-            $('#latest_score_table').append('<tr><td>' + value.raw.date + '</td><td>' + value.percentile + '%</td><td><b>#' + value.rank + '</b></td><td><b>' + value.score + '</b><span class="pull-right"><a href="/score/' + value.score.hash + '"><span class="glyphicon glyphicon-plus more-link"></span></a></span>');
+           var append = "<tr";
+           if (value.hidden == 1) {
+             append = append + ' class="hidden-score"';
+           }
+            append = append + '><td>' + value.raw.date + '</td><td>' + value.percentile + '%</td><td><b>#' + value.rank + '</b></td><td><b>' + value.score + '</b><span class="pull-right"><a href="/score/' + value.hash + '"><span class="glyphicon glyphicon-plus more-link"></span></a></span>';
             if (value.raw.video) {
-               $('#latest_score_table').append('<span class="pull-right"><a target="_blank" href="' + value.raw.video + '"><img src="/img/youtube.png" alt="Video link" title="There\'s a video attached to this score." /></a></span>');
+               append = append + '<span class="pull-right"><a target="_blank" href="' + value.raw.video + '"><img src="/img/youtube.png" alt="Video link" title="There\'s a video attached to this score." /></a></span>';
             }
-            $('#latest_score_table').append('</td>')
+            append = append + '</td></tr>';
+            $('#latest_score_table').append(append);
          });
 
          if (parsed.count < 15) {

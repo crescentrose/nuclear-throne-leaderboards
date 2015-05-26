@@ -108,7 +108,11 @@ h5.title, h4.title {
 }
 
 .hidden-score {
-  color:#999;
+  color: #333;
+  text-decoration:line-through;
+}
+.no-strike {
+  text-decoration: none !important;
 }
 
 

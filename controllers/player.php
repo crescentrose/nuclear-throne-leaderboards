@@ -1,7 +1,7 @@
-<?php 
+<?php
 function render($twig, $sdata = array()) {
 	if (isset($_GET["steamid"])) {
-		
+
 		$player = new Player(array("search"=>$_GET["steamid"]));
 
 		if ($player->steamid == false) {
@@ -53,7 +53,7 @@ function json($sdata) {
 	// Make sure we get a number
 	if(!is_int((int)$_GET["page"]))
 		return false;
-	if (!isset($_GET["steamid"])) 
+	if (!isset($_GET["steamid"]))
 		return false;
 
 	// Steam has a hard limit of 10 000 scoreboards

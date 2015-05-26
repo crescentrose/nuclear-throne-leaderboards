@@ -20,11 +20,11 @@ class Leaderboard {
 		                                    FROM    throne_alltime a
 		                                    ORDER   BY $order_by DESC
                                 		) t, (SELECT @rank:= 0) r
-                               		) c 
+                               		) c
 			                      	INNER JOIN throne_alltime d ON c.$order_by = d.$order_by
 			                      	LEFT JOIN throne_players p ON p.steamid = d.steamid
 			                      	LEFT JOIN ((SELECT COUNT(*) as wins, steamid FROM throne_scores WHERE rank = 1 GROUP BY steamid) AS w) ON w.steamid = d.steamid
-			                      	ORDER BY c.ranks ASC 
+			                      	ORDER BY c.ranks ASC
 									LIMIT :start, :size");
 		$stmt->execute(array(":start" => $start, ":size" => $size));
 		$entries = $stmt->fetchAll();
@@ -32,11 +32,11 @@ class Leaderboard {
 		return $entries;
 	}
 
-	// Creates a leaderboard based on either a date in YYYY-MM-DD format or 
+	// Creates a leaderboard based on either a date in YYYY-MM-DD format or
 	// an offset from today's date.
 	// Offsets the leaderboard from the start with $start and defines its length
 	// with $size.
-	// Returns the class instance for easy manipulation. Results are stored in 
+	// Returns the class instance for easy manipulation. Results are stored in
 	// $this->scores.
 	public function create_global($date, $order_by = "rank", $direction = "ASC", $start = 0, $length = 30) {
 		if (is_int($date)) {
@@ -44,7 +44,7 @@ class Leaderboard {
     		$result = $leaderboard->fetchAll();
     		$dateId = $result[$date]['dayId'];
     		$date = $result[$date]['date'];
-		} 
+		}
 		$this->date = $date;
 		$stats = $this->db->query("SELECT COUNT(*) AS runcount, AVG(score) AS avgscore
 			FROM throne_scores
@@ -54,7 +54,7 @@ class Leaderboard {
 		return $this->make_leaderboard("date", $date, $order_by, $direction, $start, $length);
 	}
 
-	// Creates a leaderboard based on a steamid. 
+	// Creates a leaderboard based on a steamid.
 	public function create_player($steamid, $order_by = "date", $direction = "DESC", $start = 0, $length = 0, $date = -1) {
 		return $this->make_leaderboard("throne_scores`.`steamid", $steamid, $order_by, $direction, $start, $length, $date);
 	}
@@ -92,7 +92,7 @@ class Leaderboard {
 		}
 
 		return $stats;
-		/* return $this->db->query('SELECT COUNT(*) AS amount, ROUND(AVG(score)) AS average 
+		/* return $this->db->query('SELECT COUNT(*) AS amount, ROUND(AVG(score)) AS average
 			FROM throne_scores
 			LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId
 			WHERE `date` = "' . $this->date . "\"")->fetchAll(PDO::FETCH_ASSOC)[0]; */
@@ -119,10 +119,10 @@ class Leaderboard {
 			$query = $this->db->prepare("SELECT * FROM `throne_scores`
 				LEFT JOIN throne_dates ON throne_scores.dayId = throne_dates.dayId
 				LEFT JOIN throne_players ON throne_scores.steamId = throne_players.steamid
-				LEFT JOIN 
-					((SELECT COUNT(*) AS wins, steamid 
-					FROM throne_scores 
-					WHERE rank = 1	
+				LEFT JOIN
+					((SELECT COUNT(*) AS wins, steamid
+					FROM throne_scores
+					WHERE rank = 1
 					GROUP BY steamid) AS w) ON w.steamid = throne_scores.steamid
 				LEFT JOIN (
 					SELECT dayid AS d, COUNT(*) AS runs
@@ -140,7 +140,7 @@ class Leaderboard {
 		}
 
 		$scores = array();
-		
+
 		$parsedown = new Parsedown();
 		foreach ($entries as $entry) {
 
@@ -158,6 +158,7 @@ class Leaderboard {
 
 			$scores[] = new Score(array(	"player" => $player,
 											"score" => $entry["score"],
+											"hidden" => $entry["hidden"],
 											"rank" => $entry["rank"],
 											"first_created" => $entry["first_created"],
 											"percentile" => $entry["rank"] / $entry["runs"],

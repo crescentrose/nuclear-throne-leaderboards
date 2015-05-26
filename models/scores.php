@@ -1,6 +1,6 @@
 <?php
 	class Score {
-		public $player, $score, $rank, $raw, $percentile, $first_created, $hash;
+		public $player, $score, $rank, $raw, $percentile, $first_created, $hash, $hidden;
 
 		// This class doubles as score retrieval and score storage class.
 		// I know, right?
@@ -24,13 +24,14 @@
 			}
 
 			$this->player = $data["player"];
-			
+
 			if (isset($data["percentile"]))
 				$this->percentile = $data["percentile"];
-			
+
 			$this->score = $data["score"];
 			$this->rank = $data["rank"];
 			$this->hash = $data["raw"]["hash"];
+			$this->hidden = $data["hidden"];
 
 			if (isset($data["raw"])) {
 				$this->raw = $data["raw"];
@@ -50,6 +51,7 @@
 						 "rank"		=> $this->rank,
 						 "first_created" => $this->first_created,
 						 "percentile" => ceil($this->percentile * 100),
+						 "hidden" => $this->hidden,
 						 "raw" 		=> $this->raw);
 		}
 	}

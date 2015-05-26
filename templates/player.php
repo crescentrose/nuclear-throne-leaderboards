@@ -59,7 +59,7 @@
           <h3 class="profile-subtitle stroke">Best moments</h3>
           <h5 class="profile-subtitle stroke">Top ranks and highscores</h5>
           <table class="table table-responsive table-hover">
-            <thead> 
+            <thead>
               <td>Date</td>
               <td>
                 <abbr title="Player's performance relative to the other runs of that day - e.g., 25% means that the
@@ -72,7 +72,7 @@
             </thead>
             <tbody>
               {% for score in best_moments %}
-              <tr {% if score.hidden %}class="hidden-score"{% endif %} >
+              <tr {% if score.hidden %}class="score"{% endif %} >
                 <td>{{ score.raw.date }}</td>
                 <td>{{ score.percentile }}%</td>
                 <td><b>#{{ score.rank }}</b></td>
@@ -84,7 +84,7 @@
           <h3 class="profile-subtitle stroke">Score history</h3>
           <h5 class="profile-subtitle stroke">Latest runs and scores - Click on a score to view details!</h5>
           <table class="table table-responsive table-hover">
-            <thead> 
+            <thead>
               <td>Date</td>
               <td>
                 <abbr title="Player's performance relative to the other runs of that day - e.g., 25% means that the
@@ -97,7 +97,7 @@
             </thead>
             <tbody id="latest_score_table">
               {% for score in scores %}
-              <tr {% if score.hidden %}class="hidden-score"{% endif %} >
+              <tr {% if score.hidden == 1 %}class="hidden-score"{% endif %}>
                 <td>{{ score.raw.date }}</td>
                 <td>{{ score.percentile }}%</td>
                 <td><b>#{{ score.rank }}</b></td>
@@ -130,7 +130,7 @@
             {% if player.raw.wins > 0 %}
               <div class="tbbadge">
                 <span class="crown  ">
-                  <img src="/img/big-crown.png" alt="Previous wins" data-toggle="tooltip" data-placement="right" title="This 
+                  <img src="/img/big-crown.png" alt="Previous wins" data-toggle="tooltip" data-placement="right" title="This
                   player has won on {{ player.raw.wins }} day(s)!" />
                   <span class="wins-big stroke">{{ player.raw.wins }}</span>
                 </span>
@@ -138,12 +138,12 @@
             {% endif %}
             <div class="tbbadge">
               <span class="crown">
-                <img src="/img/kills.png" alt="Total pts" data-toggle="tooltip" data-placement="right" title="This 
+                <img src="/img/kills.png" alt="Total pts" data-toggle="tooltip" data-placement="right" title="This
                 player has {{ total.sum }} total kills!" />
                 <span class="wins-big stroke nudge-left">{{ total.ksum }}</span>
               </span>
             </div>
-            <div class="tbbadge" data-toggle="tooltip" data-placement="bottom" title="This 
+            <div class="tbbadge" data-toggle="tooltip" data-placement="bottom" title="This
                 player did {{ total.count }} daily runs!">
               <span class="crown">
                 <img src="/img/runs.png" alt="Total runs"/>
@@ -156,6 +156,24 @@
         </div>
       </div>
     </div>
+    {% if session.admin %}
+    <div class="sidebar-box">
+      <div class="row vault-wall">
+        <div class="col-md-12">
+          <h4 class="title stroke sidebar-title">Administration</h4>
+        </div>
+      </div>
+      <div class="row vault-floor">
+        <p style="padding:5px;">Note: A cheater's scores will be hidden and re-ranked under the last legitimate score after the next update.</p>
+        {% if player.suspected_hacker == 1 %}
+          <a class="btn btn-retro" href="/admin/player/{{ player.steamid }}/unmark">Unban</a>
+        {% else %}
+          <a class="btn btn-retro" href="/admin/player/{{ player.steamid }}/mark">Ban as cheater</a>
+        {% endif %}
+        <a class="btn btn-retro" href="/admin/player/{{ player.steamid }}/update">Force update</a>
+      </div>
+    </div>
+    {% endif %}
   </div>
 </div>
 <script src="/js/profile.js"></script>

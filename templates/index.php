@@ -63,8 +63,8 @@
               <td>{{ score.score }}</td>
             </tr>
             {% else %}
-            <tr class="hidden-score">
-              <td colspan="6"><i><center>A score was hidden by the site administrator. {% if session.admin > 0 %}[Admin: <a href="/score/{{ player.hash }}">score</a> | <a href="/player/{{ player.steamId }}">profile</a> ]{% endif%}</center></i></td>
+            <tr class="hidden-score no-strike">
+              <td colspan="6"><i><center>A score was hidden by the site administrator. {% if session.admin > 0 %}[Admin: <a href="/score/{{ score.hash }}">score</a> | <a href="/player/{{ score.player.steamid }}">profile</a> ]{% endif%}</center></i></td>
             </tr>
             {% endif %}
             {% endfor %}

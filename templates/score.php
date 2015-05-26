@@ -34,15 +34,23 @@
   </div>
 
   <div class="col-md-4 sidebar">
+    {% if session.admin %}
     <div class="sidebar-box">
       <div class="row mansion-wall">
         <div class="col-md-12">
-          <h4 class="title stroke sidebar-title">About player</h4>
+          <h4 class="title stroke sidebar-title">Administration</h4>
         </div>
       </div>
       <div class="row mansion-floor">
+        <p style="padding:5px;">Note: A hidden score will be re-ranked under the last legitimate score after the next update.</p>
+        {% if raw.hidden == 1 %}
+        <a class="btn btn-retro" href="/admin/player/{{ player.steamid }}/score/{{ hash }}/undelete">Unhide</a>
+        {% else %}
+        <a class="btn btn-retro" href="/admin/player/{{ player.steamid }}/score/{{ hash }}/delete">Hide</a>
+        {% endif %}
       </div>
     </div>
+    {% endif %}
   </div>
 </div>
 <script src="/js/update.js"></script>
