@@ -13,6 +13,8 @@ function get_data($url) {
 	return $data;
 }
 
+date_default_timezone_set("UTC");
+
 // This file should be in a cron job to run every 15 minutes, depending on
 // service load.
 // With one second pause between downloads, this should be enough provided that
@@ -39,7 +41,7 @@ function update_leaderboard($leaderboardId = "") {
         $lastLeaderboardElemenent = $leaderboardReader->xpath("/response/leaderboard[last()-". $last . "]/lbid");
 
       $leaderboardId = (int)$lastLeaderboardElemenent[0];
-      
+
       if ($last == 0)
         $lastLeaderboardDate = $leaderboardReader->xpath("/response/leaderboard[last()]/name");
       else
@@ -109,7 +111,7 @@ function update_leaderboard($leaderboardId = "") {
 
   // get list of banned people
   $banned = array();
-  
+
   foreach ($db->query('SELECT steamid FROM throne_players WHERE suspected_hacker = 1') as $row) {
         $banned[] = $row['steamid'];
   }
@@ -119,7 +121,7 @@ function update_leaderboard($leaderboardId = "") {
 	$banned[] = $row['steamid'];
 	echo("[DEBUG] Hiding scores by " . $row['steamid'] . " today.\n");
 }
-    
+
   $rank = 1;
   $rank_hax = count($scores) + 1;
   try {
@@ -225,7 +227,7 @@ function update_steam_profiles() {
         if ($c === 500) {
           break;
         }
-      } 
+      }
       $db->commit();
     } catch (PDOException $ex) {
       // Failsafe
@@ -247,7 +249,7 @@ function update_twitch() {
 
     $db->query("TRUNCATE TABLE throne_streams");
 
-    foreach ($streams['streams'] as $stream) {  
+    foreach ($streams['streams'] as $stream) {
       $stmt = $db->prepare("INSERT INTO throne_streams(name, status, viewers, preview) VALUES(:name, :status, :viewers, :preview)");
       // ON DUPLICATE KEY UPDATE name=VALUES(name), avatar=VALUES(avatar);
       $stmt->execute(array(':name' => $stream['channel']['name'], ':status' => $stream['channel']['status'], ':viewers' => $stream['viewers'], ':preview' => str_replace("http://", "https://", $stream['preview']['small'])));
@@ -270,7 +272,7 @@ if (isset($argv[1])) {
   update_leaderboard();
 }
 update_twitch();
-update_steam_profiles(); 
+update_steam_profiles();
 
 echo "End update: " . date("Y-m-d H:i:s") . "\n";
 ?>

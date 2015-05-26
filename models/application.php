@@ -1,6 +1,6 @@
-<?php 
+<?php
 class Application {
-	
+
 	private $database_password, $database_host, $database_username, $database_name;
 	public static $db, $connection_count;
 
@@ -43,7 +43,13 @@ class Application {
 		$stmt = self::$db->prepare("DELETE FROM `throne_tokens` WHERE `user_id` = :userid");
 		$stmt->execute(array(":userid" => $userid));
    	}
-	
+
+		public static function search_user($q) {
+			$stmt = self::$db->prepare("SELECT * FROM `throne_players` WHERE MATCH (name) AGAINST (:q)");
+			$stmt->execute(array(":q" => $q));
+			return $stmt->fetchAll();
+		}
+
 }
 
 ?>

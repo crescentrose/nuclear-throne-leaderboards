@@ -62,7 +62,7 @@ if (!$openid->mode) {
         curl_close($ch);
 
         $json_decoded = json_decode($result);
-        
+
         foreach ($json_decoded->response->players as $player) {
           $_SESSION["steamname"] = $player->personaname;
         }
@@ -93,10 +93,10 @@ if (isset($_COOKIE["authtoken"]) && !isset($_SESSION["steamid"])) {
         curl_close($ch);
 
         $json_decoded = json_decode($result);
-        
+
         foreach ($json_decoded->response->players as $player) {
           $_SESSION["steamname"] = $player->personaname;
-        }   
+        }
     }
 }
 

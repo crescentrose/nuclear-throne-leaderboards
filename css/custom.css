@@ -22,7 +22,7 @@ h5.title, h4.title {
 
 .stroke {
   text-shadow:
-   -1px -1px 0 #000,  
+   -1px -1px 0 #000,
     1px -1px 0 #000,
     -1px 1px 0 #000,
      1px 1px 0 #000;
@@ -31,16 +31,16 @@ h5.title, h4.title {
 
 .stroke-hard {
   text-shadow:
-   -2px -2px 0 #000,  
+   -2px -2px 0 #000,
     2px -2px 0 #000,
     -2px 2px 0 #000,
      2px 2px 0 #000;
 }
 
 .inactive {
-  filter: gray; 
-  filter: grayscale(1); 
-  -webkit-filter: grayscale(1); 
+  filter: gray;
+  filter: grayscale(1);
+  -webkit-filter: grayscale(1);
 }
 
 .tagline {
@@ -173,6 +173,22 @@ h5.title, h4.title {
   color: #fff;
   text-align: center;
   font-size: 12px;
+}
+
+.text-retro {
+  padding: 5px;
+  margin: 3px;
+  font-family: "Press Start K";
+  border-radius: 0;
+  border: #3b4059 3px solid;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+}
+
+.text-retro:focus {
+    background-color: #1d2a38;
 }
 
 .btn-retro:hover {
@@ -352,7 +368,7 @@ h5.title, h4.title {
   background-image: url("/img/textures/frozen-floor.png");
   background-repeat: repeat;
   color: black;
-  
+
 
   border-bottom: 2px solid black;
   border-left: 2px solid black;
@@ -449,6 +465,25 @@ h5.title, h4.title {
   margin: 0 -20px 0 0;
   display: inline;
 }
+
+.no-shadow {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.form-search {
+  padding: 3px;
+  text-align: center;
+}
+
+.not-found {
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
 /* Mobile rules. */
 
 @media only screen and (max-width: 992px) {
@@ -467,5 +502,5 @@ h5.title, h4.title {
     padding: 0;
     border: 1px solid black;
   }
-  
+
 }

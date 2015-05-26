@@ -14,9 +14,9 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="/css/datepicker3.css" rel="stylesheet">
-    
+
     <!-- Custom page CSS -->
-    <link href="/css/custom.css?v=20150417" rel="stylesheet">
+    <link href="/css/custom.css?v=20150526" rel="stylesheet">
 
     <!-- To preface, I never asked for this. I simply googled "favicon best practices."
     I guess that it's a cool thing that you can pin thronebutt to iOS now and it won't
@@ -32,9 +32,6 @@
     <meta name="msapplication-config" content="/ico/browserconfig.xml?v=PYndGmY7N0">
     <meta name="theme-color" content="#ffffff">
 
-    <!-- REMOVE ME BEFORE PUSHING TO REAL SITE OR SUFFER GRAVE CONSEQUENCES, YOU PUNY HUMAN. -->
-    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -42,7 +39,7 @@
     <![endif]-->
 
     <!-- Google Analytics-->
-    <script>  
+    <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -53,13 +50,13 @@
     </script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    
+
     <script>
       $( document ).ready (function () {
         $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
-    
+
 
     {% block head %}{% endblock %}
   </head>
@@ -125,9 +122,6 @@
                   </a>
               </li>
             </ul>
-            <p class="navbar-text warning hidden-sm hidden-xs">
-            <b>This is a test version. Don't report bugs. <a href="http://thronebutt.com">Click here to go back.</a></b>
-            </p>
             <ul class="nav navbar-nav navbar-right">
               {% if session.steamid != "" %}
               <li class="dropdown">

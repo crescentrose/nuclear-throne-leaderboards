@@ -1,9 +1,9 @@
-Options -Indexes 
+Options -Indexes
 
 RewriteEngine on
 
 RewriteCond %{HTTPS} on
-RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI} 
+RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI}
 
 RewriteRule ^(img|css|js|updater)/ - [L]
 
@@ -17,6 +17,8 @@ RewriteRule ^about/?$ index.php?do=about
 RewriteRule ^all-time/?([0-9]+)?/?(\w*)?/?$ index.php?do=alltime&page=$1&sort=$2
 
 RewriteRule ^archive/([0-9]+)/([0-9]+)/([0-9]+)/page-([0-9]+)/?$ index.php?do=archive&date=$1-$2-$3&page=$4
+
+RewriteRule ^search/(.*)/?$ index.php?do=search&q=$1
 
 RewriteRule ^admin/player/(.*)/score/([0-9a-z]+)/delete$ index.php?do=admin&act=hide&hash=$2&player=$1
 RewriteRule ^admin/player/(.*)/score/([0-9a-z]+)/delete/$ index.php?do=admin&act=hide&hash=$2&player=$1
@@ -38,4 +40,3 @@ RewriteRule ^admin/player/(.*)/update/$ index.php?do=admin&act=update&player=$1
 <IfModule headers_module>
     header set X-Clacks-Overhead "GNU Terry Pratchett"
 </IfModule>
-

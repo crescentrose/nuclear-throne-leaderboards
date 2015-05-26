@@ -24,9 +24,15 @@
       </div>
       <div class="row palace-floor">
         <div class="col-md-12">
+          <form class="form-inline form-search" id="search_form">
+            <div class="form-group">
+              <input type="text" class="form-control text-retro" id="search" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-retro">Go</button>
+          </form>
           <div class="global stroke">
             <div class="stat">Entries today: <b>{{ global.runcount }}</b></div><div class="stat">Average score: <b>{{ global.avgscore|round }}</b></div>
-          </div>
+        </div>
         <table class="table table-responsive ranktable">
           <thead>
             <td>Rank</td>
@@ -111,7 +117,7 @@
         <div class="row mansion-floor">
           <div class="col-md-12 sidebar-text">
             <div class="center">
-              <p>Login with your Steam account to edit your profile, link YouTube videos to your 
+              <p>Login with your Steam account to edit your profile, link YouTube videos to your
               scores and interact with other players!</p>
               <button type="button" class="btn btn-retro stroke" data-toggle="modal" data-target=".login-modal">Log in</button>
             </div>
@@ -158,7 +164,7 @@
         </div>
         <div class="row vault-floor">
           <div class="col-md-12">
-           <table class="table table-responsive table-condensed ranktable"> 
+           <table class="table table-responsive table-condensed ranktable">
             <thead>
               <td>Rank</td>
               <td>Player</td>
@@ -178,7 +184,7 @@
                     <span class="crown"><img src="/img/crown.png" title="This player has won on {{ score.player.raw.wins }} day(s)!" alt="Previous wins" /><span class="wins stroke">{{ score.player.raw.wins }}</span></span>
                   {% endif %}</td>
                 <td>{{ score.score }}</td>
-              </tr> 
+              </tr>
               {% endfor %}
             </tbody>
           </table>
@@ -188,16 +194,16 @@
       <div class="sidebar-box">
           <div class="row desert-wall">
             <div class="col-md-12">
-              <h4 class="title stroke">Currently popular livestreams</h4> 
+              <h4 class="title stroke">Currently popular livestreams</h4>
             </div>
           </div>
-          <div class="row desert-floor">    
+          <div class="row desert-floor">
             <div class="col-md-12">
         {% if streamcount == 0 %}
           <p>No one is livestreaming Nuclear Throne right now.</p>
         {% else %}
         <div class="streams">
-        {% for stream in streams %}   
+        {% for stream in streams %}
           <div class="stream">
             <div class="stream-pic-container col-md-3">
               <a href="http://twitch.tv/{{ stream.name }}"><img src="{{ stream.preview }}" class="stream-pic" /></a>
@@ -237,11 +243,11 @@
     </div>
     </div>
   </div>
-<script>$('#searchform').submit(function(e) {
-  window.location = '/player/' + $('#search').val();
-  e.preventDefault();
-  $( "#sign-in-btn" ).click(function() {
+
+
+<script src="/js/search.js"></script>
+<script>  $( "#sign-in-btn" ).click(function() {
     $( "#login-form" ).submit();
-  });
-})</script>
+    e.preventDefault();
+  });</script>
 {% endblock %}
