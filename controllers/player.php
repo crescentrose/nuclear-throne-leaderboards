@@ -1,6 +1,5 @@
 <?php
 function render($twig, $sdata = array()) {
-
 	if (isset($_GET["steamid"])) {
 
 		$player = new Player(array("search"=>$_GET["steamid"]));

@@ -26,7 +26,7 @@
             {% for player in scores %}
             <tr>
               <td>{{ player.ranks }}</td>
-              <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.0 }}">{{ player.name }}</a>
+              <td><img src="{{ player.avatar }}" class="player-avatar"/> <a href="/player/{{ player.steamid }}">{{ player.name }}</a>
               {% if player.wins > 0 %}
                 <span class="crown pull-right"><img src="/img/crown.png" alt="This player has won on {{ player.wins }} day(s)!" /><span class="wins stroke">{{ player.wins }}</span></span>
               {% endif %}
