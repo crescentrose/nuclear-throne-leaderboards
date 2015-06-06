@@ -1,4 +1,4 @@
-<?php 
+<?php
 function render($twig, $sdata = array()) {
 	if(isset($_GET["page"])) {
 		$page = max((int)$_GET["page"], 0);
@@ -30,6 +30,6 @@ function render($twig, $sdata = array()) {
 }
 
 function json($sdata) {
-	
+
 }
 ?>

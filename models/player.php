@@ -15,14 +15,7 @@
 					WHERE throne_players.steamid = :steamid");
 				$stmt->execute(array(':steamid' => $data["search"]));
 				$data = $stmt->fetchAll();
-				if (!isset($data[0])) {
-					$data["steamid"] = false;
-					return;
-				} else {
-					$data = $data[0];
-					$data["steamid"] = $data[0]; // wat
-				}
-
+				$data["steamid"] = $data["search"];
 				$data["raw"] = $data;
 			}
 
