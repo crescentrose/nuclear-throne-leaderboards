@@ -1,19 +1,19 @@
 <?php
 	class Player {
-		public $steamid, $name, $avatar, $avatar_medium, $suspected_hacker, $admin, $raw, $rank;
+		public $steamid, $name, $avatar, $avatar_medium, $suspected_hacker, $admin, $raw;
 		private $db;
 
 		public function __construct($data) {
 			$this->db = Application::$db;
 			if (isset($data["search"])) {
 				$stmt = $this->db->prepare("SELECT * FROM `throne_players`
-					LEFT JOIN
-						((SELECT COUNT(*) AS wins, steamid
-						FROM throne_scores
-						WHERE rank = 1
+					LEFT JOIN 
+						((SELECT COUNT(*) AS wins, steamid 
+						FROM throne_scores 
+						WHERE rank = 1	
 						GROUP BY steamid) AS w) ON w.steamid = throne_players.steamid
 					WHERE throne_players.steamid = :steamid");
-				$stmt->execute(array(':steamid' => $data["search"]));
+				$stmt->execute(array(':steamid' => $data["search"]));			
 				$data = $stmt->fetchAll();
 				$data["steamid"] = $data["search"];
 				$data["raw"] = $data;
@@ -27,14 +27,13 @@
         	} else {
         		$this->avatar = $data["avatar"];
 				$this->avatar_medium = substr($data['avatar'], 0, -4) . "_medium.jpg";
-
+				
         	}
         	if ($data['name'] === "") {
             	$data['name'] = "[no profile]";
-        	}
+        	} 
         	$this->name = $data['name'];
 			$this->suspected_hacker = $data["suspected_hacker"];
-			@$this->rank = $data["rank"]; // I don't know how this works, but it works.
 			$this->admin = $data["admin"];
 			if (isset($data["raw"])) {
 				$this->raw = $data["raw"];
@@ -50,7 +49,7 @@
 		            		FROM throne_alltime a
 							ORDER BY score DESC
                         ) t, (SELECT @rank:= 0) r
-					) c
+					) c 
 				INNER JOIN throne_alltime d ON c.score = d.score
 				WHERE d.steamid = :steamid");
 			$stmt->execute(array(':steamid' => $this->steamid));
@@ -78,7 +77,6 @@
 						 "avatar_medium"		=> $this->avatar_medium,
 						 "suspected_hacker"		=> $this->suspected_hacker,
 						 "admin"				=> $this->admin,
-						"rank"					=> $this->rank,
 						 "raw" 					=> $this->raw);
 		}
 	}

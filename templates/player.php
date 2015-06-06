@@ -151,7 +151,6 @@
               </span>
             </div>
           </div>
-          <p><span class="stat-title stroke">All-time rank:</span><br/><span class="stat-value stroke">#{{ rank }}</span></p>
           <p><span class="stat-title stroke">Average score:</span><br/><span class="stat-value stroke">{{ total.average }}</span></p>
           <p><span class="stat-title stroke">Average of 10 best:</span><br/><span class="stat-value stroke">{{ total.average_top10 }}</span></p>
         </div>
