@@ -158,6 +158,27 @@
       </div>
     </div>
     {% if session.admin %}
+    <div class="modal fade twitch-modal" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="twitchModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content dark-modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="twitchModalLabel">Edit Twitch link</h4>
+          </div>
+          <div class="modal-body">
+            <p>You're editing someone's Twitch link. Don't put yours here, or YV will shank you.</p>
+            <form class="form-inline form-search" id="twitch_form">
+                http://twitch.tv/ <input type="text" class="form-control text-retro text-twitch" id="twitch_user" value="{{ player.twitch }}">
+              <input type="hidden" id="twitch_steamid" value="{{ player.steamid }}" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button id="save-twitch" class="btn btn-retro">Save</button>
+            <button data-dismiss="modal" class="btn btn-retro" id="close-twitch" >Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="sidebar-box">
       <div class="row vault-wall">
         <div class="col-md-12">
@@ -172,10 +193,12 @@
           <a class="btn btn-retro" href="/admin/player/{{ player.steamid }}/mark">Ban as cheater</a>
         {% endif %}
         <a class="btn btn-retro" href="/admin/player/{{ player.steamid }}/update">Force update</a>
+        <button type="button" class="btn btn-retro stroke" data-toggle="modal" data-target=".twitch-modal">Edit Twitch</button>
       </div>
     </div>
     {% endif %}
   </div>
 </div>
 <script src="/js/profile.js"></script>
+<script src="/js/home.js"></script>
   {% endblock %}

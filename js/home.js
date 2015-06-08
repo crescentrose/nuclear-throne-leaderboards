@@ -17,8 +17,17 @@ $('#save-twitch').click(function(event) {
         twitch_steamid: $("#twitch_steamid").val()
       },
       success: function(data) {
-         $('#save-twitch').addClass('btn-retro-success')
-         $('#save-twitch').html('Saved!');
+        data = JSON.parse(data);
+         if (data.result == "error") {
+           $('#save-twitch').addClass('btn-retro-error');
+           $('#save-twitch').html('Error! Try again.');
+         } else if (data.result == "permission") {
+           $('#save-twitch').addClass('btn-retro-error');
+           $('#save-twitch').html("You can't do that.");
+         } else {
+           $('#save-twitch').addClass('btn-retro-success');
+           $('#save-twitch').html('Saved!');
+         }
       },
       error: function() {
          $('#save-twitch').addClass('btn-retro-error').html('Error! Try again.');
@@ -28,5 +37,5 @@ $('#save-twitch').click(function(event) {
 
 
 $('#close-twitch').click(function(event) {
-  $('#save-twitch').removeClass('btn-retro-success btn-retro-error');
+  $('#save-twitch').removeClass('btn-retro-success btn-retro-error').html('Save');
 });

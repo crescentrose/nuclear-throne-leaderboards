@@ -80,6 +80,9 @@
 		}
 
 		public function set_twitch($twitch) {
+			if ($this->twitch == $twitch) {
+				return true;
+			}
 			$stmt = $this->db->prepare("UPDATE throne_players SET twitch = :twitch WHERE steamid = :steamid");
 			$stmt->execute(array(":twitch" => $twitch, ":steamid" => $this->steamid));
 			if ($stmt->rowCount() != 1) {
