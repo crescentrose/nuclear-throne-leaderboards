@@ -1,6 +1,6 @@
-$('#search_form').submit(function(event) {
+$('#do_search').click(function(event) {
   window.location = '/search/' + $('#search').val();
-  e.preventDefault();
+  event.preventDefault();
 })
 
 $('#save-twitch').click(function(event) {
@@ -37,8 +37,4 @@ $('#save-twitch').click(function(event) {
 
 $('#close-twitch').click(function(event) {
   $('#save-twitch').removeClass('btn-retro-success btn-retro-error').html('Save');
-});
-
-$('#twitch_user').bind('keypress keydown keyup', function(e){
-   if(e.keyCode == 13) { e.preventDefault(); }
 });

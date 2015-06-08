@@ -23,7 +23,7 @@
             <div class="form-group">
               <input type="text" class="form-control text-retro" id="search" placeholder="Search">
             </div>
-            <button type="submit" class="btn btn-retro">Go</button>
+            <button type="submit" id="do_search" class="btn btn-retro">Go</button>
           </form>
           <div class="global stroke">
             <div class="stat">Entries today: <b>{{ global.runcount }}</b></div><div class="stat">Average score: <b>{{ global.avgscore|round }}</b></div>
