@@ -177,6 +177,7 @@ h5.title, h4.title {
   color: #fff;
   text-align: center;
   font-size: 12px;
+  text-decoration: none;
 }
 
 .btn-retro-success {
@@ -208,6 +209,7 @@ h5.title, h4.title {
 .btn-retro:hover {
   border: white 3px solid;
   color: #fff !important;
+  text-decoration: none;
 }
 
 .btn-retro:active {
@@ -500,6 +502,10 @@ h5.title, h4.title {
 
 .text-twitch {
   width: 300px !important;
+}
+
+.links {
+  margin-top: 5px;
 }
 /* Mobile rules. */
 

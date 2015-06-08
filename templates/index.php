@@ -203,9 +203,14 @@
                   <span class="label label-danger pull-right">Suspected Hacker</span>
                 {% endif %}</td>
                 <td>
+
                 {% if score.player.raw.wins > 0 %}
-                    <span class="crown"><img src="/img/crown.png" title="This player has won on {{ score.player.raw.wins }} day(s)!" alt="Previous wins" /><span class="wins stroke">{{ score.player.raw.wins }}</span></span>
+                    <span class="pull-right crown"><img src="/img/crown.png" title="This player has won on {{ score.player.raw.wins }} day(s)!" alt="Previous wins" /><span class="wins stroke">{{ score.player.raw.wins }}</span></span>
+                  {% endif %}
+                  {% if score.player.twitch %}
+                    <span class="pull-right crown"><a href="https://twitch.tv/{{ score.player.twitch }}"><img src="/img/twitch.png" class="crown" data-toggle="tooltip" title="Click to visit player's Twitch page" data-placement="bottom"  /></a></span>
                   {% endif %}</td>
+
                 <td>{{ score.score }}</td>
               </tr>
               {% endfor %}

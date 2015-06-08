@@ -30,6 +30,9 @@
               {% if player.wins > 0 %}
                 <span class="crown pull-right"><img src="/img/crown.png" alt="This player has won on {{ player.wins }} day(s)!" /><span class="wins stroke">{{ player.wins }}</span></span>
               {% endif %}
+              {% if player.twitch %}
+                <span class="pull-right crown"><a href="https://twitch.tv/{{ player.twitch }}"><img src="/img/twitch.png" class="crown" data-toggle="tooltip" title="Click to visit player's Twitch page" data-placement="bottom"  /></a></span>
+              {% endif %}
               </td>
               <td>{% if sort_by == "runs" %}<b>{{ player.runs }}</b>{% else %}{{ player.runs }}{% endif %}</td>
               <td>{% if sort_by == "avg" %}<b>{{ player.average }}</b>{% else %}{{ player.average }}{% endif %}</td>

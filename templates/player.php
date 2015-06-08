@@ -56,6 +56,12 @@
 
       <div class="row palace-floor">
         <div class="col-md-12">
+          <center class="links">
+            <span><a href="http://steamcommunity.com/profiles/{{ player.steamid }}" class="button btn-retro"><img src="/img/steam.png" class="crown"/>Steam</a></span>
+            {% if player.twitch %}
+            <span><a href="https://twitch.tv/{{ player.twitch }}" class="button btn-retro"><img src="/img/twitch.png" class="crown"/>Twitch</a></span>
+            {% endif %}
+          </center>
           <h3 class="profile-subtitle stroke">Best moments</h3>
           <h5 class="profile-subtitle stroke">Top ranks and highscores</h5>
           <table class="table table-responsive table-hover">
