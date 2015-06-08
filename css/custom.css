@@ -179,6 +179,16 @@ h5.title, h4.title {
   font-size: 12px;
 }
 
+.btn-retro-success {
+  border: #3D593B 3px solid !important;
+  background-color: #24381D !important;
+}
+
+.btn-retro-fail {
+  border: #593B3B 3px solid !important;
+  background-color: #381D1D !important;
+}
+
 .text-retro {
   padding: 5px;
   margin: 3px;
@@ -447,7 +457,7 @@ h5.title, h4.title {
   color: #ffffff;
 }
 
-.login-modal-content {
+.dark-modal-content {
   background-color: #333;
 }
 
@@ -488,6 +498,9 @@ h5.title, h4.title {
   font-size: 18px;
 }
 
+.text-twitch {
+  width: 300px !important;
+}
 /* Mobile rules. */
 
 @media only screen and (max-width: 992px) {

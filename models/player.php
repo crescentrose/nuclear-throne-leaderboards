@@ -1,6 +1,6 @@
 <?php
 	class Player {
-		public $steamid, $name, $avatar, $avatar_medium, $suspected_hacker, $admin, $raw, $rank;
+		public $steamid, $name, $avatar, $twitch, $avatar_medium, $suspected_hacker, $admin, $raw, $rank;
 		private $db;
 
 		public function __construct($data) {
@@ -43,6 +43,7 @@
 			$this->suspected_hacker = $data["suspected_hacker"];
 			@$this->rank = $data["rank"]; // I don't know how this works, but it works.
 			$this->admin = $data["admin"];
+			$this->twitch = $data["twitch"];
 			if (isset($data["raw"])) {
 				$this->raw = $data["raw"];
 			}
@@ -78,6 +79,16 @@
 			}
 		}
 
+		public function set_twitch($twitch) {
+			$stmt = $this->db->prepare("UPDATE throne_players SET twitch = :twitch WHERE steamid = :steamid");
+			$stmt->execute(array(":twitch" => $twitch, ":steamid" => $this->steamid));
+			if ($stmt->rowCount() != 1) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+
 		public function to_array() {
 			return array("steamid" 				=> $this->steamid,
 						 "name"					=> $this->name,
@@ -86,6 +97,7 @@
 						 "suspected_hacker"		=> $this->suspected_hacker,
 						 "admin"				=> $this->admin,
 						"rank"					=> $this->rank,
+						"twitch"					=> $this->twitch,
 						 "raw" 					=> $this->raw);
 		}
 	}

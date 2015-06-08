@@ -154,6 +154,7 @@ class Leaderboard {
 										"avatar" => $entry["avatar"],
 										"suspected_hacker" => $entry["suspected_hacker"],
 										"admin" => $entry["admin"],
+										"twitch" => $entry["twitch"],
 										"raw" => $meta));
 
 			$scores[] = new Score(array(	"player" => $player,
