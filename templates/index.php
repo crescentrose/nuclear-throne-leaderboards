@@ -133,7 +133,7 @@
               <p>Give us your Twitch username, and we'll put a link to your channel along with any score of yours. Awesome for self-promotion!</p>
               <form class="form-inline form-search" id="twitch_form">
                   http://twitch.tv/ <input type="text" class="form-control text-retro text-twitch" id="twitch_user" value="{{ userdata.twitch }}">
-                <input type="hidden" id="twitch_steamid" value="{{ userdata.steamid }}" />
+                <input type="hidden" id="twitch_steamid" value="{{ session.steamid }}" />
               </form>
             </div>
             <div class="modal-footer">
