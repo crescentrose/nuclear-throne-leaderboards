@@ -115,7 +115,7 @@
         <div class="row mansion-floor">
           <div class="col-md-12 sidebar-text">
             <div class="center">
-              <p>Login with your Steam account to view your personal details.</p>
+              <p>Login with your Steam account to view your personal details and link your Twitch account.</p>
               <button type="button" class="btn btn-retro stroke" data-toggle="modal" data-target=".login-modal">Log in</button>
             </div>
           </div>

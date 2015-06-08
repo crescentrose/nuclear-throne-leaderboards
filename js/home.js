@@ -35,7 +35,10 @@ $('#save-twitch').click(function(event) {
    });
 });
 
-
 $('#close-twitch').click(function(event) {
   $('#save-twitch').removeClass('btn-retro-success btn-retro-error').html('Save');
+});
+
+$('#twitch_user').bind('keypress keydown keyup', function(e){
+   if(e.keyCode == 13) { e.preventDefault(); }
 });
