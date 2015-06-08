@@ -1,4 +1,4 @@
-$('#search_form').submit(function(e) {
+$('#search_form').submit(function(event) {
   window.location = '/search/' + $('#search').val();
   e.preventDefault();
 })

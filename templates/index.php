@@ -266,7 +266,7 @@
 
 
 <script src="/js/home.js"></script>
-<script>  $( "#sign-in-btn" ).click(function() {
+<script>  $( "#sign-in-btn" ).click(function(e) {
     $( "#login-form" ).submit();
     e.preventDefault();
   });</script>

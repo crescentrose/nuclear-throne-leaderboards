@@ -50,7 +50,7 @@ function render($twig, $sdata = array()) {
 function json($sdata) {
 	if (isset($_GET["act"])) {
 		if ($_GET["act"] == "update-twitch") {
-			if(isset($_SESSION["admin"]) || $_POST["twitch_steamid"] == $_SESSION["steamid"]) {
+			if((isset($_SESSION["admin"]) && $_SESSION["admin"] >= 1) || $_POST["twitch_steamid"] == $_SESSION["steamid"]) {
 				$player = new Player(array("search" => $_POST["twitch_steamid"]));
 				if ($player->set_twitch($_POST["twitch_user"])) {
 					echo "{'result':'success'}";
