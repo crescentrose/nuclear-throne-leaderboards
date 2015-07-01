@@ -507,6 +507,10 @@ h5.title, h4.title {
 .links {
   margin-top: 5px;
 }
+
+.adv {
+  padding: 5px;
+}
 /* Mobile rules. */
 
 @media only screen and (max-width: 992px) {

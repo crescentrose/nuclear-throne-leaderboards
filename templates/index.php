@@ -79,6 +79,13 @@
       </div>
     </div>
     <div class="col-md-4 sidebar">
+      <div class="sidebar-box">
+       <div class="row vault-floor adv">
+         <div class="col-md-12">
+         <b>Smite</b> will be hosting a <b>Nuclear Throne Speedrun Tournament</b>, which will be livestreamed on Twitch! <a href="https://docs.google.com/forms/d/19yUu_2gDs7Fe90-UuhZIt2EKIkxSuZpMVUJ2JTUPsTE/viewform?c=0&w=1"><b>Click here</b> to sign up!</a>
+       </div>
+       </div>
+     </div>
     {% if session.steamid == "" %}
       <div class="modal fade login-modal" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -251,20 +258,7 @@
         </div>
         </div>
       </div>
-{% if notice %}
-           <div class="sidebar-box">
-            <div class="row frozen-wall">
-              <div class="col-md-12">
-                <h4 class="title stroke sidebar-title">Site news</h4>
-              </div>
-            </div>
-            <div class="row frozen-floor">
-              <div class="col-md-12">
-              {{ notice|raw }}
-            </div>
-            </div>
-    </div>
-{% endif %}
+
   <a class="twitter-timeline" href="https://twitter.com/thronebutt" data-widget-id="612672701031915520">Tweets by @thronebutt</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
