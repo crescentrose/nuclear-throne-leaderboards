@@ -2,9 +2,6 @@ Options -Indexes
 
 RewriteEngine on
 
-RewriteCond %{HTTPS} on
-RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI}
-
 RewriteRule ^(img|css|js|updater)/ - [L]
 
 RewriteRule ^score/([0-9a-z]+)/?$ index.php?do=score&hash=$1

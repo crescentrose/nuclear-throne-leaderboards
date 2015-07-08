@@ -82,7 +82,7 @@
       <div class="sidebar-box">
        <div class="row vault-floor adv">
          <div class="col-md-12">
-         <b>Smite</b> will be hosting a <b>Nuclear Throne Speedrun Tournament</b>, which will be livestreamed on Twitch! <a href="https://docs.google.com/forms/d/19yUu_2gDs7Fe90-UuhZIt2EKIkxSuZpMVUJ2JTUPsTE/viewform?c=0&w=1"><b>Click here</b> to sign up!</a>
+         <b>Please help me support Thronebutt through the month.</b> <a href="/index.php?do=help">Click here to learn how you can help.</a>
        </div>
        </div>
      </div>
