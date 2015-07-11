@@ -22,37 +22,37 @@
             <a href="#faq">Frequently asked questions</a><br/>
             <a href="#contact">Contact</a><br/>
           </p>
-          <h3>Privacy policy and terms of use</h3>  
+          <h3>Privacy policy and terms of use</h3>
           <p><b>This site uses Google Analytics</b>. We collect data about how often you visit and how
           much time you spend on the site, as well as what led you to come here. There is no personally identifiable
-          data included in this - we don't know your gender, your interests or what you ate for lunch, nor are we interested 
+          data included in this - we don't know your gender, your interests or what you ate for lunch, nor are we interested
           in such things.</p>
           <p><b>I'm commited to keeping this site ad-free.</b> This site costs some money each month to maintain, but I don't
-          intend on littering the site with ads, as I consider them bad. If you find this site useful, you can donate to the 
-          site maintenance fund - all donations will be redirected to my server provider and my domain name registrar, and 
+          intend on littering the site with ads, as I consider them bad. If you find this site useful, you can donate to the
+          site maintenance fund - all donations will be redirected to my server provider and my domain name registrar, and
           in case there's a remainder at the end of the year, it will be directed to a charitable organization of my choice.</p>
           <p><b>When you log in with Steam,</b> we don't get to see your password - instead, we simply get a confirmation
           from Steam that it indeed is you who is logging in. All other data comes directly from Steam. You may set your
           profile privacy to private in Steam options if you do not want to have your Steam profile data public.</p>
           <p><b>When you publish content to this site,</b> you agree to let us share the content you published worldwide, without
           restrictions. As there are no private profile fields or a friends system, you must understand that whatever you
-          publish <b>will be shared with the entire Internet</b>. You also agree not to use thronebutt.com to abuse 
+          publish <b>will be shared with the entire Internet</b>. You also agree not to use thronebutt.com to abuse
           or harass other users, exploit the site or otherwise deny other people's access to the site, share illegal content, share
           content inappropriate for minors (examples: pornography, gambling, drugs, self-harm), unwanted
-          advertisements or content that promotes or denounces a specific political agenda. I understand that we all have an opinion 
-          about those things, but this is not a place to discuss them - leave your tumblr accounts and conspiracy images with red 
+          advertisements or content that promotes or denounces a specific political agenda. I understand that we all have an opinion
+          about those things, but this is not a place to discuss them - leave your tumblr accounts and conspiracy images with red
           arrows from this site.</p>
           <p><b>Getting content deleted:</b> You can remove your content from the site at any time. Likewise, moderators may remove
-          your content if it breaches the rules of the site, detailed here. All deletions are permanent, however your data may persist in 
+          your content if it breaches the rules of the site, detailed here. All deletions are permanent, however your data may persist in
           server backups for up to two weeks after it was deleted. Unless your content violates the site rules (you may send us
           reports via mail), we won't remove it from the site. If your content gets deleted, you will not be able to get a copy of it.</p>
-          <p><b>TL;DR - Don't be a dick.</b> As the nature of this site is to promote competitive spirit, I'm sure there will be 
+          <p><b>TL;DR - Don't be a dick.</b> As the nature of this site is to promote competitive spirit, I'm sure there will be
           some hard feelings and some level of salt involved, but please don't let it show in your public communication with
           other people via this site.</p>
 
           <h3 id="mony">Transparency</h3>
 
-          <p>This section will be updated later with visitor statistics and site costs, as well as any eventual deletion logs.</p>
+          <b>Fundraiser - July 2015:</b> <a href="/index.php?do=help">Click here for details</a>
 
           <h3 id="credits">Credits and acknowledgments</h3>
           <p>This site uses assets from Nuclear Throne. Permission to use those assets was granted by the developer.</p>
@@ -80,7 +80,7 @@
           A: Because there's no support for that in the game yet. You may add that data to your score manually if you so desire.</p>
 
           <p><b>Q: I'm afraid of fun - can I opt out?</b><br/>
-          A: At the moment, you can't opt out from the public leaderboards. 
+          A: At the moment, you can't opt out from the public leaderboards.
 
           <p><b>Q: What does [no profile] mean?</b><br/>
           A: It means that the user did not set up their Steam profile yet. While they have a profile on this site, they did not yet
@@ -88,7 +88,7 @@
 
           <p><b>Q: Why was I marked as a hacker?</b><br/>
           A: Our moderators have deemed that your score is unlikely to be legitimate. You may appeal your
-          status from your profile page. In the meantime your scores will be hidden from the main site, you will not show up on 
+          status from your profile page. In the meantime your scores will be hidden from the main site, you will not show up on
           all-time leaderboards and your new scores won't be ranked.</p>
 
           <p><b>Q: I cheated - how can I get my hacker status revoked?</b><br/>

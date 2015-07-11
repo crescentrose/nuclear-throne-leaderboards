@@ -82,7 +82,7 @@
       <div class="sidebar-box">
        <div class="row vault-floor adv">
          <div class="col-md-12">
-         <b>Please help me support Thronebutt through the month.</b> <a href="/index.php?do=help">Click here to learn how you can help.</a>
+         <b>Thank you for helping me support the site!</b> <a href="/index.php?do=help">Click here to see the report on funds raised.</a>
        </div>
        </div>
      </div>
