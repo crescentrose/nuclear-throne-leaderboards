@@ -134,12 +134,9 @@ h5.title, h4.title {
 }
 
 .wins-big {
-  z-index: 99;
   font-family: "Press Start K";
   font-size: 16px;
-  position:relative;
-  top: 32px;
-  left: -18px;
+  text-align: center;
 }
 
 .player-title > a {
@@ -154,10 +151,6 @@ h5.title, h4.title {
 .stat-value {
   font-family: "Press Start K";
   font-size: 16px;
-}
-
-.nudge-left {
-  left: -35px;
 }
 
 .warning {
@@ -511,6 +504,11 @@ h5.title, h4.title {
 .adv {
   padding: 5px;
 }
+
+.donated {
+  color: #C0F2AC !important;
+}
+
 /* Mobile rules. */
 
 @media only screen and (max-width: 992px) {

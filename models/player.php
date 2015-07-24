@@ -1,6 +1,6 @@
 <?php
 	class Player {
-		public $steamid, $name, $avatar, $twitch, $avatar_medium, $suspected_hacker, $admin, $raw, $rank;
+		public $steamid, $name, $avatar, $twitch, $avatar_medium, $suspected_hacker, $admin, $raw, $rank, $donated;
 		private $db;
 
 		public function __construct($data) {
@@ -44,6 +44,7 @@
 			@$this->rank = $data["rank"]; // I don't know how this works, but it works.
 			$this->admin = $data["admin"];
 			$this->twitch = $data["twitch"];
+			$this->donated = $data["donated"];
 			if (isset($data["raw"])) {
 				$this->raw = $data["raw"];
 			}
@@ -100,6 +101,7 @@
 						 "suspected_hacker"		=> $this->suspected_hacker,
 						 "admin"				=> $this->admin,
 						"rank"					=> $this->rank,
+						"donated"					=> $this->donated,
 						"twitch"					=> $this->twitch,
 						 "raw" 					=> $this->raw);
 		}

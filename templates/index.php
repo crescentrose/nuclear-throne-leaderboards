@@ -43,9 +43,12 @@
             <tr>
               <td width="30px">{{ score.rank }}</td>
               <td>
-                <a href="/player/{{ score.player.steamid }}"><img src="{{ score.player.avatar }}" class="player-avatar"/></a> <a href="/player/{{ score.player.steamid }}">{{ score.player.name }}</a>
+                <a href="/player/{{ score.player.steamid }}"><img src="{{ score.player.avatar }}" class="player-avatar"/> {% if score.player.donated %}<span class="donated">{{ score.player.name }}</span>{% else %}{{ score.player.name }}{% endif %}</a>
                 {% if score.player.suspected_hacker %}
                   <span class="label label-danger pull-right">Suspected Hacker</span>
+                {% endif %}
+                {% if score.player.donated %}
+                  <span class="pull-right"><img class="crown" src="/img/flair/muny.gif"  data-toggle="tooltip" title="This user donated during the July 2015 donation campaign." data-placement="bottom" />
                 {% endif %}
                 {% if score.raw.video %}
                   <span class="pull-right"><a href="{{ score.raw.video }}" target="_blank"><img src="/img/youtube.png" alt="Video link" title="There's a video attached to this score." /></a></span>
@@ -198,7 +201,7 @@
               {% for score in scores_yesterday %}
               <tr>
                 <td width="30px">{{ score.rank }}</td>
-                <td><img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamid }}">{{ score.player.name }}</a>
+                <td><img src="{{ score.player.avatar }}" class="player-avatar"/> <a href="/player/{{ score.player.steamid }}">{% if score.player.donated %}<span class="donated">{{ score.player.name }}</span>{% else %}{{ score.player.name }}{% endif %}</a>
                 {% if score.player.suspected_hacker %}
                   <span class="label label-danger pull-right">Suspected Hacker</span>
                 {% endif %}</td>

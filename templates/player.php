@@ -49,7 +49,7 @@
         <div class="col-md-12">
           <h3 class="title stroke-hard player-title">
             <img src="{{ player.avatar_medium }}" class="player-avatar" />
-            <a href="http://steamcommunity.com/profiles/{{ player.steamid }}">{{ player.name }}</a>'s profile
+            <a href="http://steamcommunity.com/profiles/{{ player.steamid }}" {% if player.donated %}class="donated"{% endif %}>{{ player.name }}</a>'s profile
           </h3>
         </div>
       </div>
@@ -132,30 +132,38 @@
       </div>
       <div class="row mansion-floor">
         <div class="col-md-12">
-          <div class="badges">
+          <div class="col-md-12">
             {% if player.raw.wins > 0 %}
-              <div class="tbbadge">
+              <div class="col-md-4">
                 <span class="crown  ">
-                  <img src="/img/big-crown.png" alt="Previous wins" data-toggle="tooltip" data-placement="right" title="This
+                  <img src="/img/big-crown.png" alt="Previous wins" data-toggle="tooltip" data-placement="bottom" title="This
                   player has won on {{ player.raw.wins }} day(s)!" />
                   <span class="wins-big stroke">{{ player.raw.wins }}</span>
                 </span>
               </div>
             {% endif %}
-            <div class="tbbadge">
+            <div class="col-md-4">
               <span class="crown">
-                <img src="/img/kills.png" alt="Total pts" data-toggle="tooltip" data-placement="right" title="This
+                <img src="/img/kills.png" alt="Total pts" data-toggle="tooltip" data-placement="bottom" title="This
                 player has {{ total.sum }} total kills!" />
-                <span class="wins-big stroke nudge-left">{{ total.ksum }}</span>
+                <span class="wins-big stroke">{{ total.ksum }}</span>
               </span>
             </div>
-            <div class="tbbadge" data-toggle="tooltip" data-placement="bottom" title="This
+            <div class="col-md-4" data-toggle="tooltip" data-placement="bottom" title="This
                 player did {{ total.count }} daily runs!">
               <span class="crown">
                 <img src="/img/runs.png" alt="Total runs"/>
-                <span class="wins-big stroke nudge-left">{{ total.count }}</span>
+                <span class="wins-big stroke">{{ total.count }}</span>
               </span>
             </div>
+            {% if player.donated %}
+            <div class="col-md-4" data-toggle="tooltip" data-placement="bottom" title="This
+                player donated during the July 2015 donation campaign.">
+              <span class="crown">
+                <img src="/img/bigmuny.gif" alt="#verifyvenuz"/>
+              </span>
+            </div>
+            {% endif %}
           </div>
           <p><span class="stat-title stroke">All-time rank:</span><br/><span class="stat-value stroke">#{{ rank }}</span></p>
           <p><span class="stat-title stroke">Average score:</span><br/><span class="stat-value stroke">{{ total.average }}</span></p>
