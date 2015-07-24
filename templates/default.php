@@ -16,7 +16,7 @@
     <link href="/css/datepicker3.css" rel="stylesheet">
 
     <!-- Custom page CSS -->
-    <link href="/css/custom.css?v=20150703" rel="stylesheet">
+    <link href="/css/custom.css?v=20150724" rel="stylesheet">
 
     <!-- To preface, I never asked for this. I simply googled "favicon best practices."
     I guess that it's a cool thing that you can pin thronebutt to iOS now and it won't
