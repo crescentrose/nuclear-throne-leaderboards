@@ -13,7 +13,7 @@
               <div class="form-group">
                 <input type="text" class="form-control text-retro" id="search" placeholder="Search" value="{{ query }}">
               </div>
-              <button type="submit" class="btn btn-retro">Go</button>
+              <button type="submit" id="do_search" class="btn btn-retro">Go</button>
             </form>
         </div>
       </div>
@@ -37,5 +37,5 @@
   </div>
 </div>
 
-<script src="/js/search.js"></script>
+<script src="/js/home.js"></script>
 {% endblock %}
